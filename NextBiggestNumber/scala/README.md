@@ -19,5 +19,5 @@ From de-hours-with-experts/NextBiggestNumber/scala:
 ## Running the project
 From de-hours-with-experts/NextBiggestNumber/scala:
 
-`java -cp target/NextBiggestNumber-1.0.jar com.labs1904.NextBiggestNumber 123`
+`java -cp target/NextBiggestNumber-1.0-jar-with-dependencies.jar com.labs1904.NextBiggestNumber 123`
 
