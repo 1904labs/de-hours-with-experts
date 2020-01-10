@@ -1,9 +1,6 @@
 # de-hours-with-experts
 Data Engineering Hours With Experts Coding Challenge!
 
-## Instructions
-Navigate into the directory `NextBiggestNumber`
-
 ## Problem
 
 For a given number, return the next largest number that can be created by rearranging that number's digits.
