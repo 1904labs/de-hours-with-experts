@@ -8,7 +8,6 @@
     <artifactId>NextBiggestNumber</artifactId>
     <version>1.0</version>
 
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -17,5 +16,10 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.target>1.11</maven.compiler.target>
+        <maven.compiler.source>1.11</maven.compiler.source>
+    </properties>
 </project>
