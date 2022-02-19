@@ -13,9 +13,18 @@ Your task is to work through and complete as much of each challenge problem as p
 2. Follow the steps on the README in that directory to complete this challenge
 
 ### Challenge #2 - Command Line
-TODO
+Make it as far as you possibly can in the [Command Challenge](https://cmdchallenge.com/). If you get stumped, look on various resources online but don't click the view solutions button on the command challenge. We don't expect you to make it through completely, we just want to see
+how far you can make it. Have fun with it and learn a lot! 
+
+
+
+#### To submit your work: 
+Take a screenshot of the farthest you got without clicking the "view solutions" button on the site. Email nrafferty@1904labs.com a picture of your final progress. Here's an example: 
+
+![Image of Command Line Challenge](./images/example_commandChallenge.png)
 
 ### Challenge #3 - SQL 
+TODO
 
 ### Challenge #4 - Kit todo
 
