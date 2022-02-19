@@ -1,7 +1,23 @@
-# de-hours-with-experts
-Data Engineering Hours With Experts Coding Challenge!
+# 1904 Labs - Hours with Experts Application Challenge Problems
+Data Engineering Hours With Experts Coding Challenge(s)!
 
-## Problem
+## Challenges
+Congrats on taking on the challenge of applying to Hours with Experts! We're looking forward to 
+reviewing your challenge problems. Do not worry if you are unable to answer certain aspects of a question. 
+We're looking for perserverance, problem solving, and breadth of knowledge across multiple different skillsets - Git, Command Line, SQL and a programming language such as Java, Scala, Python, C# or JavaScript. 
+
+Your task is to work through and complete as much of each challenge problem as possible and submit your repository to our team for review. Good luck!
+
+### Challenge #1 - Github
+1. Navigate to the github directory in this repository in an editor of your choice or the command line
+2. Follow the steps on the README in that directory to complete this challenge
+
+### Challenge #2 - Command Line
+TODO
+
+### Challenge #3 - SQL 
+
+### Challenge #4 - Kit todo
 
 For a given number, return the next largest number that can be created by rearranging that number's digits.
 
