@@ -16,9 +16,9 @@ Hint: The Caesar encoding is given to you, check out the `ENCODING` map.
 
 ### Challenge #2: Implement the decode_ingredient method
 
-Inside the `SecretRecipeDecoder.java` file there is a method named `decodeIngredient`. This function takes an ingredient. An
-ingredient is a class that has an amount and a description. For example: an Ingredient could have "1 cup" as the amount and
-"butter" as the description. This method should take an encoded string like `8 vgl#hgiikf` and return an Ingredient.
+Inside the `SecretRecipeDecoder.java` file there is a method named `decodeIngredient`. This function should take an encoded string
+and return a new Ingredient... where an Ingredient is a class (already defined for you) with an amount and a description. For example,
+the line `8 vgl#hgiikf` would return an Ingredient with an amount of `1 cup` and a description of `butter`.
 
 Hint: The `#` sign delimits the amount and the description.
 
