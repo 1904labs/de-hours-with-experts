@@ -1,23 +1,42 @@
-# Scala Next Biggest Number
+# Hours with Experts Coding Challenge: Scala
 
-The following project was created using Scala 2.11.2
+Many years ago, the perfect cookie recipe was created and then lost... until now. An encrypted version was discovered
+and it is up to you to recover the recipe so that the perfect cookie can be created once again.
 
-## Creating the project in Intellij
-`File -> New -> Project From Existing Sources -> <Browse to de-hours-with-experts/NextBiggestNumber/scala/pom.xml>`
+## The challenge
 
-## Building the project
-From de-hours-with-experts/NextBiggestNumber/scala:
+Decode the cookie recipe and save the output in a file named `decoded_recipe.txt`.
 
-`mvn clean package`
+### Challenge #1: Implement the decode_string method
 
-## Running the tests
-From de-hours-with-experts/NextBiggestNumber/scala:
+Inside the `SecretRecipeDecoder.scala` file there is a method named `decodeString`. This function should take an encoded string like
+`hgiikf` and return the decoded value (`butter`). Implement this method.
 
-`mvn test`
+Hint: The Caesar encoding is given to you, check out the `ENCODING` map.
 
+### Challenge #2: Implement the decode_ingredient method
 
-## Running the project
-From de-hours-with-experts/NextBiggestNumber/scala:
+Inside the `SecretRecipeDecoder.scala` file there is a method named `decodeIngredient`. This function takes an ingredient. An
+ingredient is a class that has an amount and a description. For example: an Ingredient could have "1 cup" as the amount and
+"butter" as the description. This method should take an encoded string like `8 vgl#hgiikf` and return an Ingredient.
 
-`java -cp target/NextBiggestNumber-1.0-jar-with-dependencies.jar com.labs1904.NextBiggestNumber 123`
+Hint: The `#` sign delimits the amount and the description.
+
+### Challenge #3: Decode the entire recipe
+
+The `main` method should read all of the ingredients out of `secret_recipe.txt`, decode each ingredient (hopefully using the methods
+you implemented above), and save the output into a new file named `decoded_recipe.txt`.
+
+## Testing the project
+
+You can run the tests by running the following:
+
+```
+pytest
+```
+
+Note: you will need to install pytest
+```
+pip install pytest
+```
 

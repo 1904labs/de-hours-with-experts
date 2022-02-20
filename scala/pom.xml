@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.labs1904</groupId>
-    <artifactId>NextBiggestNumber</artifactId>
+    <artifactId>SecretRecipeDecoder</artifactId>
     <version>1.0</version>
 
-    <dependencies><!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+    <dependencies>
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.11</artifactId>
@@ -70,11 +70,6 @@
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest-maven-plugin</artifactId>
                 <version>1.0</version>
-               <!-- <configuration>
-                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    <junitxml>.</junitxml>
-                    <filereports>WDF TestSuite.txt</filereports>
-                </configuration>-->
                 <executions>
                     <execution>
                         <id>test</id>
@@ -94,7 +89,7 @@
                     </descriptorRefs>
                     <archive>
                        <manifest>
-                          <mainClass>com.labs1904.NextBiggestNumber</mainClass>
+                          <mainClass>com.labs1904.SecretRecipeDecoder</mainClass>
                        </manifest>
                     </archive>
                 </configuration>
