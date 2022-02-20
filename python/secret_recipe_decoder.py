@@ -3,7 +3,7 @@ import pydoc
 import sys
 import os
 
-# Caeser encoding, for use with decoding below
+# Caesar encoding, for use with decoding below
 ENCODING = {
     'a': 'y',
     'b': 'h',
@@ -52,7 +52,7 @@ class Ingredient():
 
 
 def decode_string(str):
-    """Given a string named str, use the Caeser encoding above to return the decoded string."""
+    """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
 
 

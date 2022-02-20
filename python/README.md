@@ -12,6 +12,8 @@ Decode the cookie recipe and save the output in a file named `decoded_recipe.txt
 Inside the `secret_recipe_decoder.py` file there is a method named `decode_string`. This function should take an encoded string like
 `hgiikf` and return the decoded value (`butter`). Implement this method.
 
+Hint: The Caesar encoding is given to you, check out the `ENCODING` dictionary.
+
 ### Challenge #2: Implement the decode_ingredient method
 
 Inside the `secret_recipe_decoder.py` file there is a method named `decode_ingredient`. This function takes an ingredient. An 
