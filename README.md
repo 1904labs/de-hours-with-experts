@@ -23,20 +23,36 @@ Take a screenshot of the farthest you got without clicking the "view solutions" 
 
 ### Challenge #3 - Secret Recipe Code Challenge
 
-The challenge:
+Many years ago, the perfect cookie recipe was created and then lost... until now. An encrypted version was discovered
+and it is up to you to recover the recipe so that the perfect cookie can be created once again.
 
-> Many years ago, the perfect cookie recipe was created and then lost... until now. An encrypted version was discovered
-> and it is up to you to recover the recipe so that the perfect cookie can be created once again.
+The recipe is encrypted using a simple substitution cipher. For example, the encoded string `hgiikf` can be decoded to `butter`:
 
-For the Hours with Experts class, we will be coding in Scala. For this challenge you can choose any language you like, we have created starter projects in Java, Scala, and Python that you can use to get started:
+```
+encoded -> decoded
+      h -> b
+      g -> u
+      i -> t
+      i -> t
+      k -> e
+      f -> r
+```
+
+The cipher is provided for you in a variable named `ENCODING` (see starter projects below). 
+
+ - Challenge #1: Decode a string - Implement a function that takes an encoded string and returns the decoded value (`hgiikf` is decoded to `butter`).
+ - Challenge #2: Decode an Ingredient - Implement a function that takes a line from the recipe and returns a new Ingredient (a class already defined for you). The `#` sign delimits the encoded amount and the description of an ingredient. For example, the line `8 vgl#hgiikf` would return an Ingredient with an amount of `1 cup` and a description of `butter`. 
+ - Challenge #3: Decode the entire recipe - Read all of the ingredients out of `secret_recipe.txt`, decode each ingredient (hopefully using the functions you implemented above), and save the output into a new file named `decoded_recipe.txt`.
+
+We have created starter projects in Java, Scala, and Python that you can use to get started:
 
 - [Java Project](java/README.md)
 - [Scala Project](scala/README.md)
 - [Python Project](python/README.md)
 
-Follow the instructions in one of the README's above. 
+Note: We will be coding in Scala for the Hours with Experts course but for this challenge you can choose any language you like.
 
-Email nrafferty@1904labs.com a link to your github repo containing your solution.
+Submit your work by opening a PR against the `solution` branch.
 
 ## Things not to worry about
  * Validating command line arguments - you can just assume each program takes 1 argument which is always a valid number
