@@ -38,4 +38,4 @@ you implemented above), and save the output into a new file named `decoded_recip
 
 # Testing the project
 
-There are some unit tests in `SecretRecipeDeocderTest.scala`
+There are some unit tests in `SecretRecipeDecoderTest.scala`
