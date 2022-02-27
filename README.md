@@ -52,7 +52,7 @@ We have created starter projects in Java, Scala, and Python that you can use to 
 
 Note: We will be coding in Scala for the Hours with Experts course but for this challenge you can choose any language you like.
 
-####Important
+#### Important
 When you are ready to start working on your solution, create a new branch called - yournameChallengeThree - ex) nickraffertyChallengeThree
 
 #### To submit your work: 
