@@ -4,7 +4,7 @@ Data Engineering Hours With Experts Coding Challenge(s)!
 ## Challenges
 Congrats on taking on the challenge of applying to Hours with Experts! We're looking forward to 
 reviewing your challenge problems. Do not worry if you are unable to answer certain aspects of a question. 
-We're looking for perserverance, problem solving, and breadth of knowledge across multiple different skillsets - Git, Command Line, SQL and a programming language such as Java, Scala, Python, C# or JavaScript. 
+We're looking for perseverance, problem solving, and breadth of knowledge across multiple different skillsets - Git, Command Line, SQL and a programming language such as Java, Scala, Python, C# or JavaScript. 
 
 Your task is to work through and complete as much of each challenge problem as possible and submit your repository to our team for review. Good luck!
 
@@ -51,6 +51,9 @@ We have created starter projects in Java, Scala, and Python that you can use to 
 - [Python Project](python/README.md)
 
 Note: We will be coding in Scala for the Hours with Experts course but for this challenge you can choose any language you like.
+
+####Important
+When you are ready to start working on your solution, create a new branch called - yournameChallengeThree - ex) nickraffertyChallengeThree
 
 #### To submit your work: 
 Open a PR (pull request) against the `solution` branch. Link that PR in the Google Form that was sent to you when you received your application. 

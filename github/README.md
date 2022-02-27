@@ -4,14 +4,14 @@ We'll be using Github a lot in this class, so you'll need to make sure you're up
 ## ToDos
 In order to complete this challenge, here are the steps you need to complete:
 1. Clone this repository locally (we recommend cloning inside a directory that contains all your Hours with Experts work)
-2. Create a new branch to make changes (use the naming convention - yourFirstAndLastName-addFunFacts)
-Ex) My branch would be named NickRafferty-addFunFacts
+2. Create a new branch to make changes (use the naming convention - yournameChallengeOne)
+Ex) My branch would be named nickraffertyChallengeOne
 3. In the /github/funfacts/Spring2022 directory, create a directory with your name - ex) nickrafferty
 4. In your directory, create a text file following this naming convention - funfacts.txt - ex) funfacts.txt
 5. Following the format you see in the example in ./funfacts/Spring2022/funfacts.txt, add your name and a fun fact about yourself
 6. Commit your changes locally
 7. Push your changes up to Github
-8. Create a PR for your changes
+8. Create a PR for your changes against the solutions branch 
 9. Once you create a PR, copy the link to your PR and add it to the Google Form that you were sent when given the application
 
 
