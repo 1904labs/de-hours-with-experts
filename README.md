@@ -17,7 +17,7 @@ Make it as far as you possibly can in the [Command Challenge](https://cmdchallen
 how far you can make it. Have fun with it and learn a lot! 
 
 #### To submit your work: 
-Take a screenshot of the farthest you got without clicking the "view solutions" button on the site. Email nrafferty@1904labs.com a picture of your final progress. Here's an example: 
+Take a screenshot of the farthest you got without clicking the "view solutions" button on the site. Submit your image in the Google Form sent to you when you were given your application. 
 
 ![Image of Command Line Challenge](./images/example_commandChallenge.png)
 
@@ -52,7 +52,8 @@ We have created starter projects in Java, Scala, and Python that you can use to 
 
 Note: We will be coding in Scala for the Hours with Experts course but for this challenge you can choose any language you like.
 
-Submit your work by opening a PR against the `solution` branch.
+#### To submit your work: 
+Open a PR (pull request) against the `solution` branch. Link that PR in the Google Form that was sent to you when you received your application. 
 
 ## Things not to worry about
  * Validating command line arguments - you can just assume each program takes 1 argument which is always a valid number
