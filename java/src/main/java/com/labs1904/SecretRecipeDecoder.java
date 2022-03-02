@@ -52,8 +52,12 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        StringBuilder decodedText = new StringBuilder();
+        String[] strArr = str.split("")
+        for (int i=0; i< strArr.length; i++) {
+            decodedText.append(ENCODING.get(strArr[i]));
+        }
+        return decodedText;
     }
 
     /**
