@@ -21,7 +21,6 @@ Ex) My branch would be named nickraffertyChallengeOne
 
 Windows users must install git [bash](https://gitforwindows.org/). Follow tips from [here](http://hourswith.expert/docs/getting-started/)
 
-Link git with your [github account via SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) by following the steps in the linked page. This will save your GitHub login information (in a secure way) on your computer, allowing you to seamlessly push/pull to/from your GitHub repositories from your local computer.
 
 #### Commands
 [Cheat Sheet of Git Commands](http://guides.beanstalkapp.com/version-control/common-git-commands.html)
