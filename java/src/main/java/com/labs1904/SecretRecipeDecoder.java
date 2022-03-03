@@ -53,7 +53,13 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        String decoded = "";
+        for (char letter : String str) {
+            if (encoded.getKey() == letter) {
+                
+            }
+        }
+        return decoded;
     }
 
     /**
