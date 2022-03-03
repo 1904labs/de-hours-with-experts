@@ -53,12 +53,15 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        String decoded = "";
-        for (char letter : String str) {
-            if (encoded.getKey() == letter) {
-                
+        String[] decodedArr = new String[str.length()];
+        for (int i = 0; i < str.length(); i++) {
+            for (Map.Entry<String, String> code : ENCODING.entrySet()) {
+                if (code.getKey().equals(Character.toString(str.charAt(i)))) {
+                    decodedArr[i] = code.getValue();
+                }
             }
         }
+        String decoded = String.join("", decodedArr);
         return decoded;
     }
 
@@ -74,5 +77,6 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) {
         // TODO: implement me
+        System.out.println(decodeString("hgiikf"));
     }
 }
