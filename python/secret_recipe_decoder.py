@@ -84,7 +84,7 @@ def main():
         print(contents)
     
         for item in contents:
-            decode_ingredient(item)
-        
+            print(str(decode_ingredient(item)))
+            
 if __name__ == "__main__":
     main()
