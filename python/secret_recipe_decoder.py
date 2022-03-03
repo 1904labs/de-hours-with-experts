@@ -79,12 +79,20 @@ print(str(decode_ingredient('8 vgl#hgiikf')))
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    contents = []
     with open('secret_recipe.txt') as f:
         contents = f.readlines()
         print(contents)
     
+        #for item in contents:
+    with open('decoded_recipe.txt', "w") as f:
         for item in contents:
-            print(str(decode_ingredient(item)))
+            line = str(decode_ingredient(item))
+            f.write(line)
+            f.close
+            #g.writelines('\n')
+                
+            #print(str(decode_ingredient(item)))
             
 if __name__ == "__main__":
     main()
