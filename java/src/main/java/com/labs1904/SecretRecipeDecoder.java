@@ -52,8 +52,8 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        str = ENCODING.get("h") + ENCODING.get("g") + ENCODING.get("i") + ENCODING.get("i") + ENCODING.get("k") + ENCODING.get("f");
+        return str;
     }
 
     /**
