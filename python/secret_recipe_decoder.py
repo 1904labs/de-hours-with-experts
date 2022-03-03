@@ -62,7 +62,7 @@ def decode_string(str):
             decoded_string = decoded_string + (ENCODING.get(value))
         else:
             decoded_string += " "
-    # print(decoded_string)
+
     return decoded_string
 
 
