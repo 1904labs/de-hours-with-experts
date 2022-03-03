@@ -56,8 +56,8 @@ public class SecretRecipeDecoder {
         String[] decodedArr = new String[str.length()];
         for (int i = 0; i < str.length(); i++) {
             for (Map.Entry<String, String> code : ENCODING.entrySet()) {
-                if (code.getKey().equals(Character.toString(str.charAt(i)))) {
-                    decodedArr[i] = code.getValue();
+                if (code.getValue().equals(Character.toString(str.charAt(i)))) {
+                    decodedArr[i] = code.getKey();
                 }
             }
         }
@@ -77,6 +77,6 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) {
         // TODO: implement me
-        System.out.println(decodeString("hgiikf"));
+        System.out.println(decodeString("abc"));
     }
 }
