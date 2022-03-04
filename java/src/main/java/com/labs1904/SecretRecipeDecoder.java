@@ -3,7 +3,8 @@ package com.labs1904;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -88,5 +89,23 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) {
         // TODO: implement me
+        try {
+            FileWriter myWriter = new FileWriter("src/main/resources/decoded_recipe.txt");
+            try {
+                File myObj = new File("src/main/resources/secret_recipe.txt");
+                Scanner myReader = new Scanner(myObj);
+                while (myReader.hasNextLine()) {
+                    String data = myReader.nextLine();
+                    Ingredient ingredient = decodeIngredient(data);
+                    myWriter.write(ingredient.getAmount() + " " + ingredient.getDescription() + "\n");
+                }
+                myReader.close();
+                myWriter.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+            }
+        } catch (IOException e) {
+            System.out.println("An IO error occurred.");
+        }
     }
 }
