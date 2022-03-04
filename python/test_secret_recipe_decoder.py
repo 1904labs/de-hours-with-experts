@@ -1,3 +1,4 @@
+import pytest
 from secret_recipe_decoder import decode_ingredient, decode_string, Ingredient
 
 def test_decode_string_can_decode():

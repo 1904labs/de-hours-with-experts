@@ -2,6 +2,7 @@
 import pydoc
 import sys
 import os
+import pytest
 
 # Caesar encoding, for use with decoding below
 ENCODING = {
@@ -54,12 +55,28 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
+    word=[]
+    for character in str:
+        if character not in ENCODING.keys():
+            pass
+        else:
+            word.append(ENCODING.get(character))
+    word=''.join(word)
+    return word
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
-
+    word=[]
+    for character in line:
+        if character not in ENCODING.keys():
+            ENCODING[character]=character
+        if character==character:
+            word.append(ENCODING.get(character))
+    word=''.join(word)
+    word=word.split("#")
+    return Ingredient(str(word[0]),str(word[1]))
 
 def main():
     """A program that decodes a secret recipe"""
