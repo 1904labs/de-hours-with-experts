@@ -1,0 +1,3 @@
+Adam Arras - I spend most of my work day automating my job and building sophisticated spreadsheet tools that autonomously optimize the settings. This week ended the first full month after launching my big project and it already surpassed last year's metrics with 2 months left on top. It's projected to increase revenue 73.5% prior to fine tuning and optimization. 
+
+Also, the most complex formula I wrote is 32,182 characters long and uses 2,913 functions nested up to 54 deep. It takes hours to troubleshoot but also does weeks or months worth of work in minutes. I had to write more than 60 formulas just to generate the final one. I just think it's cool and I really nerd out over dreaming up new ways to try and view and address a problem.
