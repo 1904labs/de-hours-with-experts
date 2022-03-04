@@ -1,8 +1,11 @@
 package com.labs1904;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +56,26 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        //CREATE LIST
+        List<String> ingredient = new ArrayList<>();
+        //LOOP STRING
+        for (int i = 0; i < str.length(); i++) {
+            //IF LETTER
+            if(Character.isLetter(str.charAt(i))){
+                ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))));
+            }//IF NUMBER
+            else if(Character.isDigit(str.charAt(i))){
+                ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))));
+            }//IF NEITHER
+            else{
+                ingredient.add(String.valueOf(str.charAt(i)));
+            }
+        }
+        //STRING LIST TO STRING
+        String joined = String.join("", ingredient);
+
+        //RETURN STRING
+        return String.valueOf(joined);
     }
 
     /**
@@ -63,10 +85,41 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        //SPLIT INTO ARRAY
+        String[] stringArray = line.split("#");
+        //TO STRING()
+        Ingredient newIngredient = new Ingredient(decodeString(stringArray[0]), decodeString(stringArray[1]));
+
+        //RETURN Ingredient
+        return newIngredient;
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        //DELETE FILE IF EXISTS
+        Path fileToDeletePath = Paths.get("src/main/resources/decoded_recipe.txt");
+        try {
+            Files.delete(fileToDeletePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //READ AND WRITE FILE
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader("src/main/resources/secret_recipe.txt"));
+            FileWriter writer = new FileWriter("src/main/resources/decoded_recipe.txt", true);
+            String line = reader.readLine();
+            while (line != null) {
+//                System.out.println(decodeIngredient(line)); //DEBUG: CHECK IF newIngredient IS SHOWING
+                writer.write(String.valueOf(decodeIngredient(line)));
+                writer.write("\r\n");   // write new line
+                line = reader.readLine();
+            }
+            reader.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
