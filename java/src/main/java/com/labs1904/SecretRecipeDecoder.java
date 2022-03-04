@@ -57,7 +57,6 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
         String[] decodedArr = new String[str.length()];
         for (int i = 0; i < str.length(); i++) {
             for (Map.Entry<String, String> code : ENCODING.entrySet()) {
@@ -79,7 +78,6 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
         String decoded = decodeString(line);
 
         String[] ingredientSplit = decoded.split("#");
@@ -88,7 +86,6 @@ public class SecretRecipeDecoder {
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
         try {
             FileWriter myWriter = new FileWriter("src/main/resources/decoded_recipe.txt");
             try {
