@@ -1,8 +1,12 @@
 package com.labs1904;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -59,6 +63,9 @@ public class SecretRecipeDecoder {
                 if (code.getKey().equals(Character.toString(str.charAt(i)))) {
                     decodedArr[i] = code.getValue();
                 }
+                if (decodedArr[i] == null) {
+                    decodedArr[i] = Character.toString(str.charAt(i));
+                }
             }
         }
         String decoded = String.join("", decodedArr);
@@ -72,11 +79,14 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        String decoded = decodeString(line);
+
+        String[] ingredientSplit = decoded.split("#");
+        Ingredient newIngredient = new Ingredient(ingredientSplit[0], ingredientSplit[1]);
+        return newIngredient;
     }
 
     public static void main(String[] args) {
         // TODO: implement me
-        System.out.println(decodeString("yhv"));
     }
 }
