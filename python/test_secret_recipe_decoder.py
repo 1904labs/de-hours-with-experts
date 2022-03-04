@@ -1,8 +1,11 @@
 import pytest
-from secret_recipe_decoder import decode_ingredient, decode_string, Ingredient
+from secret_recipe_decoder import decode_ingredient, encode_string, decode_string, Ingredient
+
+def test_encode_string_can_decode():
+    assert(encode_string("abc") == "yhv")
 
 def test_decode_string_can_decode():
-    assert(decode_string("abc") == "yhv")
+    assert(decode_string("abc") == "ijz")
 
 def test_decode_ingredient_can_decode():
     expected = Ingredient("1 cup", "butter")

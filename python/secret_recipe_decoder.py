@@ -52,8 +52,20 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
+def encode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
+    # TODO: implement me
+    reversed_encoding = {value : key for (key, value) in ENCODING.items()}
+    word=[]
+    for character in str:
+        if character not in reversed_encoding.keys():
+            pass
+        else:
+            word.append(reversed_encoding.get(character))
+    word=''.join(word)
+    return word
+
+def decode_string(str):
     # TODO: implement me
     word=[]
     for character in str:
@@ -63,7 +75,6 @@ def decode_string(str):
             word.append(ENCODING.get(character))
     word=''.join(word)
     return word
-
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
