@@ -59,12 +59,14 @@ public class SecretRecipeDecoder {
     public static String decodeString(String str) {
         String[] decodedArr = new String[str.length()];
         for (int i = 0; i < str.length(); i++) {
+            char charAtIndex = str.charAt(i);
+            String charAsString = Character.toString(charAtIndex);
             for (Map.Entry<String, String> code : ENCODING.entrySet()) {
-                if (code.getKey().equals(Character.toString(str.charAt(i)))) {
+                if (code.getKey().equals(charAsString)) {
                     decodedArr[i] = code.getValue();
                 }
                 if (decodedArr[i] == null) {
-                    decodedArr[i] = Character.toString(str.charAt(i));
+                    decodedArr[i] = charAsString;
                 }
             }
         }
