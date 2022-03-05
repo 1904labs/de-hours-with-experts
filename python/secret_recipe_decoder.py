@@ -49,16 +49,35 @@ class Ingredient():
     def __init__(self, amount, description) -> None:
         self.amount = amount
         self.description = description
-
+    
+    def __repr__(self) -> str: 
+        return f"{self.amount} {self.description}"
 
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
+    result = ''
+    for character in str:
+        if character in ENCODING:
+            result = result + ENCODING[character]
+        else:
+            result = result + character
+    return result
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
+    result = []
+    for character in line:
+        if character not in ENCODING.keys():
+            ENCODING[character]=character
+        if character in ENCODING:
+            result.append(ENCODING[character])
+    result=''.join(result)
+    result= result.split('#')
+    return Ingredient(str(result[0]),str(result[1]))
+
 
 
 def main():
