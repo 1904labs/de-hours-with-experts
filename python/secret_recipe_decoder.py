@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-import pydoc
-import sys
-import os
 
 # Caesar encoding, for use with decoding below
 ENCODING = {
@@ -41,29 +38,54 @@ ENCODING = {
     '9': '7',
     '1': '8',
     '6': '9'
- }
+}
 
 """An ingredient has an amount and a description.
 For example: an Ingredient could have "1 cup" as the amount and "butter" as the description."""
-class Ingredient():
+
+
+class Ingredient:
     def __init__(self, amount, description) -> None:
         self.amount = amount
         self.description = description
 
 
-def decode_string(str):
+def decode_string(string):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
+    decoded_letters = []
+    non_encoded_chars = {" ", "/", ",", "-"}
+    for letter in string:
+        if letter in non_encoded_chars:  # We need to account for characters that aren't included in the encoding.
+            decoded_letters.append(letter)
+        else:                               # This decodes the letters and numbers
+            decoded_letters.append(ENCODING[letter])
+    return ''.join(decoded_letters)
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
+    if line == "\n":
+        return "\n"
+
+    # This splits the amount from the ingredient and decodes each.
+    ln_split = line.split("#")
+    amt = decode_string(ln_split[0])
+    ing = decode_string(ln_split[1])
+
+    # We put the amount and ingredient back together and return it.
+    return amt + " " + ing
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    encoded_recipe = open("secret_recipe.txt", "r")
+    decoded_recipe = open("decoded_recipe.txt", "a")
+    for line in encoded_recipe:
+        decoded_recipe.write(decode_ingredient(line.strip("\n")))
+    encoded_recipe.close()
+    decoded_recipe.close()
+    return decoded_recipe
+
 
 if __name__ == "__main__":
     main()
