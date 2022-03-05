@@ -51,29 +51,17 @@ class Ingredient():
         self.amount = amount
         self.description = description
 
-
-def encode_string(str):
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    reversed_encoding = {value : key for (key, value) in ENCODING.items()}
-    word=[]
-    for character in str:
-        if character not in reversed_encoding.keys():
-            pass
-        else:
-            word.append(reversed_encoding.get(character))
-    word=''.join(word)
-    return word
-
 def decode_string(str):
     # TODO: implement me
     word=[]
     for character in str:
         if character not in ENCODING.keys():
-            pass
+            ENCODING[character]=character
         else:
-            word.append(ENCODING.get(character))
+            pass
+        word.append(ENCODING.get(character))
     word=''.join(word)
+    word= word.replace('#',' | ')
     return word
 
 def decode_ingredient(line):
@@ -87,11 +75,34 @@ def decode_ingredient(line):
             word.append(ENCODING.get(character))
     word=''.join(word)
     word=word.split("#")
-    return Ingredient(str(word[0]),str(word[1]))
+    return Ingredient(word[0],word[1])
+
+def decode_recipe_file(file):
+    """Decode and write txt file in a per-line fashion"""
+     # TODO: implement me
+    file=open(file,'r')
+    file=file.readlines()
+    newfile=open('decoded_recipe.txt','w')
+    for lines in file:
+        decoded_recipe=decode_string(lines)
+        newfile.write(decoded_recipe)
+    newfile.close()
+    return f'{newfile} <----- The secret recipe is unveiled now. Enjoy yourself!'
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    decode_string('hgiikf')
+    print('\ndecoding string function works!\n' + '\tword to decode: hgiikf\n\t' + 'decoding result: '+ decode_string('hgiikf'))
+
+    ingredient=decode_ingredient('8 vgl#hgiikf')
+    print('\ndecoding ingredients function works!\n' + '\tingredient to decode: 8 vgl#hgiikf\n\t' + 'ingredient amount: '+ ingredient.amount + '\n\t' + 'ingredient description: '+ ingredient.description)
+
+    decode_recipe_file('secret_recipe.txt')
+    print('\ndecoding file function works!\n' + '\t check out the decoded file' + '\n\t' + decode_recipe_file('secret_recipe.txt'))
 
 if __name__ == "__main__":
     main()
+
+
+
