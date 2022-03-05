@@ -3,8 +3,11 @@ package com.labs1904;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -109,6 +112,29 @@ public class SecretRecipeDecoder {
         Ingredient ingredient = new Ingredient(amount, description);
 
         return ingredient;
+    }
+
+    public static void decodeFile(String stringPath) throws IOException {
+        //takes string
+        //gets file
+        //loops lines in file (decodes)
+        //writes decoded string to new file
+
+
+        //method setup
+        Path filePathDecodedFile = Path.of("./decoded_ingredient_list.txt");
+        String decodedText = "";
+        Path filePathEncodedFile = Path.of(stringPath);
+
+        //get file
+        Scanner scanner = new Scanner(new File(filePathEncodedFile));
+        while (scanner.hasNextLine()) {
+            decodedText += scanner.nextLine();
+        }
+        scanner.close();
+
+        Files.writeString(filePathDecodedFile, decodedText);
+        return;
     }
 
 
