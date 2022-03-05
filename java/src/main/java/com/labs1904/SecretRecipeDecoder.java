@@ -81,7 +81,12 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        String description = "";
+        String amount = "";
+
+        Ingredient ingredient = new Ingredient(amount, description);
+
+        return ingredient;
     }
 
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
