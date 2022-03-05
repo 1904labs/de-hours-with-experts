@@ -229,5 +229,6 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python
-python/testdecrypt.ipynb
-python/test2.ipynb
+python/secret_recipe_decoder.py
+python/test_secret_recipe_decoder.py
+.vscode/settings.json
