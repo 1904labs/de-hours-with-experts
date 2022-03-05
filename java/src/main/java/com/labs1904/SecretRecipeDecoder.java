@@ -70,7 +70,7 @@ public class SecretRecipeDecoder {
             } else if (String.valueOf(str.charAt(i)).equals("#")) {
                 decoded += "#";
             } else {
-                decoded += :qdecodeLetter(str.charAt(i));
+                decoded += decodeLetter(str.charAt(i));
             }
 
         }
@@ -102,7 +102,8 @@ public class SecretRecipeDecoder {
         //regex Matcher
         Matcher m = regex.matcher(decodedLine);
         if(m.find()) {
-            System.out.println(m.group(1) + m.group(2));
+            amount = m.group(1);
+            description = m.group(2);
         }
 
         Ingredient ingredient = new Ingredient(amount, description);
@@ -110,10 +111,12 @@ public class SecretRecipeDecoder {
         return ingredient;
     }
 
+
+
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
         // TODO: implement me
         //returns decoded string
-        decodeIngredient("8 vgl#hgiikf");
+        Ingredient newIngredient = decodeIngredient("8 vgl#hgiikf");
     }
 
 
