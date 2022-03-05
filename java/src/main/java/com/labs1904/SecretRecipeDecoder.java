@@ -63,24 +63,22 @@ public class SecretRecipeDecoder {
         // TODO: implement
         //variable to hold decoded string
         String decoded = "";
-        //loop over each letting in string
+        //loop over each letting in string and decode in not " " or "#"
         for (int i=0; i<str.length();i++){
             if(String.valueOf(str.charAt(i)).equals(" ")){
                 decoded += " ";
             } else if (String.valueOf(str.charAt(i)).equals("#")) {
                 decoded += "#";
             } else {
-                decoded += decodeLetter(str.charAt(i));
+                decoded += :qdecodeLetter(str.charAt(i));
             }
 
         }
-        System.out.println(decoded);
 
         return decoded;
     }
 
     private static String decodeLetter(char encodeLetter) {
-        System.out.println(ENCODING.get(String.valueOf(encodeLetter)));
         return ENCODING.get(String.valueOf(encodeLetter));
     }
 
@@ -93,12 +91,16 @@ public class SecretRecipeDecoder {
         // TODO: implement me
         String description = "";
         String amount = "";
+
+        //returns decoded string
+        String decodedLine = decodeString(line);
         //regex setup (group 1)#((group 2) // "1 cup#flour"
         String pattern = "([^#]*)#([^#]*)";
         Pattern regex = Pattern.compile(pattern);
 
+        //get the amount and description from the decoded line
         //regex Matcher
-        Matcher m = regex.matcher(line);
+        Matcher m = regex.matcher(decodedLine);
         if(m.find()) {
             System.out.println(m.group(1) + m.group(2));
         }
@@ -110,7 +112,8 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
         // TODO: implement me
-        decodeString("8 vgl#hgiikf");
+        //returns decoded string
+        decodeIngredient("8 vgl#hgiikf");
     }
 
 
