@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -63,7 +65,14 @@ public class SecretRecipeDecoder {
         String decoded = "";
         //loop over each letting in string
         for (int i=0; i<str.length();i++){
-            decoded += decodeLetter(str.charAt(i));
+            if(String.valueOf(str.charAt(i)).equals(" ")){
+                decoded += " ";
+            } else if (String.valueOf(str.charAt(i)).equals("#")) {
+                decoded += "#";
+            } else {
+                decoded += decodeLetter(str.charAt(i));
+            }
+
         }
         System.out.println(decoded);
 
@@ -71,7 +80,8 @@ public class SecretRecipeDecoder {
     }
 
     private static String decodeLetter(char encodeLetter) {
-        return ENCODING.get(ENCODING.get(String.valueOf(encodeLetter)));
+        System.out.println(ENCODING.get(String.valueOf(encodeLetter)));
+        return ENCODING.get(String.valueOf(encodeLetter));
     }
 
     /**
@@ -83,6 +93,15 @@ public class SecretRecipeDecoder {
         // TODO: implement me
         String description = "";
         String amount = "";
+        //regex setup (group 1)#((group 2) // "1 cup#flour"
+        String pattern = "([^#]*)#([^#]*)";
+        Pattern regex = Pattern.compile(pattern);
+
+        //regex Matcher
+        Matcher m = regex.matcher(line);
+        if(m.find()) {
+            System.out.println(m.group(1) + m.group(2));
+        }
 
         Ingredient ingredient = new Ingredient(amount, description);
 
@@ -91,7 +110,7 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
         // TODO: implement me
-        decodeString("hello");
+        decodeString("8 vgl#hgiikf");
     }
 
 
