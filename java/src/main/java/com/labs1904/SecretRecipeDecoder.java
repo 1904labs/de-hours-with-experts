@@ -1,8 +1,14 @@
 package com.labs1904;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -52,8 +58,20 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        // TODO: implement
+        //variable to hold decoded string
+        String decoded = "";
+        //loop over each letting in string
+        for (int i=0; i<str.length();i++){
+            decoded += decodeLetter(str.charAt(i));
+        }
+        System.out.println(decoded);
+
+        return decoded;
+    }
+
+    private static String decodeLetter(char encodeLetter) {
+        return ENCODING.get(encodeLetter);
     }
 
     /**
@@ -66,9 +84,10 @@ public class SecretRecipeDecoder {
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
         // TODO: implement me
-        //read line from file
-        System.out.print("line here");
+        decodeString("hello");
     }
+
+
 }
