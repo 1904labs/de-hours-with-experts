@@ -96,7 +96,7 @@ public class SecretRecipeDecoder {
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
                     Ingredient ingredient = decodeIngredient(data);
-                    myWriter.write(ingredient.getAmount() + " " + ingredient.getDescription() + "\n");
+                    myWriter.write(ingredient.toString() + "\n");
                 }
                 myReader.close();
                 myWriter.close();
