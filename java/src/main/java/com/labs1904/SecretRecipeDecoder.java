@@ -71,7 +71,7 @@ public class SecretRecipeDecoder {
     }
 
     private static String decodeLetter(char encodeLetter) {
-        return ENCODING.get(encodeLetter);
+        return ENCODING.get(ENCODING.get(String.valueOf(encodeLetter)));
     }
 
     /**
