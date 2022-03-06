@@ -1,10 +1,11 @@
 package com.labs1904;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-
-
+import java.util.Scanner;
 
 
 public class SecretRecipeDecoder {
@@ -81,10 +82,10 @@ public class SecretRecipeDecoder {
         // TODO: implement me
         String amountInRecipe = "";
         String measurement = "";
-        String intermediateMeasurement = "";
+        String intermediateMeasurement;
         String ingredientInRecipe = "";
         String ingredient = "";
-        String intermediateIngredient = "";
+        String intermediateIngredient;
         String[] breakLine = line.split("[#]");
 
         for (int i = 0; i < breakLine.length; i++) {
@@ -92,26 +93,24 @@ public class SecretRecipeDecoder {
             ingredient = breakLine[1];
         }
 
-            for (int k = 0; k < breakLine[0].length(); k++) {
-                intermediateMeasurement = String.valueOf(measurement.charAt(k));
-                 System.out.println(intermediateMeasurement);
+            for (int j = 0; j < breakLine[0].length(); j++) {
+                intermediateMeasurement = String.valueOf(measurement.charAt(j));
+
 
                 for (Map.Entry recipe2 : ENCODING.entrySet()){
                     if (recipe2.getKey().equals(intermediateMeasurement)) {
                         amountInRecipe += recipe2.getValue();
-                        // System.out.println(amountInRecipe);
                     }
                 }
 
             }
 
-            for (int j = 0; j < breakLine[1].length(); j++) {
-                intermediateIngredient = String.valueOf(ingredient.charAt(j));
+            for (int k = 0; k < breakLine[1].length(); k++) {
+                intermediateIngredient = String.valueOf(ingredient.charAt(k));
 
             for (Map.Entry recipe : ENCODING.entrySet()) {
                 if (recipe.getKey().equals(intermediateIngredient)) {
                     ingredientInRecipe += recipe.getValue();
-                  //  System.out.println(ingredientInRecipe);
                 }
             }
         }
@@ -129,9 +128,26 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) {
         // TODO: implement me
+       // SecretRecipeDecoder secretRecipeDecoder = new SecretRecipeDecoder();
+        try {
+            File recipeList = new File("src/main/resources/secret_recipe.txt");
+            Scanner readRecipeList = new Scanner(recipeList);
+            while (readRecipeList.hasNextLine()) {
+                String wholeRecipe = readRecipeList.nextLine();
+                System.out.println(wholeRecipe);
+            }
+            readRecipeList.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Something went wrong. Yikes!");
+            e.printStackTrace();
+        }
+        System.out.println(SecretRecipeDecoder.decodeIngredient("8 vgl#hgiikf"));
+
+
 
     }
-}
+    }
+
 
 
 
