@@ -52,8 +52,12 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        String output = "";
+        for (int i = 0; i < str; i++) {
+            String s = "" + str.charAt(i);
+            output += ENCODING.get(s);
+        }
+        return output;
     }
 
     /**
@@ -62,11 +66,16 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
+        String[] s = line.split("#");
+        String amount = decodeString(s[0]);
+        String description = decodeString(s[1]);
+        return new Ingredient(amount, description);
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        // Runs the program
+        decodeString();
+        decodeIngredient();
+        //generates decrypted recipe into a text file.
     }
 }
