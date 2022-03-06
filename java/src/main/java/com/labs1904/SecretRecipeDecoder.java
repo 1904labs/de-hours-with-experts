@@ -4,6 +4,7 @@ package com.labs1904;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
         {
@@ -51,11 +52,16 @@ public class SecretRecipeDecoder {
      * @param str
      * @return
      */
-    public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
-    }
 
+    public static String decodeString(String str) {
+        for (int i = 0; i <= str.length(); i++ ){
+            if(str.equals(ENCODING.keySet())){
+                System.out.println(ENCODING.values());
+            }
+        }
+        // TODO: implement me
+        return ENCODING.get(str);
+    }
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
      * @param line
@@ -63,10 +69,25 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        if(line.equals(ENCODING.keySet())){
+            System.out.println(ENCODING.values());
+                if(line.contentEquals("#")){
+                    System.out.println((ENCODING.values() + "" + ENCODING.values()));
+                }
+
+
+        }
+
+
+        return new Ingredient("" + ENCODING.get(line),"" + ENCODING.get(line));
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+
+        System.out.print(decodeString("h"));
+        System.out.println(decodeString("g"));
+
+
     }
 }
