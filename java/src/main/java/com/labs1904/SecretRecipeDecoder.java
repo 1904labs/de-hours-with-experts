@@ -114,7 +114,7 @@ public class SecretRecipeDecoder {
         return ingredient;
     }
 
-    public static void decodeFile(String stringPath) throws IOException {
+    public static void decodeFile(String filePathEncodedFile) throws IOException {
         //takes string
         //gets file
         //loops lines in file (decodes)
@@ -124,12 +124,13 @@ public class SecretRecipeDecoder {
         //method setup
         Path filePathDecodedFile = Path.of("./decoded_ingredient_list.txt");
         String decodedText = "";
-        Path filePathEncodedFile = Path.of(stringPath);
 
-        //get file
+        //get file and loop
         Scanner scanner = new Scanner(new File(filePathEncodedFile));
         while (scanner.hasNextLine()) {
-            decodedText += scanner.nextLine();
+            //collect and  decoded lines
+            String decodedLine = decodeString(scanner.nextLine());
+            decodedText += decodedLine + "\n";
         }
         scanner.close();
 
@@ -139,10 +140,11 @@ public class SecretRecipeDecoder {
 
 
 
-    public static void main(String[] args) throws FileNotFoundException, URISyntaxException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         // TODO: implement me
         //returns decoded string
         Ingredient newIngredient = decodeIngredient("8 vgl#hgiikf");
+        decodeFile("src/main/resources/secret_recipe.txt");
     }
 
 
