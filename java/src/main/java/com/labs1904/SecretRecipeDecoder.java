@@ -58,7 +58,7 @@ public class SecretRecipeDecoder {
 
             if (ENCODING.containsKey(Character.toString(str.charAt(i)))) {
                 newStr += ENCODING.get(Character.toString(str.charAt(i)));
-                // System.out.println(Character.toString(str.charAt(i)));
+
             }
             if (str.charAt(i)==(' ')||str.charAt(i)==('#')) {
                 newStr+=" ";
