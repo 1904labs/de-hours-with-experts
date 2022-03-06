@@ -72,6 +72,12 @@ public class SecretRecipeDecoder {
                 decoded += " ";
             } else if (String.valueOf(str.charAt(i)).equals("#")) {
                 decoded += "#";
+            } else if (String.valueOf(str.charAt(i)).equals("/")) {
+                decoded += "/";
+            } else if (String.valueOf(str.charAt(i)).equals("-")) {
+                decoded += "-";
+            } else if (String.valueOf(str.charAt(i)).equals(",")) {
+                decoded += ",";
             } else {
                 decoded += decodeLetter(str.charAt(i));
             }
