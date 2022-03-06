@@ -53,8 +53,25 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        String newStr = "";
+        for (int i=0; i < str.length(); i++) {
+
+            if (ENCODING.containsKey(Character.toString(str.charAt(i)))) {
+                newStr += ENCODING.get(Character.toString(str.charAt(i)));
+                // System.out.println(Character.toString(str.charAt(i)));
+            }
+            if (str.charAt(i)==(' ')||str.charAt(i)==('#')) {
+                newStr+=" ";
+            }
+            if (str.charAt(i)==('/')) {
+                newStr+="/";
+            }
+        }
+
+        return newStr;
+
     }
+
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -63,10 +80,30 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        Ingredient cake = new Ingredient(decodeString(line.substring(0,line.indexOf('#'))),decodeString(line.substring(line.indexOf('#')+1, line.indexOf(line.charAt(line.length()-1))+1)));
+
+        return cake;
+
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        System.out.println(decodeString("8 vgl#hgiikf"));
+        System.out.println(decodeString("8 vgl#xyfe hfntq ogzyf, lyvekx"));
+        System.out.println(decodeString("8 vgl#zfyqgwyikx ogzyf"));
+        System.out.println(decodeString("4#kzzo"));
+        System.out.println(decodeString("8 ikyolnnq#jyqawwy"));
+        System.out.println(decodeString("4 8/4 vglo#nyiukyw"));
+        System.out.println(decodeString("4 vglo#pwngf"));
+        System.out.println(decodeString("8/4 ikyolnnq#oywi"));
+        System.out.println(decodeString("8 ikyolnnq#hyeaqz onxy"));
+        System.out.println(decodeString("8 ikyolnnq#hyeaqz lntxkf"));
+        System.out.println(decodeString("84 ngqvko#vsnvnwyik vsalo"));
+        System.out.println(decodeString("8#2-ngqvk uawe vsnvnwyik hyf"));
+        System.out.println(decodeString("8 8/4 vglo#vsnllkx qgio"));
+        System.out.println(decodeIngredient("8 vgl#hgiikf"));
+        System.out.println(decodeIngredient("8#2-ngqvk uawe vsnvnwyik hyf"));
+
     }
 }
+
