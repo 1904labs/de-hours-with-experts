@@ -1,6 +1,6 @@
 package com.labs1904;
-
-
+import java.io.*;
+import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,8 +53,19 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
-    }
+        String outputWord = "";
+        for (int i=0; i<str.length(); i++) {
+            char letter = str.charAt(i);
+            if (Character.toString(letter).equals("#")) {
+                outputWord = outputWord + " ";
+            } else if (ENCODING.get(Character.toString(letter)) == null) {
+                outputWord = outputWord + Character.toString(letter);
+            } else {
+                outputWord = outputWord + ENCODING.get(Character.toString(letter));
+            }
+        }
+        return outputWord;
+    };
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -62,11 +73,17 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
+
         // TODO: implement me
         return null;
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        Scanner recipe = new Scanner(new File("./resources/secret_recipe.txt"));
+        String[] recipeLines = recipe.split("\\r?\\n");
+        for (String recipeIngredient : recipeLines) {
+            decodeString(recipeIngredient);
+        }
     }
 }
