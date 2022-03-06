@@ -49,21 +49,44 @@ public class SecretRecipeDecoder {
     /**
      * Given a string named str, use the Caesar encoding above to return the decoded string.
      * @param str
-     * @return
+     * @return decodedString
      */
-    public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+    public static String decodeString(String str) {      
+    	String [] arrayOfLetters = str.split("");   	
+    	String decodedString = "";
+    	
+    	for(int i = 0; i < arrayOfLetters.length; i++) {
+    		String decodedLetter; 		
+    		decodedLetter = ENCODING.get(arrayOfLetters[i]);	    		
+    	
+                // If the decoded letter returns null bc it's not in the ENCODING, return the original letter or character
+                // else return the decoded letter
+    		if(decodedLetter == null) 
+    		{
+                    decodedString += arrayOfLetters[i];
+    		} 
+    		else 
+    		{
+                    decodedString += decodedLetter;
+    		}
+        }
+        return decodedString;
     }
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
      * @param line
-     * @return
+     * @return decoded Ingredient
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
+    	String [] splitLine = line.split("#");
+    	String encodedAmount = splitLine[0];
+    	String encodedDescription = splitLine[1];
+        
+        String decodedAmount = decodeString(encodedAmount);
+        String decodedDescription = decodeString(encodedDescription);
+    	
+        return new Ingredient(decodedAmount, decodedDescription);
     }
 
     public static void main(String[] args) {
