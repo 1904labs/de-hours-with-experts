@@ -1,8 +1,11 @@
 package com.labs1904;
 
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -52,14 +55,18 @@ public class SecretRecipeDecoder {
      * @return decodedString
      */
     public static String decodeString(String str) {      
-    	String [] arrayOfLetters = str.split("");   	
+        
     	String decodedString = "";
+        
+        // Split each letter into its own string
+        String [] arrayOfLetters = str.split("");
     	
+        // Decode each letter
     	for(int i = 0; i < arrayOfLetters.length; i++) {
-    		String decodedLetter; 		
-    		decodedLetter = ENCODING.get(arrayOfLetters[i]);	    		
+            		
+    		String decodedLetter = ENCODING.get(arrayOfLetters[i]);	    		
     	
-                // If the decoded letter returns null bc it's not in the ENCODING, return the original letter or character
+                // If the decoded letter returns null, indicating it's not in ENCODING, return the original character
                 // else return the decoded letter
     		if(decodedLetter == null) 
     		{
@@ -70,6 +77,7 @@ public class SecretRecipeDecoder {
                     decodedString += decodedLetter;
     		}
         }
+        
         return decodedString;
     }
 
@@ -79,17 +87,41 @@ public class SecretRecipeDecoder {
      * @return decoded Ingredient
      */
     public static Ingredient decodeIngredient(String line) {
-    	String [] splitLine = line.split("#");
+    	
+        // Split amount and description into their own strings
+        String [] splitLine = line.split("#");
     	String encodedAmount = splitLine[0];
     	String encodedDescription = splitLine[1];
         
+        // Decode amount and description
         String decodedAmount = decodeString(encodedAmount);
         String decodedDescription = decodeString(encodedDescription);
     	
         return new Ingredient(decodedAmount, decodedDescription);
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) {     
+        
+        try
+        {
+            // Create .txt file
+            PrintWriter decodedRecipeFile = new PrintWriter("decoded_recipe.txt", "UTF-8");
+                      
+            // Read secret recipe
+            File secretRecipe = new File("src/main/resources/secret_recipe.txt");
+            Scanner myReader = new Scanner(secretRecipe);
+            
+            // Decode each line and write it to new .txt file
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                Ingredient decodedIngredient = decodeIngredient(data);
+                decodedRecipeFile.println(String.format("%s %s", decodedIngredient.getAmount(), decodedIngredient.getDescription()));
+            }
+            myReader.close();
+            decodedRecipeFile.close();          
+        }
+        catch (Exception ex){
+            System.out.println("There was an error when trying to decode the recipe. Try again. " + ex.getMessage());
+        }       
     }
 }
