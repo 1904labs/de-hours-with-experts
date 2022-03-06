@@ -53,17 +53,33 @@ class Ingredient():
 
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-
+    decoded_character_list = [ENCODING[character] if character in ENCODING.keys() else character for character in str]
+    decoded_string = "".join(decoded_character_list)
+    return decoded_string
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
+    seperated_strings = line.split('#')
+    decoded_amount = decode_string(seperated_strings[0])
+    decoded_description = decode_string(seperated_strings[1])
+    return Ingredient(decoded_amount, decoded_description)
 
-
-def main():
+def main(filepath):
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+
+    with open(filepath, 'r') as encoded_recipe:
+        with open('decoded_recipe.txt', 'w') as decoded_recipe:
+            for encoded_ingredient in encoded_recipe:
+                decoded_ingredient = decode_ingredient(encoded_ingredient)
+                decoded_recipe.write(f'{decoded_ingredient.amount} {decoded_ingredient.description}')
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        file = open(sys.argv[1], 'r')
+        main(os.path.realpath(file.name))
+        file.close()
+    except IndexError:
+        file = open('secret_recipe.txt')
+        main(os.path.realpath(file.name))
+        file.close()
