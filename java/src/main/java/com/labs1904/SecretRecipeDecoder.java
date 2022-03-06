@@ -3,6 +3,7 @@ package com.labs1904;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -115,34 +116,34 @@ public class SecretRecipeDecoder {
             }
         }
 
-
             return new Ingredient(amountInRecipe, ingredientInRecipe);
     }
-
-
-
-
-
-
 
 
     public static void main(String[] args) {
         // TODO: implement me
        // SecretRecipeDecoder secretRecipeDecoder = new SecretRecipeDecoder();
+        String amount;
+        String description;
+        String wholeThingTogether;
         try {
             File recipeList = new File("src/main/resources/secret_recipe.txt");
+            File decoded  = new File("src/main/resources/decoded_recipe.txt");
+            PrintStream moveItOver = new PrintStream(decoded);
             Scanner readRecipeList = new Scanner(recipeList);
             while (readRecipeList.hasNextLine()) {
                 String wholeRecipe = readRecipeList.nextLine();
-                System.out.println(wholeRecipe);
+               amount = SecretRecipeDecoder.decodeIngredient(wholeRecipe).getAmount();
+                description = SecretRecipeDecoder.decodeIngredient(wholeRecipe).getDescription();
+                wholeThingTogether = amount + " " + description;
+                System.setOut(moveItOver);
+                System.out.println(wholeThingTogether);
             }
             readRecipeList.close();
         } catch (FileNotFoundException e) {
             System.out.println("Something went wrong. Yikes!");
             e.printStackTrace();
         }
-        System.out.println(SecretRecipeDecoder.decodeIngredient("8 vgl#hgiikf"));
-
 
 
     }
