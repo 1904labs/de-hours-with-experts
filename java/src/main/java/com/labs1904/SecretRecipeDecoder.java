@@ -58,22 +58,18 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        String decodedString;
-        List<String> decodedChars = new ArrayList<>();
-        HashMap<Integer, Character> secretStrMap = new HashMap<>();
-        //Map<Integer, String> secretStrMap = new HashMap<Integer, String>() {
+        String decodedString = "";
         for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            secretStrMap.put(i, c);
-        }
-        for (Character secretStr : secretStrMap.values()) {
-            if (ENCODING.containsKey(Character.toString(secretStr))) {
-                decodedChars.add(ENCODING.get(Character.toString(secretStr)));
-            } else {
-                decodedChars.add(Character.toString(secretStr));
+            if (ENCODING.containsKey(Character.toString(str.charAt(i)))) {
+                decodedString += ENCODING.get(Character.toString(str.charAt(i)));
+            } else if (str.charAt(i)==(' ')) {
+                decodedString += " ";
+            } else if (str.charAt(i)==('/')) {
+                decodedString += "/";
+            } else if (str.charAt(i)==('#')) {
+                decodedString += "#";
             }
         }
-        decodedString = String.join("", decodedChars);
         return decodedString;
     }
 
