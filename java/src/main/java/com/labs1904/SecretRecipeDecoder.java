@@ -3,6 +3,11 @@ package com.labs1904;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +58,17 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        String[] strArray = str.split("");
+        String decoded = "";
+
+        for (int i = 0; i < strArray.length; i++) {
+            if(strArray[i].isBlank() || strArray[i].matches("^.*[^a-zA-Z0-9 ].*$")) {
+                decoded = decoded + strArray[i];
+            } else {
+                decoded = decoded + ENCODING.get(strArray[i]);  
+            }
+        }
+        return decoded;
     }
 
     /**
@@ -63,10 +78,34 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        String amount = decodeString(line.split("#")[0]);
+        String description = decodeString(line.split("#")[1]);
+
+        Ingredient newIngredient = new Ingredient(amount, description);
+
+        return newIngredient;
     }
 
-    public static void main(String[] args) {
+    
+
+    public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         // TODO: implement me
+        try {
+            File myObj = new File("java\\src\\main\\resources\\secret_recipe.txt");
+            Scanner myReader = new Scanner(myObj);
+            PrintWriter myWriter = new PrintWriter("decoded_recipe.txt", "UTF-8");
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                Ingredient currentIngredient = decodeIngredient(data);
+
+                myWriter.println(currentIngredient.getAmount() + " " + currentIngredient.getDescription());
+            }
+            myReader.close();
+            myWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error has occurred.");
+            e.printStackTrace();
+        }
     }
 }
