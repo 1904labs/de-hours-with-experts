@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import pydoc
+import string
 import sys
 import os
 
@@ -54,16 +55,37 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
+    decoded_string = " "
+    for i, value in enumerate(str.lower()):
+        if str[i] in ENCODING:
+            decoded_string = decoded_string + (ENCODING.get(value))
+        else:
+            decoded_string += " "
+
+    return decoded_string
+
+
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
+    line = line.split('#')
+    decoded = ""
+    for i in line:
+        decoded = decoded + " " + decode_string(i)
+    print(f"{decoded}")
 
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    decode_string("vglhgiikf")
 
+f = open("secret_recipe.txt", "rt")
+for line in f:
+    decode_ingredient(line)
 if __name__ == "__main__":
     main()
+
+

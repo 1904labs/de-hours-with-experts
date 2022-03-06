@@ -7,6 +7,7 @@ import java.util.Map;
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
         {
+
             put("y", "a");
             put("h", "b");
             put("v", "c");
@@ -51,9 +52,24 @@ public class SecretRecipeDecoder {
      * @param str
      * @return
      */
-    public static String decodeString(String str) {
+    public static String decodeString(String str, HashMap<String, String> Encoder) {
         // TODO: implement me
-        return "";
+//        static String decodeString(String value,HashMap<String, String> Encoder) {
+        String[] arrDecodedString = new String [str.length()];
+        for(int i = 0; i < str.length(); i++) {
+            char charAtIndex = str.charAt(i);
+            String stringChar = Character.toString(charAtIndex);
+            for (Map.Entry<String, string> code : ENCODING.entrySet()) {
+                if (code.getKey().equals(stringChar)) {
+                    arrDecodedString[i] = code.getValue();
+                }
+                if (arrDecodedString[i] == null) {
+                    arrDecodedString[i] = stringChar;
+                }
+            }
+        }
+        String decodedString = String.join("", arrDecodedString);
+        return decodedString;
     }
 
     /**
@@ -62,11 +78,35 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
+        // TODO: implement me Implement a function named decodeIngredient that takes a line from the recipe and returns a new Ingredient (a class already defined for you). The # sign delimits the encoded amount and the description of an ingredient. For example, the line 8 vgl#hgiikf would return an Ingredient with an amount of 1 cup and a description of butter
+        String decodedIngredient = decodedIngredientString(line);
+
+        String[] ingredientSplit = decodedIngredient.split("#");
+        Ingredient newIngredient = new Ingredient(ingredientSplit[0], ingredientSplit[1]);
+        return newIngredient;
+
         return null;
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        try {
+            FileWriter writer = new writer("src/main/resources/decoded_recipe.txt");
+            try {
+                File myObj = new File("src/main/resources/secret_recipe.txt");
+                Scanner reader = new Scanner(myObj);
+                while (reader.hasNextLine()) {
+                    String data = reader.nextLine();
+                    Ingredient ingredient = decodeIngredient(data);
+                    writer.write(ingredient.toString() + "\n");
+                }
+                reader.close();
+                writer.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An exception error has  occurred.");
+            }
+        } catch (IOException e) {
+            System.out.println("An IO Exception occurred.");
+        }
     }
 }
