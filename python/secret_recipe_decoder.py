@@ -54,7 +54,6 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
-
     chars = []
     for character in str:
         if character.isalnum():

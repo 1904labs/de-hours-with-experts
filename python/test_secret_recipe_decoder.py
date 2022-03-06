@@ -1,7 +1,7 @@
 from secret_recipe_decoder import decode_ingredient, decode_string, Ingredient
 
 def test_decode_string_can_decode():
-    assert(decode_string("yhv") == "abc") # swapped the arg and output
+    assert(decode_string("yhv") == "abc") # swapped the arg and output. I think this was accidentally switched?
 
 def test_decode_ingredient_can_decode():
     expected = Ingredient("1 cup", "butter")
