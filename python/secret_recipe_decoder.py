@@ -51,9 +51,10 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
+def decode_string(enc_str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
+    return ''.join(map(lambda c : ENCODING[c], enc_str))
+
 
 
 def decode_ingredient(line):
@@ -64,6 +65,7 @@ def decode_ingredient(line):
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    print(decode_string("hgiikf"))
 
 if __name__ == "__main__":
     main()
