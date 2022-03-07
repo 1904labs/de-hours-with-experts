@@ -82,8 +82,6 @@ public class SecretRecipeDecoder {
     }
 
     public static void main(String[] args) {
-
-
         BufferedReader reader;
         PrintWriter writer;
         try {
