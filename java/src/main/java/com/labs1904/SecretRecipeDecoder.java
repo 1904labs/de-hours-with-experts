@@ -1,6 +1,7 @@
 package com.labs1904;
 
-
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,8 +53,24 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+
+        // Build reverse Map
+        Map<String, String> Decoding = new HashMap<>();
+        for (Map.Entry<String, String> entry : ENCODING.entrySet()) {
+            Decoding.put(entry.getValue(), entry.getKey());
+        }
+
+        String decoded = "";
+        String[] splitStr = str.split("");
+         for (int i=0; i<splitStr.length; i++) {
+            if (splitStr[i].equals(" ")) {
+                decoded += " ";
+            }
+            else
+                decoded += Decoding.get(splitStr[i]);
+         }
+
+        return decoded;
     }
 
     /**
@@ -61,12 +78,31 @@ public class SecretRecipeDecoder {
      * @param line
      * @return
      */
-    public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
+
+
+     public static Ingredient decodeIngredient(String line) {
+        // separate amount using # delimiter
+        String[] amountDescription = line.split("#");
+        
+        return new Ingredient(decodeString(amountDescription[0]), decodeString(amountDescription[1]));
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        try (
+            InputStream is = SecretRecipeDecoder.class.getResourceAsStream("/secret_repipe.txt");
+            InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(streamReader);
+            PrintWriter writer = 
+            new PrintWriter(
+                  new File(SecretRecipeDecoder.class.getResource("/decoded_recipe.txt").getPath()));
+            )
+        {
+            String ingredient;
+            while ((ingredient = reader.readLine()) != null) {
+                writer.print(decodeIngredient(ingredient));;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
