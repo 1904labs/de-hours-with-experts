@@ -52,13 +52,48 @@ class Ingredient():
 
 
 def decode_string(str):
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
+    encoded_string = str
+    encoded_string_in_arr = []
+    decoded_string = ""
+
+    for char in range(len(encoded_string)):
+        encoded_string_in_arr.append(encoded_string[char])
+
+    for char in range(len(encoded_string_in_arr)):
+        if encoded_string_in_arr[char] in ENCODING:
+            encoded_string_in_arr[char] = ENCODING[encoded_string_in_arr[char]]
+            decoded_string = decoded_string + encoded_string_in_arr[char]
+
+    return decoded_string
 
 
 def decode_ingredient(line):
-    """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
+    encoded_line_separated_by_spaces = line
+    encoded_line_in_arr_separated_by_spaces = encoded_line_separated_by_spaces.split(" ")
+    encoded_line_in_arr = []
+    decoded_amount = ""
+    decoded_description = ""
+    print("This is the recipe line separated by spaces: " + str(encoded_line_in_arr_separated_by_spaces))
+
+    for char in range(len(encoded_line_in_arr_separated_by_spaces)):
+        encoded_word_separated_by_pound_symbol = encoded_line_in_arr_separated_by_spaces[char].split("#")
+        print("this is the separated list by #: " + str(encoded_word_separated_by_pound_symbol))
+        if (len(encoded_word_separated_by_pound_symbol)>1):
+            decoded_description += str(decode_string(encoded_word_separated_by_pound_symbol[1]))
+        encoded_line_in_arr.append(encoded_word_separated_by_pound_symbol)
+
+    print(encoded_line_in_arr)
+
+    amount_cnt = 1
+
+    for i in range(len(encoded_line_in_arr)):
+        for j in range(len(encoded_line_in_arr[i])):
+            if ( (len(encoded_line_in_arr[i]) > 1)  and (amount_cnt < 2)):
+                decoded_amount += decode_string(encoded_line_in_arr[i][j])
+                amount_cnt += 1
+
+    print("this is the amount: " + decoded_amount)
+    print("this is the description: " + decoded_description)
 
 
 def main():
