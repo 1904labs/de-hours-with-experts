@@ -53,6 +53,9 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
+        //pass in a string
+        //iterate through ENCODING for each key and return value
+        //return string of values
         return "";
     }
 
@@ -63,6 +66,9 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
+        //using the # as the divider pass in a string
+        //iterate through ENCODING for each key and return value
+        //return string of values seperated by a space
         return null;
     }
 
