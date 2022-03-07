@@ -6,7 +6,7 @@ import org.junit.Test;
 public class TestSecretRecipeDecoder {
     @Test
     public void testDecodeString() {
-        Assert.assertEquals("yhv", SecretRecipeDecoder.decodeString("abc"));
+        Assert.assertEquals("abc", SecretRecipeDecoder.decodeString("yhv"));
     }
 
     @Test

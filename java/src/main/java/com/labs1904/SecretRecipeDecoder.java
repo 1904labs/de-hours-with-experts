@@ -1,7 +1,10 @@
 package com.labs1904;
 
 
+import java.io.PrintStream;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class SecretRecipeDecoder {
@@ -48,25 +51,68 @@ public class SecretRecipeDecoder {
 
     /**
      * Given a string named str, use the Caesar encoding above to return the decoded string.
+     *
      * @param str
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+
+        String result = "";
+
+
+        for (int i = 0; i < str.length(); i++) {
+
+            if(ENCODING.containsKey(Character.toString(str.charAt(i)))){
+                result = result + ENCODING.get(Character.toString(str.charAt(i)));
+            }
+
+        }
+        return result;
     }
+
+    ;
+
+//    for(Map.Entry<String, String>entry: ENCODING.entrySet()) {
+////
+//        String key = entry.getKey();
+//        String value = entry.getValue();
+
+
+//        if(str.equals(ENCODING.keySet())) {
+//
+//            System.out.println(ENCODING.values());
+//
+//        }
+
+    // TODO: implement me
+//        return ENCODING.get(str);
+
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
+     *
      * @param line
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
+        String amount = decodeString(line.split("#")[0]);
+        String description = decodeString(line.split("#")[1]);
+
+        Ingredient newIngredient = new Ingredient(amount, description);
+
+
+
         // TODO: implement me
-        return null;
+        return newIngredient;
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+
+
+        System.out.print(decodeString("hgiikf"));
+
+
+
     }
 }
+
