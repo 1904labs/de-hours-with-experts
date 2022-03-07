@@ -48,25 +48,31 @@ public class SecretRecipeDecoder {
     };
 
     /**
-     * Given a string named str, use the Caesar encoding above to return the decoded string.
-     * @param str
+     * Given a string named input , use the Caesar encoding above to return the decoded string.
+     * @param input 
      * @return
      */
-    public static String decodeString(String str) {
+    public static String decodeString(String input ) {
         // TODO: implement me
+        // StringBuilder output = new StringBuilder();
+        // for (Character c : input.toCharArray()) {
+        //     output.append(ENCODING.getOrDefault(c, c));
+        // }
+        // System.out.println(output.toString());
+
         //CREATE LIST
         List<String> ingredient = new ArrayList<>();
         //LOOP STRING
-        for (int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < input .length(); i++) {
             //IF LETTER
-            if(Character.isLetter(str.charAt(i))){
-                ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))));
+            if(Character.isLetter(input .charAt(i))){
+                ingredient.add(ENCODING.get(String.valueOf(input .charAt(i))));
             }//IF NUMBER
-            else if(Character.isDigit(str.charAt(i))){
-                ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))));
+            else if(Character.isDigit(input .charAt(i))){
+                ingredient.add(ENCODING.get(String.valueOf(input .charAt(i))));
             }//IF NEITHER
             else{
-                ingredient.add(String.valueOf(str.charAt(i)));
+                ingredient.add(String.valueOf(input .charAt(i)));
             }
         }
         //STRING LIST TO STRING
@@ -82,7 +88,6 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
         //SPLIT INTO ARRAY
         String[] stringArray = line.split("#");
         //TO STRING()
