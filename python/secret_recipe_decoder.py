@@ -50,20 +50,47 @@ class Ingredient():
         self.amount = amount
         self.description = description
 
-
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
+    # for each encoded str, loop through it, get its corresponding de-coded char?
+    decoded_str = ''
+    for c in str:
+        if c.isalpha() or c.isdigit():
+            decoded_str += ENCODING[c]
+        else:
+            decoded_str += c
+            
+    
+    return decoded_str
 
+# print (decode_string('hgiikf'))
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
+    # decode each line, separate the amount and description and creat new Ingredient instance
 
+    decoded_line = decode_string(line)
+    amount, description = decoded_line.split('#')
+    new_ingredient = Ingredient(amount, description)
+
+    return new_ingredient
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    # read, get each line of recipe instruction, decode
+    new_file = open('decoded_recipe.txt', 'w')
+    
+    with open('secret_recipe.txt', 'r') as recipe_file:
+        lines = recipe_file.readlines()
+        for line in lines:
+            print (line)
+            new_ingredient = decode_ingredient(line)
+            decoded_line =  new_ingredient.amount + ' ' + new_ingredient.description
+            new_file.write(decoded_line)
 
-if __name__ == "__main__":
-    main()
+
+
+main()
