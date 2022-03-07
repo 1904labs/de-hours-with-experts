@@ -1,8 +1,11 @@
 package com.labs1904;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.System.*;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -51,8 +54,10 @@ public class SecretRecipeDecoder {
      * @param str
      * @return
      */
+        //decodeString will accept a string and then split it into an arrayList. The list will then be looped through using the character at each index as a key for the hashMap. The resulting arrayList will then be concatenated together into a new string containing the decoded word.
     public static String decodeString(String str) {
-        str = ENCODING.get("h") + ENCODING.get("g") + ENCODING.get("i") + ENCODING.get("i") + ENCODING.get("k") + ENCODING.get("f");
+        ArrayList<String> splitStr = new ArrayList<>();
+
         return str;
     }
 
@@ -67,6 +72,6 @@ public class SecretRecipeDecoder {
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+
     }
 }
