@@ -1,8 +1,11 @@
 package com.labs1904;
 
 
+import java.io.*;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -52,8 +55,12 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        StringBuilder translation= new StringBuilder();
+        String[] messageArray= str.split("");
+        for (String key : messageArray) {
+            translation.append(ENCODING.getOrDefault(key, key));
+        }
+        return translation.toString();
     }
 
     /**
@@ -62,11 +69,25 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
+        String[] lineArray = line.split("#");
+        String amount = decodeString(lineArray[0]);
+        String description = decodeString(lineArray[1]);
+        return new Ingredient(amount, description);
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) throws Exception {
+        PrintWriter recipe = new PrintWriter("decoded_recipe.txt");
+        URL url = SecretRecipeDecoder.class.getResource("/secret_recipe.txt");
+        assert url != null;
+        File file = new File(url.getPath());
+        Scanner getIngredient = new Scanner(file);
+
+        while (getIngredient.hasNextLine()){
+            Ingredient decodedIngredient = decodeIngredient(getIngredient.nextLine());
+            String theIngredient = String.format("%1$s %2$s", decodedIngredient.getAmount(), decodedIngredient.getDescription());
+            recipe.println(theIngredient);
+        }
+        getIngredient.close();
+        recipe.close();
     }
 }
