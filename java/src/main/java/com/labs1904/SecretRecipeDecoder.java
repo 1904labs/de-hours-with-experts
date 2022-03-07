@@ -1,8 +1,10 @@
 package com.labs1904;
 
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +55,24 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        //declare and initiate decodedStr
+        String decodedStr ="";
+
+        //loop through str chars
+        for(int i= 0 ; i < str.length(); i++) {
+            // change str.charAt(i) to be String type
+            String decodedSingleStr = String.valueOf(str.charAt(i));
+
+            //find decodedSingleStr use ENCODING.get(String str.charAt(i))
+            if (ENCODING.containsKey(decodedSingleStr)) {
+
+                //increment str chars under 2 senarios, with or without containskeys from ENCODING
+                decodedStr += ENCODING.get(decodedSingleStr);
+            } else {
+                decodedStr += String.valueOf(str.charAt(i));
+            }
+            }
+        return decodedStr;
     }
 
     /**
@@ -63,10 +82,40 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        // split line to 2 elements str[] array
+       String[] amountWithIngredient = line.split("#");
+
+        // reach each elements with arr[0], and arr[1], with decodeString method defined above to decode each array elements
+        String amount = decodeString(amountWithIngredient[0]);
+        String description = decodeString(amountWithIngredient[1]);
+
+        return new Ingredient(amount, description);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO: implement me
+        File secret_recipe = new File("java/src/main/resources/secret_recipe.txt");
+        // read secret_recipe.txt with Scanner
+        Scanner scanner = new Scanner(secret_recipe);
+        // loop through each line until no line
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+
+            //decodeIngredient each line
+            Ingredient decodedLine = decodeIngredient(line);
+
+            //create a new file named `decoded_recipe.txt` with FileWriter, set append true
+            FileWriter myWriter = new FileWriter("java/src/main/resources/decoded_recipe.txt", true);
+
+            //write each decodedLine to `decoded_recipe.txt`
+            myWriter.write(String.valueOf(decodedLine));
+
+            //write newline after each decodedLine, close writer
+            myWriter.write("\r\n");
+            myWriter.close();
+
+            System.out.println(decodedLine);
+        }
+
     }
 }
