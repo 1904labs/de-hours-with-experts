@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import codecs
 import pydoc
 import sys
 import os
@@ -50,20 +51,27 @@ class Ingredient():
         self.amount = amount
         self.description = description
 
+    def decode_string(str):
+        return codecs.decode(str, encoding='ENCODING', errors='strict')
 
-def decode_string(str):
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
+    def decode_ingredient(line):
+        """Given an ingredient, decode the amount and description, and return a new Ingredient"""
+        # Insert decoding function here
+        # Parses amount from description
+        new_ingredient = Ingredient()
+        split_ingredient = line.split('#')
+        new_ingredient.amount, new_ingredient.description = split_ingredient[0], split_ingredient[1]
 
+    def main():
+        """A program that decodes a secret recipe"""
+        # Reads secret recipe file
+        open('python/secret_recipe.txt','r')
+        secret_recipe = open('python/secret_recipe.txt', 'r')
+        encoded_recipe = secret_recipe.read()
+        secret_recipe.close()
 
-def decode_ingredient(line):
-    """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
+        decoded_recipe = codecs.decode(encoded_recipe, encoding='ENCODING', errors='strict')
+        print(decoded_recipe)
 
-
-def main():
-    """A program that decodes a secret recipe"""
-    # TODO: implement me
-
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        main()
