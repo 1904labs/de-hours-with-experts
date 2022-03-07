@@ -1,8 +1,13 @@
 package com.labs1904;
 
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.File;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -43,6 +48,10 @@ public class SecretRecipeDecoder {
             put("9", "7");
             put("1", "8");
             put("6", "9");
+            put(" ", " ");
+            put("/", "/");
+            put(",", ",");
+            put("-", "-");
         }
     };
 
@@ -52,8 +61,13 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+        String newString = "";
+
+        for (int i = 0; i < str.length(); i++) {
+            newString += ENCODING.get(str.substring(i, i+1));
+        }
+
+        return newString;
     }
 
     /**
@@ -62,11 +76,30 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
+        String[] gredArr = line.split("#");
+
+        return new Ingredient(decodeString(gredArr[0]), decodeString(gredArr[1]));
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+
+
+        BufferedReader reader;
+        PrintWriter writer;
+        try {
+            reader = new BufferedReader(new FileReader("D:\\Code\\LaunchCode\\de-hours-with-experts\\java\\src\\main\\resources/secret_recipe.txt"));
+            writer = new PrintWriter(new File("D:\\Code\\LaunchCode\\de-hours-with-experts\\java\\src\\main\\resources/decoded_recipe.txt"));
+            String line = reader.readLine();
+            while (line != null) {
+                Ingredient thisGred = decodeIngredient(line);
+                writer.write(thisGred.getAmount() + " " + thisGred.getDescription() + System.getProperty("line.separator"));
+                line = reader.readLine();
+            }
+            reader.close();
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
