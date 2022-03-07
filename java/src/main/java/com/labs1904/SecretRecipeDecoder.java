@@ -70,19 +70,6 @@ public class SecretRecipeDecoder {
         return result;
     }
 
-    ;
-
-//    for(Map.Entry<String, String>entry: ENCODING.entrySet()) {
-////
-//        String key = entry.getKey();
-//        String value = entry.getValue();
-
-
-//        if(str.equals(ENCODING.keySet())) {
-//
-//            System.out.println(ENCODING.values());
-//
-//        }
 
     // TODO: implement me
 //        return ENCODING.get(str);
