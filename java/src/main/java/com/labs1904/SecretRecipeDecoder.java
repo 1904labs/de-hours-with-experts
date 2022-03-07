@@ -53,7 +53,13 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        String decodedStr="";
+        for (int i = 0; i < str.length(); i++) {
+
+            decodedStr+=ENCODING.get(String.valueOf(str.charAt(i)));
+        }
+        //System.out.println(decodeStr);
+        return decodedStr;
     }
 
     /**
@@ -63,7 +69,39 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+
+        String [] lines=line.split(("[#]"));
+        String quantity="";
+        String ingredient="";
+        String quantity1;
+        String decodedQuantity="";
+        String ingredient1;
+        String decodedIngredient="";
+        //for(String s:lines)
+        // System.out.println(s);
+        for (int i = 0; i < lines.length; i++) {
+            quantity = lines[0];
+            ingredient = lines[1];
+        }
+        for (int j = 0; j < lines[0].length(); j++) {
+
+            for (Map.Entry entry : ENCODING.entrySet()){
+                if (entry.getKey().equals(String.valueOf(quantity.charAt(j)))) {
+                    decodedQuantity += entry.getValue();
+                }
+            }
+            //System.out.println(decodedQuantity);
+        }
+        for (int k = 0; k < lines[1].length(); k++) {
+
+            for (Map.Entry entry : ENCODING.entrySet()) {
+                if (entry.getKey().equals(String.valueOf(ingredient.charAt(k)))) {
+                    decodedIngredient += entry.getValue();
+                }
+            }
+        }
+        //System.out.println(decodedIngredient);
+            return Ingredient(decodedQuantity,decodedIngredient);
     }
 
     public static void main(String[] args) {
