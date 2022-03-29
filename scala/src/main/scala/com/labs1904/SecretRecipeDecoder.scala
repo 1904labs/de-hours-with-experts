@@ -1,5 +1,5 @@
 package com.labs1904
-
+import java.util
 import scala.collection.immutable.HashMap
 
 /**
@@ -54,14 +54,33 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String  = ???
+  def decodeString(str: String): String  = {
+
+    val ingredient = new util.ArrayList[String]
+    //LOOP STRING
+    for (i <- 0 until str.length) {
+      if(Character.isLetter(str.charAt(i))){
+        ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))).toString)
+      }else if(Character.isDigit(str.charAt(i))){
+        ingredient.add(ENCODING.get(String.valueOf(str.charAt(i))).toString)
+      }else {
+        ingredient.add(String.valueOf(str.charAt(i)))
+      }
+    }
+    val joined = String.join("", ingredient)
+    String.valueOf(joined)
+  }
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
    * @param line An encoded ingredient.
    * @return
    */
-  def decodeIngredient(line: String): Ingredient = ???
+  def decodeIngredient(line: String): Ingredient = {
+    val stringArray = line.split("#")
+    val newIngredient = Ingredient(decodeString(stringArray(0)), decodeString(stringArray(1)))
+    newIngredient
+  }
 
   /**
    * A program that decodes a secret recipe
