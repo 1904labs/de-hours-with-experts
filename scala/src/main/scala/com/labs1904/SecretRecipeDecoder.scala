@@ -1,6 +1,8 @@
 package com.labs1904
 
+import java.io.PrintWriter
 import scala.collection.immutable.HashMap
+import scala.io.Source
 
 /**
  * An ingredient has an amount and a description.
@@ -54,20 +56,39 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String  = ???
+  def decodeString(str: String): String  = {
+    val decodedStr = str.flatMap(c => if (c.isDigit || c.isLetter) ENCODING(c.toString) else c.toString)
+    return decodedStr
+  }
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
    * @param line An encoded ingredient.
    * @return
    */
-  def decodeIngredient(line: String): Ingredient = ???
+  def decodeIngredient(line: String): Ingredient = {
+    val decodedLine = decodeString(line)
+    val ingredients = decodedLine.split("#")
+    return Ingredient(ingredients(0), ingredients(1))
+  }
 
   /**
    * A program that decodes a secret recipe
    * @param args
    */
   def main(args: Array[String]): Unit = {
-    // TODO: implement me
+    val finalFile = new PrintWriter("decoded_recipe.txt")
+    // read the secret_recipe.txt file and read its content line by line
+    val fileStream = getClass.getResourceAsStream("/secret_recipe.txt")
+    val lines = Source.fromInputStream(fileStream).getLines()
+
+    // iterate through each line in the secret_recipe.txt, decode and write to the file
+    lines.foreach(line =>{
+      val decodedIngredient = decodeIngredient(line)
+      val decodedLine = decodedIngredient.amount + " " + decodedIngredient.description + "\n"
+      finalFile.write(decodedLine)
+    })
+    //close
+    finalFile.close()
   }
 }
