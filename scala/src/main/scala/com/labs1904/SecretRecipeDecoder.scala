@@ -54,14 +54,20 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String  = ???
+  def decodeString(str: String): String  = str.map(c => ENCODING.getOrElse(c.toString," ")).mkString("")
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
    * @param line An encoded ingredient.
    * @return
    */
-  def decodeIngredient(line: String): Ingredient = ???
+  def decodeIngredient(line: String): Ingredient = {
+    val ingredientValues = line.split("#").map(s => decodeString(s))
+    val decodedIngredient = Ingredient (ingredientValues(0),ingredientValues(1))
+    return decodedIngredient
+  }
+
+
 
   /**
    * A program that decodes a secret recipe
