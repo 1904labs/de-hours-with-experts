@@ -53,7 +53,7 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "";
+        return "1 cup";
     }
 
     /**
@@ -63,7 +63,7 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return null;
+        return new Ingredient("1 cup", "butter");
     }
 
     public static void main(String[] args) {

@@ -54,14 +54,20 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String  = ???
+  def decodeString(str: String): String = {
+    // todo: implement me
+    "1 cup"
+  }
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
    * @param line An encoded ingredient.
    * @return
    */
-  def decodeIngredient(line: String): Ingredient = ???
+  def decodeIngredient(line: String): Ingredient = {
+    // todo: implement me
+    Ingredient("1 cup", "butter")
+  }
 
   /**
    * A program that decodes a secret recipe
