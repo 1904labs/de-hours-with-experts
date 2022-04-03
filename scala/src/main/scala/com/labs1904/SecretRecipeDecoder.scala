@@ -1,6 +1,9 @@
 package com.labs1904
 
+//import java.io.{File, PrintWriter}
+import java.io._
 import scala.collection.immutable.HashMap
+import scala.io.Source
 
 /**
  * An ingredient has an amount and a description.
@@ -54,7 +57,7 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String  = str.map(c => ENCODING.getOrElse(c.toString," ")).mkString("")
+  def decodeString(str: String): String  = str.map(c => ENCODING.getOrElse(c.toString,c)).mkString("")
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -74,6 +77,15 @@ object SecretRecipeDecoder {
    * @param args
    */
   def main(args: Array[String]): Unit = {
-    // TODO: implement me
+    val bufferedSource = Source.fromFile("src\\main\\resources\\secret_recipe.txt")
+    val pw = new PrintWriter(new File("decoded_recipe.txt"))
+
+    for (line <- bufferedSource.getLines) {
+      val ingredient = decodeIngredient(line)
+      pw.write(ingredient.amount + " " + ingredient.description + "\n")
+    }
+
+    bufferedSource.close
+    pw.close
   }
 }

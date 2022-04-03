@@ -1,6 +1,5 @@
 package com.labs1904;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
