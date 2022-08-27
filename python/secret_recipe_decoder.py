@@ -53,17 +53,28 @@ class Ingredient():
 
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-
+    trans = str.maketrans(ENCODING)
+    return str.translate(trans)
+       
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
+    strings = line.split('#')
+    return Ingredient(decode_string(strings[0]), decode_string(strings[1]))
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    recipe_file = open('secret_recipe.txt', 'r')
+    decoded_file = open('decoded_recipe.txt', 'w')
+    lines = recipe_file.readlines()
+
+    for line in lines:
+        ingredient = decode_ingredient(line)
+        decoded_file.write(ingredient.amount + ' ' + ingredient.description)
+    
+    decoded_file.close()
+    recipe_file.close()
 
 if __name__ == "__main__":
     main()
