@@ -6,9 +6,8 @@ import org.junit.Test;
 public class TestSecretRecipeDecoder {
     @Test
     public void testDecodeString() {
-        Assert.assertEquals("yhv", SecretRecipeDecoder.decodeString("abc"));
+        Assert.assertEquals("1 cup", SecretRecipeDecoder.decodeString("8 vgl"));
     }
-
     @Test
     public void testDecodeIngredient() {
         Ingredient expected = new Ingredient("1 cup", "butter");
