@@ -56,7 +56,7 @@ def decode_string(string: str, encoder_dict: dict = ENCODING) -> str:
     return ''.join([encoder_dict[c] if c in encoder_dict.keys() else c for c in string])
 
 
-def decode_ingredient(line):
+def decode_ingredient(line: str) -> Ingredient:
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     amt, desc = tuple(map(decode_string, line.split("#")))
                            
@@ -65,7 +65,13 @@ def decode_ingredient(line):
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
-
+    # read in and create a list of ingredient objects
+    with open("secret_recipe.txt") as f:
+        ingreds = [decode_ingredient(line.strip()) for line in f.readlines()]
+        
+    # write out each ingredient class attr separately
+    with open("decoded_recipe.txt", 'w') as f:
+        [f.write(' '.join([i.amount, i.description, '\n'])) for i in ingreds]
+        
 if __name__ == "__main__":
     main()
