@@ -7,7 +7,9 @@ import scala.collection.immutable.HashMap
  * @param amount For example, "1 cup"
  * @param description For example, "butter"
  */
-case class Ingredient(amount: String, description: String)
+case class Ingredient(amount: String, description: String) {
+  override def toString(): String = s"$amount, $description"
+}
 
 object SecretRecipeDecoder {
   val ENCODING: Map[String, String] = HashMap[String, String](
@@ -54,10 +56,8 @@ object SecretRecipeDecoder {
    * @param str A caesar-encoded string.
    * @return
    */
-  def decodeString(str: String): String = {
-    // todo: implement me
-    "1 cup"
-  }
+  def decodeString(str: String): String = 
+    str.map((char: Char) => this.ENCODING.get(s"$char").getOrElse(s"$char").charAt(0))
 
   /**
    * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -65,8 +65,10 @@ object SecretRecipeDecoder {
    * @return
    */
   def decodeIngredient(line: String): Ingredient = {
-    // todo: implement me
-    Ingredient("1 cup", "butter")
+    val ingredientInputsEncoded: Array[String] = line.split("#")
+    val decodedUnit: String = decodeString(ingredientInputsEncoded(0))
+    val decodedIngredient: String = decodeString(ingredientInputsEncoded(1))
+    Ingredient(decodedUnit, decodedIngredient)
   }
 
   /**
@@ -74,6 +76,11 @@ object SecretRecipeDecoder {
    * @param args
    */
   def main(args: Array[String]): Unit = {
-    // TODO: implement me
+    val destination = new java.io.File("src/main/resources/decoded_recipe.txt")
+    val printWriter = new java.io.PrintWriter(destination)
+    for (line <- scala.io.Source.fromFile("src/main/resources/secret_recipe.txt").getLines()) {
+      printWriter.write(s"${decodeIngredient(line)}\n")
+    }
+    printWriter.close()
   }
 }
