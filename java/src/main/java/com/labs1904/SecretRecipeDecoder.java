@@ -1,8 +1,12 @@
 package com.labs1904;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 public class SecretRecipeDecoder {
 	private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -43,6 +47,7 @@ public class SecretRecipeDecoder {
 			put("9", "7");
 			put("1", "8");
 			put("6", "9");
+			put(" ", " ");
 		}
 	};
 
@@ -55,8 +60,10 @@ public class SecretRecipeDecoder {
 		// TODO: implement me
 		String decodeString = "";
 		for (int i = 0; i < str.length(); i++){
-			if(str.substring(i, i+1) == NULL){
-				decodeString = " ";
+			//used next line of code to debug why my if statement wasn't registering as true for checking for whitespace
+			// String thisSubStr = str.substring(i, i+1);
+			if(str.substring(i, i+1) == " "){
+				decodeString += " ";
 			}
 			decodeString += ENCODING.get(str.substring(i, i+1));
 		}
@@ -70,12 +77,26 @@ public class SecretRecipeDecoder {
 	 */
 	public static Ingredient decodeIngredient(String line) {
 		// TODO: implement me
-		return null;
+		String[] recipeLine = line.split("#");
+		String amount = decodeString(recipeLine[0]);
+		String description = decodeString(recipeLine[1]);
+		return new Ingredient(amount, description);
 	}
 
 	public static void main(String[] args) {
 		// TODO: implement me
 		String newRecipe = decodeString("8 vgl");
+		try {
+			File file = new File("C:\\Users\\TEMP\\source\\repos\\HoursWithExperts\\de-hours-with-experts\\java\\src\\main\\resources\\secret_recipe.txt");
+			BufferedReader secretRecipeText = new BufferedReader(new FileReader(file));
+			StringBuffer sb = new StringBuffer();
+			String line;
+			while((line=secretRecipeText.readLine())!=null) {
+				Ingredient decodedIngred = decodeIngredient(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(newRecipe);
 	}
 }
