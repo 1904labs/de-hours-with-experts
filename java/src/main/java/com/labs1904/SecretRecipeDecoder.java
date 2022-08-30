@@ -76,7 +76,6 @@ public class SecretRecipeDecoder {
 	 * @return
 	 */
 	public static Ingredient decodeIngredient(String line) {
-		// TODO: implement me
 		String[] recipeLine = line.split("#");
 		String amount = decodeString(recipeLine[0]);
 		String description = decodeString(recipeLine[1]);
