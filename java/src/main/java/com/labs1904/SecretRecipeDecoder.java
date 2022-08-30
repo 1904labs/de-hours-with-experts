@@ -1,8 +1,8 @@
 package com.labs1904;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +53,16 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String decodedWord = "";
+        String[] characters = str.split("");
+        for(int i=0; i<str.length(); i++){
+            if(characters[i].equals(" ") || characters[i].equals("/") || characters[i].equals("-")){
+                decodedWord += characters[i];
+            } else {
+                decodedWord += ENCODING.get(characters[i]);
+            }
+        }
+        return decodedWord;
     }
 
     /**
@@ -63,10 +72,39 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] ingredient = line.split("#");
+        return new Ingredient(decodeString(ingredient[0]), decodeString(ingredient[1]));
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        ArrayList<Ingredient> ingredientList = new ArrayList<>();
+
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(
+                    "C:\\Users\\Owner\\Desktop\\Coding Folder\\CodingWithExpertsChallenge\\java\\src\\main\\resources\\secret_recipe.txt"));
+            String line = reader.readLine();
+            while(line != null) {
+                ingredientList.add(decodeIngredient(line));
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter file = new FileWriter("C:\\Users\\Owner\\Desktop\\Coding Folder\\CodingWithExpertsChallenge\\java\\src\\main\\resources\\decoded_recipe.txt");
+            BufferedWriter output = new BufferedWriter(file);
+            for(Ingredient ingredient:ingredientList){
+                String writingIngredient = ingredient.getAmount() + " " + ingredient.getDescription() + "\n";
+                output.write(writingIngredient);
+            }
+            output.close();
+        }
+        catch(Exception e){
+            e.getStackTrace();
+        }
     }
 }
