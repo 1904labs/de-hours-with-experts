@@ -3,6 +3,11 @@ package com.labs1904;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
+import java.io.FileWriter;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -52,8 +57,14 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        String result = "";
+        for(int i=0; i<str.length(); i++){
+            String newSymbol = ENCODING.get(String.valueOf(str.charAt(i)));
+            if(newSymbol == null)
+                newSymbol = String.valueOf(str.charAt(i));
+            result += newSymbol;
+        }
+        return result;
     }
 
     /**
@@ -62,11 +73,28 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] code = line.split("#");
+        String amount = decodeString(code[0]);
+        String description = decodeString(code[1]);
+        return new Ingredient(amount, description);
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+       File file = new File("main/resources/secret_recipe.txt");
+       
+       try (Scanner sc = new Scanner(file, StandardCharsets.UTF_8))
+        {
+            FileWriter writer = new FileWriter("main/resources/decoded_recipe.txt");
+            while (sc.hasNextLine()) {
+                Ingredient ingredient = decodeIngredient(sc.nextLine());
+                System.out.println(ingredient.getAmount() +"<<<>>>"+ ingredient.getDescription());
+                writer.write(ingredient.getAmount() +" " +ingredient.getDescription());
+                writer.write("\n");
+            }
+            writer.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
