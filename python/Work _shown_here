@@ -1,0 +1,156 @@
+from operator import index
+import pydoc
+import sys
+import os
+
+# def decode_string(str):
+#     ENCODING = {
+#     'y': 'a',
+#     'h': 'b',
+#     'v': 'c',
+#     'x': 'd',
+#     'k': 'e',
+#     'p': 'f',
+#     'z': 'g',
+#     's': 'h',
+#     'a': 'i',
+#     'b': 'j',
+#     'e': 'k',
+#     'w': 'l',
+#     'u': 'm',
+#     'q': 'n',
+#     'n': 'o',
+#     'l': 'p',
+#     'm': 'q',
+#     'f': 'r',
+#     'o': 's',
+#     'i': 't',
+#     'g': 'u',
+#     'j': 'v',
+#     't': 'w',
+#     'd': 'x',
+#     'r': 'y',
+#     'c': 'z',
+#     '3': '0',
+#     '8': '1',
+#     '4': '2',
+#     '0': '3',
+#     '2': '4',
+#     '7': '5',
+#     '5': '6',
+#     '9': '7',
+#     '1': '8',
+#     '6': '9', 
+#  }
+
+#     letter = ""
+
+#     for letter in str:
+#         print(ENCODING[letter], end = "")
+
+# decode_string("vsnllkx")
+
+#currently struggling to print spaces and special characters. 
+# Tested adding space to encoding dict, achieved expected result. 
+# Need to successfully edit for loop to print non dict characters
+
+def decode_stuff(j):
+    ENCODING = {
+    'y': 'a',
+    'h': 'b',
+    'v': 'c',
+    'x': 'd',
+    'k': 'e',
+    'p': 'f',
+    'z': 'g',
+    's': 'h',
+    'a': 'i',
+    'b': 'j',
+    'e': 'k',
+    'w': 'l',
+    'u': 'm',
+    'q': 'n',
+    'n': 'o',
+    'l': 'p',
+    'm': 'q',
+    'f': 'r',
+    'o': 's',
+    'i': 't',
+    'g': 'u',
+    'j': 'v',
+    't': 'w',
+    'd': 'x',
+    'r': 'y',
+    'c': 'z',
+    '3': '0',
+    '8': '1',
+    '4': '2',
+    '0': '3',
+    '2': '4',
+    '7': '5',
+    '5': '6',
+    '9': '7',
+    '1': '8',
+    '6': '9', 
+    '': ''
+ }
+    
+    line = ""
+    letter = ""
+    solution = str("")
+
+    for key, value in line.items():
+        if value in ENCODING.keys(): 
+            solution += ENCODING[j[i]]
+        else: 
+            solution += j[i]
+    return solution
+    print(solution)
+
+decode_stuff("TypeError: string indices must be integers")
+# def decrypt():
+#     encrypted_message = ""
+    
+#     ENCODING = ENCODING = {
+#     'y': 'a',
+#     'h': 'b',
+#     'v': 'c',
+#     'x': 'd',
+#     'k': 'e',
+#     'p': 'f',
+#     'z': 'g',
+#     's': 'h',
+#     'a': 'i',
+#     'b': 'j',
+#     'e': 'k',
+#     'w': 'l',
+#     'u': 'm',
+#     'q': 'n',
+#     'n': 'o',
+#     'l': 'p',
+#     'm': 'q',
+#     'f': 'r',
+#     'o': 's',
+#     'i': 't',
+#     'g': 'u',
+#     'j': 'v',
+#     't': 'w',
+#     'd': 'x',
+#     'r': 'y',
+#     'c': 'z',
+#     '3': '0',
+#     '8': '1',
+#     '4': '2',
+#     '0': '3',
+#     '2': '4',
+#     '7': '5',
+#     '5': '6',
+#     '9': '7',
+#     '1': '8',
+#     '6': '9'
+#  }
+    
+#     decrypted_message = ''
+
+    # for c in encrypted_message: 
+    #     if c in 
