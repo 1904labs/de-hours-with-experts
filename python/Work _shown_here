@@ -161,6 +161,11 @@ import os
 # create function, pass through entire recipe
 # recipe = open("/Users/carolina.scalzo/de-hours-with-experts/python/secret_recipe.txt")
 
+# recipe_line = "8 vgl#hgiikf"
+
+# for line in recipe_line: 
+#     line.startswith('#'): continue
+
 ENCODING = {
     'y': 'a',
     'h': 'b',
@@ -199,7 +204,24 @@ ENCODING = {
     '1': '8',
     '6': '9'
  }
+line = "8 vgl#hgiikf"
+
+# for c in line:
+
+#     solution = ""
     
+#     if c in ENCODING: 
+#         solution += str(ENCODING[c])
+#     else:
+#         solution += str(line[c])
+#     print(solution)
+    
+line = "8 vgl#hgiikf"
+
+for c in line:
+    
+    solution = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
+print(solution)
 
 #open file
 with open("/Users/carolina.scalzo/de-hours-with-experts/python/halfrecipe.txt", "r") as encoded_recipe:

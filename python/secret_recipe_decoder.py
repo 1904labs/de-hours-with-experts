@@ -57,11 +57,63 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str): #completed
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
+# def decode_string(str): #completed
+#     """Given a string named str, use the Caesar encoding above to return the decoded string."""
+#     # TODO: implement me
+    
+#     ENCODING = {
+#     'y': 'a',
+#     'h': 'b',
+#     'v': 'c',
+#     'x': 'd',
+#     'k': 'e',
+#     'p': 'f',
+#     'z': 'g',
+#     's': 'h',
+#     'a': 'i',
+#     'b': 'j',
+#     'e': 'k',
+#     'w': 'l',
+#     'u': 'm',
+#     'q': 'n',
+#     'n': 'o',
+#     'l': 'p',
+#     'm': 'q',
+#     'f': 'r',
+#     'o': 's',
+#     'i': 't',
+#     'g': 'u',
+#     'j': 'v',
+#     't': 'w',
+#     'd': 'x',
+#     'r': 'y',
+#     'c': 'z',
+#     '3': '0',
+#     '8': '1',
+#     '4': '2',
+#     '0': '3',
+#     '2': '4',
+#     '7': '5',
+#     '5': '6',
+#     '9': '7',
+#     '1': '8',
+#     '6': '9'
+#  }
+
+#     letter = ""
+
+#     for letter in str:
+#         print(ENCODING[letter], end = "")
+
+# decode_string("hgiikf")
+
+# struggling to use # as delimiter and print items
+# def decode_ingredient(line):
+#     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
     
-    ENCODING = {
+line = "8 vgl#hgiikf"
+ENCODING = {
     'y': 'a',
     'h': 'b',
     'v': 'c',
@@ -99,65 +151,18 @@ def decode_string(str): #completed
     '1': '8',
     '6': '9'
  }
-
-    letter = ""
-
-    for letter in str:
-        print(ENCODING[letter], end = "")
-
-decode_string("hgiikf")
-
-def decode_ingredient(line):
-    """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
     
-    line = ""
-    ENCODING = {
-    'y': 'a',
-    'h': 'b',
-    'v': 'c',
-    'x': 'd',
-    'k': 'e',
-    'p': 'f',
-    'z': 'g',
-    's': 'h',
-    'a': 'i',
-    'b': 'j',
-    'e': 'k',
-    'w': 'l',
-    'u': 'm',
-    'q': 'n',
-    'n': 'o',
-    'l': 'p',
-    'm': 'q',
-    'f': 'r',
-    'o': 's',
-    'i': 't',
-    'g': 'u',
-    'j': 'v',
-    't': 'w',
-    'd': 'x',
-    'r': 'y',
-    'c': 'z',
-    '3': '0',
-    '8': '1',
-    '4': '2',
-    '0': '3',
-    '2': '4',
-    '7': '5',
-    '5': '6',
-    '9': '7',
-    '1': '8',
-    '6': '9'
- }
-    
-    for c in line: 
-        print("".split("#").join(str(ENCODING[c]) if c in ENCODING else c for c in line ))
+for c in line:
+    if line[c] in ENCODING: 
+        solution += ENCODING[c]
+    else: 
+        solution += line[c]
+    print(solution)
         
 
-decode_ingredient("8 vgl#hgiikf")
+# decode_ingredient("nyiukyw")
 
-def main(recipe):
+def main(recipe): #completed
 #     """A program that decodes a secret recipe"""
 #     # TODO: implement me
 
