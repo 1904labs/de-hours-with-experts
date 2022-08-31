@@ -54,7 +54,7 @@ import os
 # Tested adding space to encoding dict, achieved expected result. 
 # Need to successfully edit for loop to print non dict characters
 
-def decode_stuff(j):
+def decode_stuff(recipe):
     ENCODING = {
     'y': 'a',
     'h': 'b',
@@ -95,19 +95,19 @@ def decode_stuff(j):
     '': ''
  }
     
-    line = ""
     letter = ""
-    solution = str("")
+    
+    solution = ""
 
-    for key, value in line.items():
-        if value in ENCODING.keys(): 
+    for letter in str():
+        if str[letter] in ENCODING: 
             solution += ENCODING[j[i]]
         else: 
-            solution += j[i]
-    return solution
+            solution += str[letter]
     print(solution)
 
-decode_stuff("TypeError: string indices must be integers")
+decode_stuff("v")
+
 # def decrypt():
 #     encrypted_message = ""
     
