@@ -1,12 +1,9 @@
 package com.labs1904;
 
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.File;
 
 public class SecretRecipeDecoder {
 	private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -48,6 +45,7 @@ public class SecretRecipeDecoder {
 			put("1", "8");
 			put("6", "9");
 			put(" ", " ");
+			put("/", "/");
 		}
 	};
 
@@ -92,6 +90,10 @@ public class SecretRecipeDecoder {
 			String line;
 			while((line=secretRecipeText.readLine())!=null) {
 				Ingredient decodedIngred = decodeIngredient(line);
+				FileWriter decodedRecipe = new FileWriter("C:\\Users\\TEMP\\source\\repos\\HoursWithExperts\\de-hours-with-experts\\java\\src\\main\\resources\\decoded_recipe.txt");
+				decodedRecipe.write(decodedIngred.getAmount() + " " + decodedIngred.getDescription());
+				line = secretRecipeText.readLine();
+				decodedRecipe.close();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
