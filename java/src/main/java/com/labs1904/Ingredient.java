@@ -24,4 +24,9 @@ public class Ingredient {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return amount + " of " + description;
+    }
 }

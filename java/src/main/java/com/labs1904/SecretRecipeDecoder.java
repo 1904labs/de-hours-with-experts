@@ -1,6 +1,6 @@
 package com.labs1904;
 
-
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +43,10 @@ public class SecretRecipeDecoder {
             put("9", "7");
             put("1", "8");
             put("6", "9");
+            put(" ", " ");
+            put(",", ",");
+            put("-", "-");
+            put("/", "/");
         }
     };
 
@@ -53,7 +57,13 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String decodedStr = "";
+        for (int i = 0; i < str.length(); i++){
+            decodedStr += ENCODING.get(Character.toString(str.charAt(i)));
+        }
+        return decodedStr;
+
+
     }
 
     /**
@@ -63,10 +73,45 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] encodedInfo = line.split("#");
+        String decodedDescr = decodeString(encodedInfo[0]);
+        String decodedIngredient = decodeString(encodedInfo[1]);
+        return new Ingredient(decodedDescr, decodedIngredient);
     }
 
-    public static void main(String[] args) {
+
+
+    public static void main(String[] args) throws IOException {
         // TODO: implement me
+        File file = new File("java/src/main/resources/secret_recipe.txt");
+        StringBuilder sb = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+        String result = sb.toString();
+        String[] encodedList = result.split("\n");
+
+        String recipe = "";
+        for (int i = 0; i < encodedList.length; i++){
+            recipe += decodeIngredient(encodedList[i]) + "\n";
+        }
+        try {
+            FileWriter myWriter = new FileWriter("decoded_recipe.txt");
+            myWriter.write(recipe);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
