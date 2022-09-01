@@ -1,5 +1,10 @@
 package com.labs1904;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +128,7 @@ public class SecretRecipeDecoder {
         // TODO: implement me
         int ind = line.indexOf("#");
         String encodedAmount = line.substring(0, ind);
-        String encodedDescription = line.substring(ind+1, line.length());
+        String encodedDescription = line.substring(ind + 1, line.length());
 
         String amount = decodeString(encodedAmount);
         String description = decodeString(encodedDescription);
@@ -131,7 +136,7 @@ public class SecretRecipeDecoder {
         return new Ingredient(amount, description);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         // TODO: implement me
 //Challenge #1: Decode a string - Implement a function that takes an encoded string and returns 
 //the decoded value (hgiikf is decoded to butter).
@@ -147,12 +152,30 @@ public class SecretRecipeDecoder {
 //and a description of butter.
         System.out.println("Challenge #2");
         String str2 = "8 vgl#hgiikf";
-        
         System.out.println(decodeIngredient(str2).getAmount());
         System.out.println(decodeIngredient(str2).getDescription());
 
 //Challenge #3: Decode the entire recipe - Read all of the ingredients out of secret_recipe.txt, 
 //decode each ingredient (hopefully using the functions you implemented above), 
 //and save the output into a new file named decoded_recipe.txt.
+        System.out.println("Challenge #3");
+        File file = new File(
+                "C:\\dtg\\jobHunting\\20220302for1904labs\\de-hours-with-experts\\java\\src\\main\\resources\\secret_recipe.txt");
+        
+        // Creating an object of BufferedReader class
+        BufferedReader br
+                = new BufferedReader(new FileReader(file));
+
+        // Declaring a string variable
+        String st;
+        List<String> decodeStr111 = new ArrayList<>();
+        // Condition holds true till
+        // there is character in a string
+        
+        while ((st = br.readLine()) != null) {
+            System.out.println(decodeIngredient(st).getAmount() + " "+ decodeIngredient(st).getDescription());
+            
+        }
+
     }
 }
