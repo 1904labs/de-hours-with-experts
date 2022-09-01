@@ -1,6 +1,8 @@
 package com.labs1904;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SecretRecipeDecoder {
@@ -44,8 +46,9 @@ public class SecretRecipeDecoder {
 //            put("6", "9");
 //        }
 //    };
-    
+
     private static final Map<String, String> ENCODING = createMap();
+
     private static final Map<String, String> createMap() {
         Map<String, String> m = new HashMap<>();
         m.put("y", "a");
@@ -86,10 +89,7 @@ public class SecretRecipeDecoder {
         m.put("6", "9");
         return m;
     }
-    
-    
-    
-    
+
     /**
      * Given a string named str, use the Caesar encoding above to return the
      * decoded string.
@@ -99,7 +99,17 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        List<String> decodeStrList = new ArrayList<>();
+        for (char cha : str.toCharArray()) {
+            String chaStr = Character.toString(cha);
+            if (ENCODING.containsKey(chaStr)) {
+                decodeStrList.add(ENCODING.get(chaStr));
+            } else {
+                decodeStrList.add(chaStr);
+            }
+        }
+        String decodeStr = String.join("", decodeStrList);
+        return decodeStr;
     }
 
     /**
@@ -111,32 +121,25 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        return new Ingredient("1 cup", "butte");
     }
 
     public static void main(String[] args) {
         // TODO: implement me
-        System.out.println("a");
-        System.out.println(ENCODING.keySet());
 //Challenge #1: Decode a string - Implement a function that takes an encoded string and returns 
 //the decoded value (hgiikf is decoded to butter).
 
-
-
+        System.out.println("Challenge #1");
+        String str1 = "hgiikf";
+        System.out.println(decodeString(str1));
 
 //Challenge #2: Decode an Ingredient - Implement a function that takes a line from the recipe 
 //and returns a new Ingredient (a class already defined for you). 
 //The # sign delimits the encoded amount and the description of an ingredient. 
 //For example, the line 8 vgl#hgiikf would return an Ingredient with an amount of 1 cup 
 //and a description of butter.
-
-        
 //Challenge #3: Decode the entire recipe - Read all of the ingredients out of secret_recipe.txt, 
 //decode each ingredient (hopefully using the functions you implemented above), 
 //and save the output into a new file named decoded_recipe.txt.
-        
-        
-        
-        
     }
 }
