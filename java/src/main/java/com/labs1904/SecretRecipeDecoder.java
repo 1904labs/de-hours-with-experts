@@ -121,12 +121,14 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        
-        
-        
-        
-        
-        return new Ingredient("1 cup", "butte");
+        int ind = line.indexOf("#");
+        String encodedAmount = line.substring(0, ind);
+        String encodedDescription = line.substring(ind+1, line.length());
+
+        String amount = decodeString(encodedAmount);
+        String description = decodeString(encodedDescription);
+
+        return new Ingredient(amount, description);
     }
 
     public static void main(String[] args) {
@@ -145,13 +147,12 @@ public class SecretRecipeDecoder {
 //and a description of butter.
         System.out.println("Challenge #2");
         String str2 = "8 vgl#hgiikf";
-        System.out.println(decodeString(str2));
+        
+        System.out.println(decodeIngredient(str2).getAmount());
+        System.out.println(decodeIngredient(str2).getDescription());
 
 //Challenge #3: Decode the entire recipe - Read all of the ingredients out of secret_recipe.txt, 
 //decode each ingredient (hopefully using the functions you implemented above), 
 //and save the output into a new file named decoded_recipe.txt.
-
-
-
     }
 }
