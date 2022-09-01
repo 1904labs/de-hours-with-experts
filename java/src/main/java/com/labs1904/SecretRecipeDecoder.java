@@ -68,7 +68,6 @@ public class SecretRecipeDecoder {
             } else {
                 result.append(s);
             }
-
         }
         return result.toString();
     }
