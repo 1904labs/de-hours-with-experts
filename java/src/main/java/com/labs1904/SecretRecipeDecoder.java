@@ -1,8 +1,13 @@
 package com.labs1904;
 
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -57,10 +62,11 @@ public class SecretRecipeDecoder {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < strLength; i++) {
             char c = str.charAt(i);
-            if(c != ' '){
-                result.append(ENCODING.get(String.valueOf(c)));
+            String s = String.valueOf(c);
+            if(s.matches("^[A-Za-z0-9]+$")){
+                result.append(ENCODING.get(s));
             } else {
-                result.append(" ");
+                result.append(s);
             }
 
         }
@@ -74,10 +80,38 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] parts = line.split("#");
+        String amount = decodeString(parts[0]);
+        String description = decodeString(parts[1]);
+        return new Ingredient(amount, description);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO: implement me
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("secret_recipe.txt");
+        InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(streamReader);
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("decoded_recipe.txt");
+            for(String line; (line = reader.readLine()) != null;){
+                Ingredient ingredient = decodeIngredient(line);
+                String lineToWrite = ingredient.getAmount() + " " + ingredient.getDescription();
+                fileWriter.write(lineToWrite);
+                fileWriter.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
 }
