@@ -1,7 +1,10 @@
 package com.labs1904;
 
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SecretRecipeDecoder {
@@ -52,9 +55,14 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
-    }
+      String decoded = "";
+
+       for(Character c : str.toCharArray()){
+           //for char at index, decode and add to string
+           decoded.concat(ENCODING.get(c));
+           }
+       return decoded;
+       }
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -62,11 +70,33 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] encodedStringArray = line.split("#");
+        Ingredient decodedNewIngredient = new Ingredient(decodeString(encodedStringArray[0]), decodeString(encodedStringArray[1]));
+        return decodedNewIngredient;
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) throws FileNotFoundException {
+
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader("secret_recipe.txt"));
+            FileWriter fileWriter = new FileWriter("decoded_recipe.txt", true);
+            //reads an encoded line
+            String newLine = reader.readLine();
+            while (newLine != null) {
+                //writes a decoded line
+                fileWriter.write(String.valueOf(decodeIngredient(newLine)));
+                //write new line to separate
+                fileWriter.write(System.lineSeparator());
+                newLine = reader.readLine();
+            }
+            reader.close();
+            fileWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
