@@ -4,111 +4,113 @@ import sys
 import os
 
 
+# *****PART ONE *******
+def decode_string(str):
+    ENCODING = {
+    'y': 'a',
+    'h': 'b',
+    'v': 'c',
+    'x': 'd',
+    'k': 'e',
+    'p': 'f',
+    'z': 'g',
+    's': 'h',
+    'a': 'i',
+    'b': 'j',
+    'e': 'k',
+    'w': 'l',
+    'u': 'm',
+    'q': 'n',
+    'n': 'o',
+    'l': 'p',
+    'm': 'q',
+    'f': 'r',
+    'o': 's',
+    'i': 't',
+    'g': 'u',
+    'j': 'v',
+    't': 'w',
+    'd': 'x',
+    'r': 'y',
+    'c': 'z',
+    '3': '0',
+    '8': '1',
+    '4': '2',
+    '0': '3',
+    '2': '4',
+    '7': '5',
+    '5': '6',
+    '9': '7',
+    '1': '8',
+    '6': '9', 
+ }
 
-# def decode_string(str):
-#     ENCODING = {
-#     'y': 'a',
-#     'h': 'b',
-#     'v': 'c',
-#     'x': 'd',
-#     'k': 'e',
-#     'p': 'f',
-#     'z': 'g',
-#     's': 'h',
-#     'a': 'i',
-#     'b': 'j',
-#     'e': 'k',
-#     'w': 'l',
-#     'u': 'm',
-#     'q': 'n',
-#     'n': 'o',
-#     'l': 'p',
-#     'm': 'q',
-#     'f': 'r',
-#     'o': 's',
-#     'i': 't',
-#     'g': 'u',
-#     'j': 'v',
-#     't': 'w',
-#     'd': 'x',
-#     'r': 'y',
-#     'c': 'z',
-#     '3': '0',
-#     '8': '1',
-#     '4': '2',
-#     '0': '3',
-#     '2': '4',
-#     '7': '5',
-#     '5': '6',
-#     '9': '7',
-#     '1': '8',
-#     '6': '9', 
-#  }
+    letter = ""
 
-#     letter = ""
+    for letter in str:
+        print(ENCODING[letter], end = "")
 
-#     for letter in str:
-#         print(ENCODING[letter], end = "")
+decode_string("vsnllkx")
 
-# decode_string("vsnllkx")
+# ***PART TWO****
 
-#currently struggling to print spaces and special characters. 
+# currently struggling to print spaces and special characters. 
 # Tested adding space to encoding dict, achieved expected result. 
 # Need to successfully edit for loop to print non dict characters
 
-# def decode_stuff(recipe):
-#     ENCODING = {
-#     'y': 'a',
-#     'h': 'b',
-#     'v': 'c',
-#     'x': 'd',
-#     'k': 'e',
-#     'p': 'f',
-#     'z': 'g',
-#     's': 'h',
-#     'a': 'i',
-#     'b': 'j',
-#     'e': 'k',
-#     'w': 'l',
-#     'u': 'm',
-#     'q': 'n',
-#     'n': 'o',
-#     'l': 'p',
-#     'm': 'q',
-#     'f': 'r',
-#     'o': 's',
-#     'i': 't',
-#     'g': 'u',
-#     'j': 'v',
-#     't': 'w',
-#     'd': 'x',
-#     'r': 'y',
-#     'c': 'z',
-#     '3': '0',
-#     '8': '1',
-#     '4': '2',
-#     '0': '3',
-#     '2': '4',
-#     '7': '5',
-#     '5': '6',
-#     '9': '7',
-#     '1': '8',
-#     '6': '9', 
-#     '': ''
-#  }
+def decode_stuff(recipe):
+    ENCODING = {
+    'y': 'a',
+    'h': 'b',
+    'v': 'c',
+    'x': 'd',
+    'k': 'e',
+    'p': 'f',
+    'z': 'g',
+    's': 'h',
+    'a': 'i',
+    'b': 'j',
+    'e': 'k',
+    'w': 'l',
+    'u': 'm',
+    'q': 'n',
+    'n': 'o',
+    'l': 'p',
+    'm': 'q',
+    'f': 'r',
+    'o': 's',
+    'i': 't',
+    'g': 'u',
+    'j': 'v',
+    't': 'w',
+    'd': 'x',
+    'r': 'y',
+    'c': 'z',
+    '3': '0',
+    '8': '1',
+    '4': '2',
+    '0': '3',
+    '2': '4',
+    '7': '5',
+    '5': '6',
+    '9': '7',
+    '1': '8',
+    '6': '9', 
+    '': ''
+ }
     
-#     letter = ""
+    letter = ""
     
-#     solution = ""
+    solution = ""
 
-#     for letter in str():
-#         if str[letter] in ENCODING: 
-#             solution += ENCODING[j[i]]
-#         else: 
-#             solution += str[letter]
-#     print(solution)
+    for letter in str():
+        if str[letter] in ENCODING: 
+            solution += ENCODING[j[i]]
+        else: 
+            solution += str[letter]
+    print(solution)
 
-# decode_stuff("v")
+decode_stuff("v")
 
 # def decrypt():
 #     encrypted_message = ""
@@ -154,11 +156,11 @@ import os
     
 #     decrypted_message = ''
 
-    # for c in encrypted_message: 
-    #     if c in 
+#     for c in encrypted_message: 
+#         if c in 
 
 
-# create function, pass through entire recipe
+
 # recipe = open("/Users/carolina.scalzo/de-hours-with-experts/python/secret_recipe.txt")
 
 # recipe_line = "8 vgl#hgiikf"
@@ -215,6 +217,7 @@ line = "8 vgl#hgiikf"
 #     else:
 #         solution += str(line[c])
 #     print(solution)
+
     
 line = "8 vgl#hgiikf"
 
@@ -223,10 +226,14 @@ for c in line:
     solution = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
 print(solution)
 
+# *****PART THREE******
+# create function, pass through entire recipe
+#entered half the recipe to test solution
+
 #open file
 with open("/Users/carolina.scalzo/de-hours-with-experts/python/halfrecipe.txt", "r") as encoded_recipe:
 
-    with open("decoded_recipe_test.txt", 'w') as decoded_recipe: 
+    with open("/Users/carolina.scalzo/de-hours-with-experts/python/decoded_recipe_test.txt", 'w') as decoded_recipe: 
         for line in encoded_recipe: 
 
             new_line = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line) 
