@@ -121,6 +121,11 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
+        
+        
+        
+        
+        
         return new Ingredient("1 cup", "butte");
     }
 
@@ -138,8 +143,15 @@ public class SecretRecipeDecoder {
 //The # sign delimits the encoded amount and the description of an ingredient. 
 //For example, the line 8 vgl#hgiikf would return an Ingredient with an amount of 1 cup 
 //and a description of butter.
+        System.out.println("Challenge #2");
+        String str2 = "8 vgl#hgiikf";
+        System.out.println(decodeString(str2));
+
 //Challenge #3: Decode the entire recipe - Read all of the ingredients out of secret_recipe.txt, 
 //decode each ingredient (hopefully using the functions you implemented above), 
 //and save the output into a new file named decoded_recipe.txt.
+
+
+
     }
 }
