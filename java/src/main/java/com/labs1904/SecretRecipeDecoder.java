@@ -90,8 +90,8 @@ public class SecretRecipeDecoder {
 			String line;
 			while((line=secretRecipeText.readLine())!=null) {
 				Ingredient decodedIngred = decodeIngredient(line);
-				FileWriter decodedRecipe = new FileWriter("C:\\Users\\TEMP\\source\\repos\\HoursWithExperts\\de-hours-with-experts\\java\\src\\main\\resources\\decoded_recipe.txt");
-				decodedRecipe.write(decodedIngred.getAmount() + " " + decodedIngred.getDescription());
+				FileWriter decodedRecipe = new FileWriter("C:\\Users\\TEMP\\source\\repos\\HoursWithExperts\\de-hours-with-experts\\java\\src\\main\\resources\\decoded_recipe.txt", true);
+				decodedRecipe.write(decodedIngred.getAmount() + " " + decodedIngred.getDescription() + System.lineSeparator());
 				line = secretRecipeText.readLine();
 				decodedRecipe.close();
 			}
