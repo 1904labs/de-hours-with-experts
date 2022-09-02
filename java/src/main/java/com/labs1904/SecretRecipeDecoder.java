@@ -1,6 +1,16 @@
 package com.labs1904;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +53,10 @@ public class SecretRecipeDecoder {
             put("9", "7");
             put("1", "8");
             put("6", "9");
+            put(" "," ");
+            put("/","/");
+            put("-","-");
+            put(",",",");
         }
     };
 
@@ -53,7 +67,15 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+    	ArrayList<String> decodedString=new ArrayList<>();
+    	String s="";
+    	String key="";
+    	for(int i=0;i<str.length();i++) {
+    		key=String.valueOf(str.charAt(i));
+    		s+=ENCODING.get(key);
+    	}
+        //return "1 cup";
+        return s;
     }
 
     /**
@@ -63,10 +85,40 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+    	int index;
+    	String s="";
+    	index=line.indexOf("#");
+    	String amount="";
+    	String description="";
+    	amount=decodeString(line.substring(0, index));
+    	description=decodeString(line.substring(index+1));
+    	Ingredient ing = new Ingredient(amount,description);
+        //return new Ingredient("1 cup", "butter");
+    	return ing;
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+    	String s=decodeString("hgiikf");
+    	System.out.print(s);
+    	Ingredient ing=decodeIngredient("8 vgl#hgiikf");
+    	System.out.print(ing.getAmount()+" "+ing.getDescription());
+    	BufferedReader reader;
+    	FileWriter writer;
+    	try {
+			reader=new BufferedReader(new FileReader("src/main/resources/secret_recipe.txt"));
+			writer=new FileWriter("src/main/resources/decoded_recipe.txt");
+			String line=reader.readLine();
+			while(line!=null) {
+				Ingredient in=decodeIngredient(line.trim());
+				writer.write(in.getAmount()+" "+in.getDescription()+"\n");
+				line=reader.readLine();
+			}
+			reader.close();
+			writer.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     }
 }
