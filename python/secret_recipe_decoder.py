@@ -51,21 +51,38 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
+def decode_string(string):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    dec_string = []
+    for i in string:
+        if i.isalpha():
+            dec_string.append(ENCODING[i])
+        elif i.isdigit():
+            dec_string.append(ENCODING[i])
+        else:
+            dec_string.append(i)
+    return ''.join(dec_string)
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    arr = line.split('#')
+    amount = decode_string(''.join(arr[0]))
+    desc = decode_string(''.join(arr[1]))
+    return Ingredient(amount, desc)
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    with open("secret_recipe.txt", 'r') as file:
+        ings = []
+        for i in file.readlines():
+            ings.append(decode_ingredient(i.strip()))
+
+    with open("decoded_recipe.txt", 'w') as file:
+        for i in ings:
+            file.write(' '.join([i.amount, i.description, '\n']))
+
 
 if __name__ == "__main__":
     main()
