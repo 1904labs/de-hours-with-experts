@@ -60,17 +60,6 @@ object SecretRecipeDecoder {
     // todo: implement me
     // "1 cup"
 
-    // NOTES - if no result brought back must return original str
-    // Personal notes - tested using a phrase set as "8 vgl#zfyqgwyikx ogzyf"
-    // the below line works but will error out if key not found
-    // for(letter <- phrase) (print(ENCODING(s"$letter")))
-    // removed # from phrase and used this:
-    // for(letter <- phrase if letter.toString != " ") (print(ENCODING(s"$letter")))
-    // this solved the problem of spaces but resulted in "1cupgranulatedsugar"
-    // researched available key value pair methods in scala and found .contains
-    // for(letter <- phrase) (if (ENCODING.contains(s"$str")) return (ENCODING(s"$str")) else return (s"$str")) results in "1 cup#granulated sugar"
-    // future thoughts - is the # supposed to represent a break? Read ahead to challenge 2!
-
     return {
       for (ltr <- str)
         (
@@ -88,7 +77,8 @@ object SecretRecipeDecoder {
     */
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
-    Ingredient("1 cup", "butter")
+    // Ingredient("1 cup", "butter")
+
     return line.decodeString.split("#")
 
   }
