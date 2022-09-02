@@ -1,6 +1,5 @@
 package com.labs1904;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,8 +51,21 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+
+        StringBuilder decodedStringBuilder = new StringBuilder();
+
+        for (String character : str.split("")) {
+
+            String decodedCharacter = ENCODING.get(character);
+
+            if (decodedCharacter != null) {
+                decodedStringBuilder.append(decodedCharacter);
+            } else {
+                decodedStringBuilder.append(character);
+            }
+
+        }
+        return decodedStringBuilder.toString();
     }
 
     /**
@@ -62,8 +74,8 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] splitLine = line.split("#");
+        return new Ingredient(decodeString(splitLine[0]), decodeString(splitLine[1]));
     }
 
     public static void main(String[] args) {
