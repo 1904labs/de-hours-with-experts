@@ -2,11 +2,12 @@ package com.labs1904
 
 import scala.collection.immutable.HashMap
 
-/**
- * An ingredient has an amount and a description.
- * @param amount For example, "1 cup"
- * @param description For example, "butter"
- */
+/** An ingredient has an amount and a description.
+  * @param amount
+  *   For example, "1 cup"
+  * @param description
+  *   For example, "butter"
+  */
 case class Ingredient(amount: String, description: String)
 
 object SecretRecipeDecoder {
@@ -49,11 +50,12 @@ object SecretRecipeDecoder {
     "6" -> "9"
   )
 
-  /**
-   * Given a string named str, use the Caeser encoding above to return the decoded string.
-   * @param str A caesar-encoded string.
-   * @return
-   */
+  /** Given a string named str, use the Caeser encoding above to return the
+    * decoded string.
+    * @param str
+    *   A caesar-encoded string.
+    * @return
+    */
   def decodeString(str: String): String = {
     // todo: implement me
     // "1 cup"
@@ -66,33 +68,33 @@ object SecretRecipeDecoder {
     // for(letter <- phrase if letter.toString != " ") (print(ENCODING(s"$letter")))
     // this solved the problem of spaces but resulted in "1cupgranulatedsugar"
     // researched available key value pair methods in scala and found .contains
-    // if (ENCODING.contains(s"$str")) return (ENCODING(s"$str")) else return (s"$str") results in "1 cup#granulated sugar"
+    // for(letter <- phrase) (if (ENCODING.contains(s"$str")) return (ENCODING(s"$str")) else return (s"$str")) results in "1 cup#granulated sugar"
     // future thoughts - is the # supposed to represent a break? Read ahead to challenge 2!
 
-
-    if (ENCODING.contains(s"$str")) return (ENCODING(s"$str")) else return (s"$str")
+    for (ltr <- str)
+      (
+        if (ENCODING.contains(s"$ltr")) print(ENCODING(s"$ltr"))
+        else print(s"$ltr")
+      )
 
   }
 
-  /**
-   * Given an ingredient, decode the amount and description, and return a new Ingredient
-   * @param line An encoded ingredient.
-   * @return
-   */
+  /** Given an ingredient, decode the amount and description, and return a new
+    * Ingredient
+    * @param line
+    *   An encoded ingredient.
+    * @return
+    */
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
     Ingredient("1 cup", "butter")
 
   }
 
-  /**
-   * A program that decodes a secret recipe
-   * @param args
-   */
+  /** A program that decodes a secret recipe
+    * @param args
+    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
   }
 }
-
-
-scala> if (states.contains("FOO")) println("Found foo") else println("No foo")
