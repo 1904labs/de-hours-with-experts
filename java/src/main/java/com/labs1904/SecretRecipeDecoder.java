@@ -53,7 +53,17 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        Map<String, String> encoding = ENCODING;
+        for (int i = 0; i < str.length(); i+=){
+            for ( String value : encoding.values()
+                 ) {
+                if (str.charAt(i) == value){}
+            }
+        }
+            
+            if (str.charAt(i) == )
+
+                return "1 cup";
     }
 
     /**
