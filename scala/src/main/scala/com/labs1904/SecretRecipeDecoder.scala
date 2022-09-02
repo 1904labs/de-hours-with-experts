@@ -71,12 +71,13 @@ object SecretRecipeDecoder {
     // for(letter <- phrase) (if (ENCODING.contains(s"$str")) return (ENCODING(s"$str")) else return (s"$str")) results in "1 cup#granulated sugar"
     // future thoughts - is the # supposed to represent a break? Read ahead to challenge 2!
 
-    for (ltr <- str)
-      (
-        if (ENCODING.contains(s"$ltr")) print(ENCODING(s"$ltr"))
-        else print(s"$ltr")
-      )
-
+    return {
+      for (ltr <- str)
+        (
+          if (ENCODING.contains(s"$ltr"))(ENCODING(s"$ltr"))
+          else (s"$ltr")
+        )
+    }
   }
 
   /** Given an ingredient, decode the amount and description, and return a new
@@ -88,6 +89,7 @@ object SecretRecipeDecoder {
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
     Ingredient("1 cup", "butter")
+    return line.decodeString.split("#")
 
   }
 
@@ -96,5 +98,8 @@ object SecretRecipeDecoder {
     */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
+    return {
+      (for (line <- args) (_.decodeIngredient))
+    }
   }
 }
