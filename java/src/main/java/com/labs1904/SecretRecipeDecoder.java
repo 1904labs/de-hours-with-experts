@@ -1,5 +1,11 @@
 package com.labs1904;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,7 +84,18 @@ public class SecretRecipeDecoder {
         return new Ingredient(decodeString(splitLine[0]), decodeString(splitLine[1]));
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) throws IOException, FileNotFoundException {
+        System.out.println(System.getProperty("user.dir"));
+        String inputFilename = "de-hours-with-experts/java/src/main/resources/secret_recipe.txt";
+        String outputFilename = "de-hours-with-experts/java/src/main/resources/decoded_recipe.txt";
+        try(
+            BufferedReader br = new BufferedReader(new FileReader(inputFilename));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilename))) {
+                String line;
+                while((line = br.readLine()) != null) {
+                    Ingredient ingredient = decodeIngredient(line);
+                    bw.write(String.format("%s %s%n", ingredient.getAmount(), ingredient.getDescription()));
+                }
+        }
     }
 }
