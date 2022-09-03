@@ -1,8 +1,13 @@
 package com.labs1904;
 
-
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;  // Import this class to handle errors
+import java.util.Scanner; // Import the Scanner class to read text files
+
+import java.io.PrintWriter;
+
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -45,7 +50,6 @@ public class SecretRecipeDecoder {
             put("6", "9");
         }
     };
-
     /**
      * Given a string named str, use the Caesar encoding above to return the decoded string.
      * @param str
@@ -53,7 +57,16 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String decoded = "";
+        for (int i = 0; i < str.length(); i++) {
+            String c = String.valueOf(s.charAt(i));
+            if (ENCODING.containsKey(c)) {
+                decoded += ENCODING.get(c);
+            } else {
+                decoded += "?";
+            }
+        }
+        return decoded;
     }
 
     /**
@@ -61,12 +74,44 @@ public class SecretRecipeDecoder {
      * @param line
      * @return
      */
-    public static Ingredient decodeIngredient(String line) {
+    public static String decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String newIngredient = "";
+        for (int i = 0; i < line.length(); i++) {
+            String c = String.valueOf(s.charAt(i));
+            if (ENCODING.containsKey(c)) {
+                newIngredient += ENCODING.get(c);
+            } elseif((c=" ") || (c="#") {
+                newIngredient += " ";
+            } else {
+                newIngredient += "?";
+            }
+        }
+        return newIngredient;
     }
+
 
     public static void main(String[] args) {
         // TODO: implement me
+        try {
+            File myObj = new File("secret_recipe.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                //System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        newData = decodeIngredient(data);
+        try (PrintWriter out = new PrintWriter("decoded_recipe.txt", "UTF-8")) {
+            out.write(newData);
+        }
+
     }
+
 }
+
