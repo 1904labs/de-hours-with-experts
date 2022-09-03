@@ -1,8 +1,15 @@
 package com.labs1904;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -52,8 +59,15 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        StringBuilder decodedStrBldr = new StringBuilder();
+        Arrays.stream(str.split("")).forEach(letter -> {
+            if(ENCODING.containsKey(letter)){
+                decodedStrBldr.append(ENCODING.get(letter));
+            } else {
+                decodedStrBldr.append(letter.replace("#", " "));
+            }
+        });
+        return decodedStrBldr.toString();
     }
 
     /**
@@ -62,11 +76,26 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        return new Ingredient(decodeString(line.substring(0,line.indexOf("#"))), decodeString(line.substring(line.indexOf("#")+1)));
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        try{
+            File secretRecipe = new File("src\\main\\resources\\secret_recipe.txt");
+            File decodedRecipe = new File("src\\main\\resources\\decoded_recipe.txt");
+            if(decodedRecipe.createNewFile()){
+                Scanner myReader = new Scanner(secretRecipe);
+                FileWriter myWriter = new FileWriter(decodedRecipe);
+                while(myReader.hasNextLine()){
+                    String data = myReader.nextLine();
+                    myWriter.write(decodeIngredient(data)+"\n");
+                }
+                myReader.close();
+                myWriter.close();
+            }
+
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
     }
 }
