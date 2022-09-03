@@ -1,4 +1,4 @@
-# Hours with Experts Coding Challenge: Java
+]# Hours with Experts Coding Challenge: Java
 
 Many years ago, the perfect cookie recipe was created and then lost... until now. An encrypted version was discovered
 and it is up to you to recover the recipe so that the perfect cookie can be created once again.

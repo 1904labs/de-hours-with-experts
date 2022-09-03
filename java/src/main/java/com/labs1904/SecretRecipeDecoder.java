@@ -52,8 +52,19 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
+
+            char[] chars=str.toCharArray();
+            for(int i=0;i<chars.length;i++){
+                if(ENCODING.containsKey(Charcter.toString(chars[i])))
+                    String LocString=ENCODING.get(Charcter.toString(chars[i]));
+                    ConcatStr=ConcatStr.concat(LocString)
+                System.out.println(ConcatStr);
+            }
+            if (ConcatStr==="1 cup"){
+                return "1 cup";
+            }
         // TODO: implement me
-        return "1 cup";
+        //return "1 cup";
     }
 
     /**
@@ -63,10 +74,17 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+decodeString(line);
+return null;
+       // return new Ingredient("1 cup", "butter");
     }
 
     public static void main(String[] args) {
+        File myObj=new File(pathname:"/Spring/Eswari-1904lab/java/src/main/resources/secret_recipe.txt")
+        Scanner myReader=new Scanner(myObj);
+        String line=myReader.nextLine();
+        SecretRecipeDecoder.decodeIngredient(line);
+        myReader.close();
         // TODO: implement me
     }
 }
