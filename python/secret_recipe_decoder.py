@@ -54,18 +54,35 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
-    return '1 cup'
+    result = ''
+
+    for c in str:
+        translation = ENCODING[c]
+        result += translation
+    return result
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    # TODO: implement me 
+    translated = decode_string(line)
+
+    num = translated.split(' ')[0]
+    desc = translated.split(' ')[1]
+
+    return Ingredient(num, desc)
 
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    ingredients = []
+
+    for line in sys.stdin:
+        ingredients.append(decode_ingredient(line))
+    for ingredient in ingredients:
+        print(f"{ingredient.amount} {ingredient.description}")
+
 
 if __name__ == "__main__":
     main()
