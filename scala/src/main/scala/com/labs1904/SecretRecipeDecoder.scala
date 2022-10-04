@@ -58,7 +58,6 @@ object SecretRecipeDecoder {
    * @return
    */
   def decodeString(str: String): String = {
-    // todo: implement me
     val res = new StringBuilder()
     str.foreach(x => res.append(ENCODING.getOrElse(x.toString, " ")))
     res.toString()
@@ -70,7 +69,6 @@ object SecretRecipeDecoder {
    * @return
    */
   def decodeIngredient(line: String): Ingredient = {
-    // todo: implement me
     val code:Array[String] = line.split("#")
     val amount:String = decodeString(code(0))
     val ingredient = decodeString(code(1))
@@ -82,7 +80,6 @@ object SecretRecipeDecoder {
    * @param args
    */
   def main(args: Array[String]): Unit = {
-    // TODO: implement me
     val lines = scala.io.Source.fromFile("src/main/resources/secret_recipe.txt", "utf-8").getLines()
 
     val decoded = lines.map(decodeIngredient(_))
