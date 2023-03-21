@@ -1,8 +1,10 @@
 package com.labs1904
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
+import com.labs1904.SecretRecipeDecoder
+import com.labs1904.Ingredient
 
-class SecretRecipeDecoderTest extends FunSpec {
+class SecretRecipeDecoderTest extends AnyFunSpec {
 
   describe("Testing decode_string") {
     it("can decode a string") {
