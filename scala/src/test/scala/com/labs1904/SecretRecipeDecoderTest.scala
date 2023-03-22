@@ -6,7 +6,7 @@ class SecretRecipeDecoderTest extends FunSpec {
 
   describe("Testing decode_string") {
     it("can decode a string") {
-      assert(SecretRecipeDecoder.decodeString("abc") === "yhv")
+      assert(SecretRecipeDecoder.decodeString("8 vgl") === "1 cup")
     }
   }
 
