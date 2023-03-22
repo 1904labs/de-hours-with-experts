@@ -53,7 +53,15 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        StringBuilder s = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if(c == ' '){
+                s.append(c);
+            } else {
+                s.append(ENCODING.get(String.valueOf(c)));
+            }
+        }
+        return s.toString();
     }
 
     /**
@@ -63,7 +71,10 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] parts = line.split("#");
+        String amount = decodeString(parts[0]);
+        String desc = decodeString(parts[1]);
+        return new Ingredient(amount, desc);
     }
 
     public static void main(String[] args) {
