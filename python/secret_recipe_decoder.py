@@ -56,10 +56,9 @@ def decode_string(S: str) -> str:
     return ''.join([ENCODING.get(s, s) for s in S])
 
 
-def decode_ingredient(line):
+def decode_ingredient(line: str) -> Ingredient:
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    return Ingredient(*(decode_string(l) for l in line.split("#")))
 
 
 def main():
