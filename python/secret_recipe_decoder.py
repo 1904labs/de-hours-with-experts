@@ -51,10 +51,9 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
+def decode_string(S: str) -> str:
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    return ''.join([ENCODING.get(s, s) for s in S])
 
 
 def decode_ingredient(line):
