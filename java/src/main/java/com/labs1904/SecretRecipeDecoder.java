@@ -1,7 +1,11 @@
 package com.labs1904;
-
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SecretRecipeDecoder {
@@ -53,7 +57,27 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String returnstr = "";
+        for (char c : str.toCharArray()) {            
+            //System.out.print(ENCODING.get(String. valueOf(c)));
+            if(c == ' ')
+            {
+                returnstr = returnstr + ' '; 
+            }            
+            else
+            {
+                if(c == '/')
+                {
+                returnstr = returnstr + '/'; 
+                } 
+                else{
+                    returnstr = returnstr + ENCODING.get(String. valueOf(c));
+                }
+                
+            }            
+        }
+        //String. valueOf(char)
+        return returnstr;
     }
 
     /**
@@ -63,10 +87,49 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] inputStringSplit = line.split("#");
+        //for(String singlestr : inputStringSplit) {            System.out.print(decodeString(singlestr));                   }
+        //System.out.println(decodeString(inputStringSplit[0])); 
+        //System.out.println(decodeString(inputStringSplit[1])); 
+        return new Ingredient(decodeString(inputStringSplit[0]), decodeString(inputStringSplit[1]));
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        System.out.println("Coding Challenge #1");
+        //System.out.println(ENCODING.get("h"));
+        System.out.println(decodeString("hgiikf"));
+        System.out.println("Coding Challenge #2");
+        Ingredient lineofingredient = null;
+        lineofingredient = decodeIngredient("8 vgl#hgiikf");
+        System.out.println(lineofingredient.getAmount() + " " + lineofingredient.getDescription());
+        //System.out.println(System.getProperty("user.dir"));
+        System.out.println("Coding Challenge #3");
+        try
+        {
+            File myObj = new File("java/src/main/resources/filename.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+
+            FileWriter myWriter = new FileWriter("java/src/main/resources/filename.txt");
+
+            List<String> allLines = Files.readAllLines(Paths.get("java/src/main/resources/secret_recipe.txt"));
+			for (String line : allLines) {				
+                //System.out.println(line);	
+                lineofingredient = decodeIngredient(line);
+                System.out.println(lineofingredient.getAmount() + " " + lineofingredient.getDescription());	
+                myWriter.write(lineofingredient.getAmount() + " " + lineofingredient.getDescription() + " \n");
+            }
+            
+            //myWriter.write("Write testing! \n");            
+            myWriter.close();
+        }
+        catch (IOException e) {
+			e.printStackTrace();
+		}
+        
     }
 }
