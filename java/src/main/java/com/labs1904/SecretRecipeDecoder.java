@@ -52,8 +52,17 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        String decodedString = new String();
+
+
+        for (int i = 0; i < str.length(); i++) {
+            for (Map.Entry<String,String> entry : ENCODING.entrySet()){
+                if (entry.getKey() === str.charAt(i)){
+                    decodedString += entry.getValue();
+                }
+            }
+        }
+        return decodedString;
     }
 
     /**
