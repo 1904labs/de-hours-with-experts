@@ -3,6 +3,7 @@ package com.labs1904;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -73,8 +74,17 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] arrOfStrings = line.split("#");
+        String[] arrOfDecodedStrings = new String[arrOfStrings.length];
+
+        for (int i = 0; i < arrOfStrings.length; i++) {
+            String decodedStr = decodeString(arrOfStrings[i]);
+            arrOfDecodedStrings[i] = decodedStr;
+        }
+
+        Ingredient ingredient = new Ingredient(arrOfDecodedStrings[0], arrOfDecodedStrings[1]);
+
+        return ingredient;
     }
 
     public static void main(String[] args) {
