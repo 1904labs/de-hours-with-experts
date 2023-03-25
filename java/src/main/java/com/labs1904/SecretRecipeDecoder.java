@@ -52,12 +52,14 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        String decodedString = new String();
-
+        String decodedString = "";
 
         for (int i = 0; i < str.length(); i++) {
+            if (String.valueOf(str.charAt(i)).matches(" ")){
+                decodedString += " ";
+            }
             for (Map.Entry<String,String> entry : ENCODING.entrySet()){
-                if (entry.getKey() === str.charAt(i)){
+                if (String.valueOf(str.charAt(i)).matches(entry.getKey())){
                     decodedString += entry.getValue();
                 }
             }
