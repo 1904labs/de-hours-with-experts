@@ -4,6 +4,8 @@ package com.labs1904;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.io.*;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -88,6 +90,19 @@ public class SecretRecipeDecoder {
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        try (InputStream inputStream =
+                new FileInputStream("/Users/michaelallen/Documents/Coding/HoursWithExperts/de-hours-with-experts/java/src/main/resources/secret_recipe.txt")){
+            InputStreamReader isReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(isReader);
+            String str = reader.readLine();
+            while (str != null){
+                Ingredient ingredient = decodeIngredient(str);
+                File decodedRecipe = new File("/Users/michaelallen/Documents/Coding/HoursWithExperts/de-hours-with-experts/java/src/main/resources/decoded_recipe.txt");
+                FileWriter writer = new FileWriter(decodedRecipe);
+                writer.write(ingredient.getAmount() + " " + ingredient.getDescription());
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not load file 'secret_recipe.txt'");
+        }
     }
 }
