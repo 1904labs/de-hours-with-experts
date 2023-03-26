@@ -82,7 +82,7 @@ def main():
     recipe = open("secret_recipe.txt", "r")
     for item in recipe:
         item = decode_ingredient(item)
-        decodedItem = (f'{item.amount} {item.description}')
+        decodedItem = (f'{item.amount}, {item.description}')
         decodedRecipe.write(f'{decodedItem}')
     recipe.close()
     decodedRecipe.close()
