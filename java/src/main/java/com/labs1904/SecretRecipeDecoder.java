@@ -1,72 +1,108 @@
-package com.labs1904;
+//a similar program in javascript
 
+const input = require('readline-sync');
 
-import java.util.HashMap;
-import java.util.Map;
+let scrabble = {
+    name: 'Scrabble', 
+    description: 'The traditional scoring algorithm',
+    scoreFunction: scrabbleScoreFunction}
+  
+let simpleScore = {
+    name: 'Simple score',
+    description: 'Each letter is worth 1 point',
+    scoreFunction:  simpleScoreFunction}
 
-public class SecretRecipeDecoder {
-    private static Map<String, String> ENCODING = new HashMap<String, String>() {
-        {
-            put("y", "a");
-            put("h", "b");
-            put("v", "c");
-            put("x", "d");
-            put("k", "e");
-            put("p", "f");
-            put("z", "g");
-            put("s", "h");
-            put("a", "i");
-            put("b", "j");
-            put("e", "k");
-            put("w", "l");
-            put("u", "m");
-            put("q", "n");
-            put("n", "o");
-            put("l", "p");
-            put("m", "q");
-            put("f", "r");
-            put("o", "s");
-            put("i", "t");
-            put("g", "u");
-            put("j", "v");
-            put("t", "w");
-            put("d", "x");
-            put("r", "y");
-            put("c", "z");
-            put("3", "0");
-            put("8", "1");
-            put("4", "2");
-            put("0", "3");
-            put("2", "4");
-            put("7", "5");
-            put("5", "6");
-            put("9", "7");
-            put("1", "8");
-            put("6", "9");
-        }
-    };
+let bonusVowels = {
+   name: 'Bonus vowels',
+   description: 'Vowels are 3 pts, consonants are 1 pt',
+   scoreFunction: bonusVowelsFunction}
 
-    /**
-     * Given a string named str, use the Caesar encoding above to return the decoded string.
-     * @param str
-     * @return
-     */
-    public static String decodeString(String str) {
-        // TODO: implement me
-        return "";
+let scoringAlgorithms = [scrabble,simpleScore,bonusVowels];
+
+function initialPrompt(){
+  console.log("Welcome to the Scrabble score calculator!"+"\n"+"Enter 'Stop' to quit.");
+  let userSelection = input.question('\n'+'Which scoring algorithm would you like to use? '+'\n'+'\n'+' 0 - Scrabble: The traditional scoring algorithm. '+'\n'+' 1 - Simple Score: Each letter is worth 1 point. '+'\n'+' 2 - Bonus Vowels: Vowels are worth 3 pts, and consonants are 1 pt. '+'\n'+'\n'+'Enter 0, 1, or 2:')
+
+  return userSelection;
+  }
+
+const oldPointStructure = {
+   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
+   2: ['D', 'G'],
+   3: ['B', 'C', 'M', 'P'],
+   4: ['F', 'H', 'V', 'W', 'Y'],
+   5: ['K'],
+   8: ['J', 'X'],
+   10: ['Q', 'Z']
+};
+
+//Use the transform function to create the newPointStructure object here:
+let newPointStructure = {};
+
+function transform(object){
+  for (key in object){ 
+     for(let i=0;i<object[key].length;i++){
+      newPointStructure[object[key][i].toLowerCase()]=Number(key);
     }
-
-    /**
-     * Given an ingredient, decode the amount and description, and return a new Ingredient
-     * @param line
-     * @return
-     */
-    public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return null;
-    }
-
-    public static void main(String[] args) {
-        // TODO: implement me
-    }
+  }
+   return newPointStructure
 }
+  
+transform(oldPointStructure);
+
+function runProgram(array){ 
+  let scoreType=initialPrompt();
+  let endProgram='stop';
+  let endProgram1='Stop';
+  //endProgram=endProgram.toLowerCase();
+      
+    while(scoreType!==endProgram && scoreType!==endProgram1){ 
+        console.log("using algorithm:",scoringAlgorithms[scoreType].name);  
+        let userWord = input.question('Enter a word to be scored: ');
+        if(userWord!==endProgram && userWord!==endProgram1){
+            if(scoreType==='1'){
+              score1=scoringAlgorithms[scoreType].scoreFunction(userWord);
+              console.log(`Score for '${userWord}': ${score1}`);
+           }else if(scoreType==='2'){
+             score2=scoringAlgorithms[scoreType].scoreFunction(userWord);     
+             console.log(`Score for '${userWord}': ${score2}`);
+           }else if(scoreType==='0'){
+                score3=scoringAlgorithms[scoreType].scoreFunction(userWord,newPointStructure);
+                console.log(`Score for '${userWord}': ${score3}`);
+           }
+        }else{
+          break
+        }
+    }
+    return
+  }
+
+runProgram(scoringAlgorithms);
+
+function scrabbleScoreFunction(userWord,obj){  
+  let score=0;
+    userWord=userWord.toLowerCase();
+      for(let i=0;i<userWord.length;i++){
+          score+=obj[userWord[i]];
+      }
+  return score;
+} 
+
+function simpleScoreFunction(userWord){
+  let score=userWord.length;
+  return score;
+}
+
+function bonusVowelsFunction(userWord){  
+  let score=0;
+  userWord=userWord.toLowerCase();
+  let vowels = ['a','e','i','o','u'];
+    for(let i=0;i<userWord.length;i++){
+        if(vowels.includes(userWord[i])){ 
+          score+=3;
+        }else{
+          score+=1;
+        }
+      } return score;
+    }
+
