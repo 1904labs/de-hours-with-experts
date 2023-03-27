@@ -24,4 +24,9 @@ public class Ingredient {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override //added to print as String instead of class tag
+    public String toString() {
+        return amount + " " + description;
+    }
 }

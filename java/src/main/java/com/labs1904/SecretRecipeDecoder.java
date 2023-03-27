@@ -1,6 +1,7 @@
 package com.labs1904;
 
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public class SecretRecipeDecoder {
             put("9", "7");
             put("1", "8");
             put("6", "9");
+            put("/", "/"); //added to account for "/" in recipe
         }
     };
 
@@ -52,9 +54,21 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        String decodedStr = "";
+        for (int i = 0; i < str.length(); i++) {
+            char characterAtIndex = str.charAt(i); //gives the characters of the hashmap KEYS
+            String charactersToStrings = new String(String.valueOf(characterAtIndex)); //turns the characters of the hashmap KEYS into strings
+            String decodedValues = ENCODING.get(charactersToStrings); //accessing hashmap VALUES as strings
+
+            if(decodedValues == null) { //will otherwise print as "null"
+                decodedStr += " ";
+            } else {
+                decodedStr += decodedValues; //adding each value to final decoded string
+                }
+            }
+        return decodedStr;
     }
+
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -62,11 +76,17 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] splitRecipeLine = line.split("#");
+        String ingredientAmount = decodeString(splitRecipeLine[0]);
+        String ingredientDescription = decodeString(splitRecipeLine[1]);
+
+        return new Ingredient(ingredientAmount, ingredientDescription);
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        String[] secretRecipe = {"8 vgl#hgiikf", "8 vgl#xyfe hfntq ogzyf, lyvekx", "8 vgl#zfyqgwyikx ogzyf", "4#kzzo", "8 ikyolnnq#jyqawwy", "4 8/4 vglo#nyiukyw", "4 vglo#pwngf", "8/4 ikyolnnq#oywi", "8 ikyolnnq#hyeaqz onxy", "ikyolnnq#hyeaqz lntxkf", "84 ngqvko#vsnvnwyik vsalo", "8#2-ngqvk uawe vsnvnwyik hyf", "8 8/4 vglo#vsnllkx qgio"};
+        for(int i=0; i<secretRecipe.length; i++){
+            System.out.println(decodeIngredient(secretRecipe[i]));
+        }
     }
 }
