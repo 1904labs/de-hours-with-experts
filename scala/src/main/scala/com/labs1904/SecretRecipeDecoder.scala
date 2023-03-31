@@ -1,4 +1,3 @@
-package com.labs1904
 
 import scala.collection.immutable.HashMap
 
@@ -56,7 +55,8 @@ object SecretRecipeDecoder {
    */
   def decodeString(str: String): String = {
     // todo: implement me
-    "1 cup"
+    str.map(c => ENCODING.getOrElse(c.toLower.toString, c.toString)).mkString("")
+
   }
 
   /**
@@ -66,7 +66,9 @@ object SecretRecipeDecoder {
    */
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
-    Ingredient("1 cup", "butter")
+    val Array(str1,str2,_*)=line.split("#")
+
+    Ingredient(decodeString(str1),decodeString(str2))
   }
 
   /**
@@ -75,5 +77,11 @@ object SecretRecipeDecoder {
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
+
+    val file = new File("decoded_recipe.txt")
+    val bw = new BufferedWriter(new FileWriter(file))
+    bw.write(  decodeIngredient(args[0]))
+    bw.close()
   }
 }
+
