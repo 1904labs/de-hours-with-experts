@@ -1,6 +1,8 @@
 package com.labs1904
 
+import java.io.{BufferedWriter, File, PrintWriter}
 import scala.collection.immutable.HashMap
+import scala.io.Source
 
 /**
  * An ingredient has an amount and a description.
@@ -56,7 +58,9 @@ object SecretRecipeDecoder {
    */
   def decodeString(str: String): String = {
     // todo: implement me
-    "1 cup"
+    val stBuilder = new StringBuilder
+    str.map(s => stBuilder.append(ENCODING.getOrElse(s.toString, ' ')))
+    stBuilder.toString()
   }
 
   /**
@@ -66,7 +70,8 @@ object SecretRecipeDecoder {
    */
   def decodeIngredient(line: String): Ingredient = {
     // todo: implement me
-    Ingredient("1 cup", "butter")
+    val parts = line.split("#").map(s => decodeString(s))
+    Ingredient(parts(0), parts(1))
   }
 
   /**
@@ -75,5 +80,13 @@ object SecretRecipeDecoder {
    */
   def main(args: Array[String]): Unit = {
     // TODO: implement me
+    val file = Source.fromFile("src/main/resources/secret_recipe.txt")
+    val lines : Iterator[String] = file.getLines.map(l => decodeIngredient(l).amount + " " + decodeIngredient(l).description)
+//    lines.map(l => decodeIngredient(l))
+    val bufferedPrinter = new BufferedWriter(new PrintWriter(new File("decoded_recipe.txt")))
+    lines.foreach((l) => {
+      bufferedPrinter.write(l)
+      bufferedPrinter.newLine()})
+    bufferedPrinter.close()
   }
 }
