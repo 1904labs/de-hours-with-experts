@@ -55,8 +55,19 @@ object SecretRecipeDecoder {
    * @return
    */
   def decodeString(str: String): String = {
-    // todo: implement me
-    "1 cup"
+    // Declare the variable for the decoding response
+val response = new StringBuilder
+for (letter <- encoded_string) {
+// The purpose is to leave the characters which are not in encoding as the same format
+if (!ENCODING.contains(letter)) {
+response.append(letter)
+} else {
+response.append(ENCODING(letter))
+}
+}
+response.toString
+}
+   
   }
 
   /**
@@ -65,15 +76,40 @@ object SecretRecipeDecoder {
    * @return
    */
   def decodeIngredient(line: String): Ingredient = {
-    // todo: implement me
-    Ingredient("1 cup", "butter")
+   // Using # to separate the quantity and ingredient
+val encoded_quantity = line.split("#")(0)
+val encoded_ingredient = line.split("#")(1)
+// Return the quantity and ingredient
+new Ingredient(decode_string(encoded_quantity), decode_string(encoded_ingredient))
   }
 
   /**
    * A program that decodes a secret recipe
    * @param args
    */
-  def main(args: Array[String]): Unit = {
-    // TODO: implement me
-  }
+
+   def main(recipe_path: String): Map[String, Any] = {
+// Where you can open and read the file
+val lines = Source.fromFile(recipe_path).getLines.toList
+val recipe = lines.map(decode_ingredient)
+// Return the objects and string of the recipe
+Map(
+"recipe_objects" -> recipe,
+"recipe_text" -> recipe.map(ingredient => s"amount: ${ingredient.amount}, item: ${ingredient.description}").mkString
+)
 }
+
+// Entry point
+if (args.length > 0) {
+val recipePath = args(0)
+val result = main(recipePath)
+println(result)
+} else {
+println("Please provide the path to the recipe file.")
+}
+
+
+
+
+
+  
