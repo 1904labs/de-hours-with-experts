@@ -49,23 +49,46 @@ class Ingredient():
     def __init__(self, amount, description) -> None:
         self.amount = amount
         self.description = description
-
+"""read a given file and store in variable"""
+def read_file(filename):
+    # Get the directory of the current script or executable
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    
+    # Construct the full path to the file
+    file_path = os.path.join(dir_path, filename)
+    
+    # Open the file and read its contents
+    with open(file_path, 'r') as file:
+        content = file.read()
+    return content
+text_body = read_file('secret_recipe.txt')
 
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    # Create the decryption dictionary
+    DECODING = {v: k for v, k in ENCODING.items()}
+    #Build decrpyted string
+    decrypted_string = ''.join([DECODING.get(char, char) for char in str])
+    return decrypted_string
+
+#print(decode_string(text_body))
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
-
+    decoded_string=decode_string(line)
+    #print(decoded_string)
+    #Set Ingredient fields
+    amount, description = decoded_string.split('#')   
+    return Ingredient(amount, description)
+#print(decode_string(text_body))
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
-
+    # Wrote tp File
+orig_string  = decode_string(text_body)
+mod_string = orig_string.replace("#"," ")
+with open('decoded_recipe.txt', 'w') as file:
+    file.write(mod_string)
 if __name__ == "__main__":
     main()
