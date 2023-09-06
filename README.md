@@ -50,7 +50,7 @@ We have created starter projects in Java, Scala, and Python that you can use to 
 - [Scala Project](scala/README.md)
 - [Python Project](python/README.md)
 
-Note: We will be coding in Scala for the Hours with Experts course but for this challenge you can choose any language you like.
+Note: We will be coding in Python for the Hours with Experts course and strongly recommend you submit your code in python, but you are welcome to choose any language you would like and we'll take that into account. 
 
 #### Important
 When you are ready to start working on your solution, create a new branch called - yournameChallengeThree - ex) nickraffertyChallengeThree

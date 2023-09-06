@@ -1,6 +1,7 @@
 package com.labs1904;
 
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,16 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String[] input = str.split("");
+        StringBuilder returnString = new StringBuilder("");
+        for (String c : input) {
+            if(ENCODING.containsKey(c)){
+                returnString.append(ENCODING.get(c));
+            }else{
+                returnString.append(c);
+        }}
+
+        return returnString.toString();
     }
 
     /**
@@ -63,10 +73,26 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] ingredient = line.split("#");
+
+        return new Ingredient(decodeString(ingredient[0]), decodeString(ingredient[1]));
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) throws IOException {
+        File decodedRecipe = new File("decoded_recipe.txt");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(decodedRecipe));
+
+        InputStreamReader stream =new InputStreamReader(SecretRecipeDecoder.class.getResourceAsStream("/secret_recipe.txt"));
+        BufferedReader reader = new BufferedReader(stream);
+
+
+        do{
+            String currentLine = reader.readLine();
+            Ingredient ingredient = decodeIngredient(currentLine);
+            writer.append(ingredient.getAmount()+" "+ingredient.getDescription()+"\n");
+        }while (reader.readLine()!=null);
+
+        writer.close();
+        reader.close();
     }
 }
