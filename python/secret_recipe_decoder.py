@@ -50,22 +50,32 @@ class Ingredient():
         self.amount = amount
         self.description = description
 
-
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
-
+    # Loop through each letter in string, then replaces using the encoding provided
+    # Still getting some funny outputs with this, honestly struggled with this and tried to limit how much help I had
+    for letter in str:
+        if letter in ENCODING:
+            str = str.replace(letter, ENCODING[letter])
+        else:
+            pass
+    return str
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
-
+    # Split line and assign to variable, in this case, we can assume before split is amount, after split is description
+    amount_split, description_split = line.split('#')
+    ingredient = Ingredient(decode_string(amount_split), decode_string(description_split))
+    return ingredient.amount, ingredient.description
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    # Opens recipe, decodes lines then writes to new file
+    with open("secret_recipe.txt", "r") as recipe:
+        lines = [line.rstrip() for line in recipe]
+        for line in lines:
+            with open('decoded_recipe.txt', 'a') as write_file:
+                write_file.write(f'{decode_ingredient(line)}\n')
 
 if __name__ == "__main__":
     main()
