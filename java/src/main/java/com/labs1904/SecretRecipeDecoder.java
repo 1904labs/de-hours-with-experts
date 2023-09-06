@@ -1,8 +1,18 @@
 package com.labs1904;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.nio.file.Files.lines;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +63,14 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        //        return "1 cup";
+char[] chars=str.toCharArray();
+String concatStr="";
+        for(int i=0;i<str.length();i++){
+        String decodedString =ENCODING.getOrDefault(Character.toString((chars[i]))," ");
+        concatStr=concatStr.concat(decodedString);
+        }
+    return concatStr;
     }
 
     /**
@@ -63,10 +80,64 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+       // return new Ingredient("1 cup", "butter");
+        String data=line;
+        String[] s=data.split("#");
+        return  new Ingredient(decodeString(s[0]),decodeString(s[1]));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO: implement me
+
+        /* Read a data from secret_recipe.txt  */
+try {
+    String file = "C:\\Users\\User\\IdeaProjects\\1904\\java\\src\\main\\resources\\secret_recipe.txt";
+    Stream<String> stream = Files.lines((Paths.get(file)));
+    String data = stream.collect(Collectors.joining("\n"));
+    stream.close();
+
+
+        /* write a  decoded data to decode_recipe.txt
+           create a decode_recipe.txt and write data into file  */
+    try {
+        String newFile = "decode_recipe.txt";
+        String directory = System.getProperty("user.dir");
+        String absolutePathForWrite = directory + File.separator + newFile;
+
+        // File fileWrite=new File(absolutePathForWrite);
+
+        File fileWrite = new File("C:\\Users\\User\\IdeaProjects\\1904\\java\\src\\main\\resources\\decode_recipe.txt");
+        System.out.println(fileWrite);
+        if (!fileWrite.exists()) {
+            fileWrite.createNewFile();
+            System.out.println("file created");
+        } else {
+            System.out.println("file exist");
+        }
+
+        FileOutputStream fos = new FileOutputStream(fileWrite);
+        String[] s = data.split("\n");
+        String lineSeparator = System.getProperty("line.separator");
+
+        for (int k = 0; k < s.length; k++) {
+
+            String written = SecretRecipeDecoder.decodeString((s[k]) + "\n");
+            fos.write(written.getBytes());
+            fos.write(lineSeparator.getBytes());
+
+        }
+
+        fos.close();
+        fos.flush();
+
+
+    } catch (FileNotFoundException e) {
+        System.out.println("An error occured");
+    }
+
+} catch (IOException e) {
+    throw new RuntimeException(e);
+}
     }
 }
+
