@@ -58,7 +58,7 @@ def decode_string(str):
     # TODO: implement me
     newStr = ""
     for x in str:
-        if x == " ":
+        if x == " " or x == "-" or x == "/" or x == ",":
             newStr += x
         for key in ENCODING:
             if key == x:
@@ -80,11 +80,35 @@ def decode_ingredient(line):
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    text_file = open(
+        "/Users/paule/Documents/Coding/1904 labs/de-hours-with-experts/python/secret_recipe.txt",
+        "r",
+    )
+    line_list = text_file.readlines()
+
+    newLine = []
+    for line in line_list:
+        newLine.append(decode_ingredient(line))
+
+    text_file.close()
+
+    decodedList = ""
+    for ingredient in newLine:
+        decodedList += str(ingredient.amount) + " " + str(ingredient.description) + "\n"
+
+    decodedList = decodedList[: len(decodedList) - 1]
+
+    path = "/Users/paule/Documents/Coding/1904 labs/de-hours-with-experts/python/"
+    file_name = "decoded_recipe.txt"
+
+    with open(os.path.join(path, file_name), "w") as newFile:
+        newFile.write(decodedList)
 
 
 if __name__ == "__main__":
     main()
 
 
-print(decode_string("8 vgl"))
-print(decode_ingredient("8 vgl#hgiikf"))
+# print(decode_string("8 vgl"))
+# newIngredient = decode_ingredient("4#kzzo")
+# print(newIngredient.amount, newIngredient.description)
