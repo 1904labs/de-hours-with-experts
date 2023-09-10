@@ -1,8 +1,14 @@
 package com.labs1904;
 
 
+import java.io.FileWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -49,24 +55,69 @@ public class SecretRecipeDecoder {
     /**
      * Given a string named str, use the Caesar encoding above to return the decoded string.
      * @param str
-     * @return
+     * @return decodedStr
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        String[] arr = str.split("");
+        ArrayList<String> decodedArr = new ArrayList<>();
+        for (String character : arr) {
+            if (character.matches("^[a-z0-9]*$")){  // only decoding relevant characters
+                decodedArr.add(ENCODING.get(character));
+            }
+            else {                                        // otherwise keeping character as is
+                decodedArr.add(character);
+            }
+        }
+        String decodedStr = String.join("", decodedArr);
+        return decodedStr;
     }
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
      * @param line
-     * @return
+     * @return decodedAmount, decodedDescrip
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        int i = line.indexOf("#");
+        String codedAmount = line.substring(0, i);
+        String codedDescrip = line.substring(i+1);
+        String decodedAmount = decodeString(codedAmount);
+        String decodedDescrip = decodeString(codedDescrip);
+        return new Ingredient(decodedAmount, decodedDescrip);
     }
 
-    public static void main(String[] args) {
-        // TODO: implement me
+    public static void main(String[] args) throws IOException {
+        int ch;
+        FileReader fr = null;
+        fr = new FileReader("java/src/main/resources/secret_recipe.txt");
+
+        FileWriter fw = new FileWriter("java/src/main/resources/decoded_recipe.txt");
+
+        ArrayList<Character> secretRecipeCharArray = new ArrayList<>();
+        ArrayList<String> secretRecipeStrArray = new ArrayList<>();
+
+        // reading secret_recipe.txt and adding each character into a char array
+        while ((ch=fr.read())!=-1) {
+            secretRecipeCharArray.add((char)ch);
+        }
+        fr.close();
+
+        // converting that char array into a string array
+        for (Character c : secretRecipeCharArray){
+            secretRecipeStrArray.add(c.toString());
+        }
+
+        // converting that string array into a string
+        String secretRecipeString = String.join("", secretRecipeStrArray);
+
+        System.out.println(secretRecipeString);
+
+        // need to find a way to delimit the secretRecipeString into separate lines
+        // to feed them into the decodeIngredient function in a loop
+
+        // then they should be ready to be written into the decoded_recipe.txt file
+
+        fw.close();
+
     }
 }
