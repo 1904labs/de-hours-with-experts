@@ -4,6 +4,7 @@ package com.labs1904;
 import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.FileNotFoundException;
@@ -78,9 +79,12 @@ public class SecretRecipeDecoder {
      * @return decodedAmount, decodedDescrip
      */
     public static Ingredient decodeIngredient(String line) {
+
+        // separating the string into the amount and description components
         int i = line.indexOf("#");
         String codedAmount = line.substring(0, i);
         String codedDescrip = line.substring(i+1);
+
         String decodedAmount = decodeString(codedAmount);
         String decodedDescrip = decodeString(codedDescrip);
         return new Ingredient(decodedAmount, decodedDescrip);
@@ -102,20 +106,28 @@ public class SecretRecipeDecoder {
         }
         fr.close();
 
-        // converting that char array into a string array
+        // converting the char array into a string array
         for (Character c : secretRecipeCharArray){
             secretRecipeStrArray.add(c.toString());
         }
 
-        // converting that string array into a string
+        // converting the string array into a string
         String secretRecipeString = String.join("", secretRecipeStrArray);
 
-        System.out.println(secretRecipeString);
+        // sending each line of the recipe through the decoder and saving into an arraylist
+        String[] lines = secretRecipeString.split(System.lineSeparator());
+        ArrayList<Ingredient> decodedLines = new ArrayList<>();
+        for (String line: lines) {
+            decodedLines.add(decodeIngredient(line));
+        }
 
-        // need to find a way to delimit the secretRecipeString into separate lines
-        // to feed them into the decodeIngredient function in a loop
-
-        // then they should be ready to be written into the decoded_recipe.txt file
+        // write each ingredient's amount and description into file, adding spaces and new lines back in
+        for (Ingredient ingredient : decodedLines){
+            fw.write(ingredient.getAmount());
+            fw.write(" ");
+            fw.write(ingredient.getDescription());
+            fw.write("\n");
+        }
 
         fw.close();
 
