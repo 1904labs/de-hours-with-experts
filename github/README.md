@@ -10,7 +10,7 @@ Ex) My branch would be named nickraffertyChallengeOne
 4. In the /github/funfacts/Spring2022 directory, create a directory with your name - ex) nickrafferty
 5. In your directory, create a text file following this naming convention - funfacts.txt - ex) funfacts.txt
 6. Following the format you see in the example in ./funfacts/Spring2022/funfacts.txt, add your name and a fun fact about yourself
-7. Commit your changes locally
+7. Commit your changes locally 
 8. Push your changes up to Github
 9. Create a PR for your changes against the solutions branch of the 1904labs repository
 10. Once you create a PR, copy the link to your PR and add it to the Google Form that you were sent when given the application
