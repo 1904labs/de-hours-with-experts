@@ -49,23 +49,27 @@ class Ingredient():
     def __init__(self, amount, description) -> None:
         self.amount = amount
         self.description = description
+      
+    def __repr__(self) -> str:
+        return f'{self.amount} {self.description}'
 
 
-def decode_string(str):
+def decode_string(str: str) -> str:
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    return ''.join([ENCODING.get(s, s) for s in str])
 
 
-def decode_ingredient(line):
+def decode_ingredient(line: str) -> Ingredient:
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    return Ingredient(*(decode_string(l) for l in line.split("#")))
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    with open("secret_recipe.txt") as encoded_recipe, open("decoded_recipe.txt", "w") as decoded_recipe:
+      for line in encoded_recipe:
+        line_end = '\n' if line[-1] == '\n' else ''
+        decoded_recipe.write(f'{decode_ingredient(line.rstrip())}{line_end}')
 
 if __name__ == "__main__":
     main()
