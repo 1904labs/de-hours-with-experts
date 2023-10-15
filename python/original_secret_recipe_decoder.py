@@ -40,11 +40,7 @@ ENCODING = {
     '5': '6',
     '9': '7',
     '1': '8',
-    '6': '9',
-    ' ': ' ',
-    '#': ' ',
-    '/':'/',
-    '-':'-'
+    '6': '9'
  }
 
 """An ingredient has an amount and a description.
@@ -56,40 +52,20 @@ class Ingredient():
 
 
 def decode_string(str):
-    result = ''
-    letter = ''
-
-    for c in str:
-        letter += c
-        if letter in ENCODING:
-            result +=ENCODING[letter]
-            letter = ''
-
-    return result
+    """Given a string named str, use the Caesar encoding above to return the decoded string."""
+    # TODO: implement me
+    return '1 cup'
 
 
 def decode_ingredient(line):
-    line = decode_string(line)
-    Ingredient = line
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    return Ingredient
+    # TODO: implement me
+    return Ingredient("1 cup", "butter")
 
-        
-               
 
 def main():
-    txt_file = ('secret_recipe.txt')
-    with open(txt_file) as recipe:
-        lines = recipe.readlines()
-    recipe = lines
-    for i in recipe:
-        x = (i)
-        for l in x:
-            secret_recipe = decode_ingredient(x)
-        print(secret_recipe)
-    
     """A program that decodes a secret recipe"""
+    # TODO: implement me
 
 if __name__ == "__main__":
     main()
-    
