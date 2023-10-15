@@ -1,6 +1,8 @@
 package com.labs1904;
 
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,8 +54,16 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+
+        StringBuilder s = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if(String.valueOf(c).matches("[a-zA-Z0-9]")){
+                s.append(ENCODING.get(String.valueOf(c)));
+            } else {
+                s.append(c);
+            }
+        }
+        return s.toString();
     }
 
     /**
@@ -62,11 +72,29 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+
+        String[] parts = line.split("#");
+        String amount = decodeString(parts[0]);
+        String desc = decodeString(parts[1]);
+        return new Ingredient(amount, desc);
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("secret_recipe.txt");
+        InputStreamReader streamReader = new InputStreamReader(is, StandardCharsets.UTF_8);
+
+        try(BufferedReader reader = new BufferedReader(streamReader);
+            FileWriter fileWriter = new FileWriter("decoded_recipe.txt")) {
+            for(String line; (line = reader.readLine()) != null;){
+                Ingredient ingredient = decodeIngredient(line);
+                String lineToWrite = ingredient.getAmount() + " " + ingredient.getDescription();
+                fileWriter.write(lineToWrite);
+                fileWriter.write(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
