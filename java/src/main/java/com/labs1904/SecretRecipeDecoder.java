@@ -1,6 +1,7 @@
 package com.labs1904;
 
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,8 +53,19 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static String decodeString(String str) {
-        // TODO: implement me
-        return "1 cup";
+        String retString = "";
+
+        for(int i = 0; i < str.length(); i++){
+            String key = String.valueOf(str.charAt(i));
+            if(key.matches("[a-z0-9]")){
+                retString = retString.concat(ENCODING.get(key));
+            } else {
+                retString = retString.concat(key);
+            }
+        }
+
+        return retString;
+        //return "1 cup";
     }
 
     /**
@@ -62,11 +74,31 @@ public class SecretRecipeDecoder {
      * @return
      */
     public static Ingredient decodeIngredient(String line) {
-        // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] stringArr = line.split("#");
+        return new Ingredient(decodeString(stringArr[0]), decodeString(stringArr[1]));
     }
 
     public static void main(String[] args) {
-        // TODO: implement me
+        String filePath = "C:\\Users\\Bobby\\Desktop\\projects\\hours-with-experts\\de-hours-with-experts\\java\\src\\main\\resources\\secret_recipe.txt";
+        BufferedReader reader;
+        try{
+
+        reader = new BufferedReader(new FileReader(filePath));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Bobby\\Desktop\\decoded_recipe.txt"));
+
+        String line = reader.readLine();
+
+        while (line != null) {
+            Ingredient ingredient = decodeIngredient(line);
+            writer.write(ingredient.getAmount() + ingredient.getDescription());
+            writer.write("\n");
+            line = reader.readLine();
+        }
+
+        writer.close();
+        reader.close();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }
