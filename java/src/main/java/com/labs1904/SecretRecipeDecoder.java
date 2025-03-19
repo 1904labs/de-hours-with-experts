@@ -74,7 +74,11 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] splitLine = line.split("#");
+        String amount = decodeString(splitLine[0]);
+        String description = decodeString(splitLine[1]);
+
+        return new Ingredient(amount, description);
     }
 
     public static void main(String[] args) {
