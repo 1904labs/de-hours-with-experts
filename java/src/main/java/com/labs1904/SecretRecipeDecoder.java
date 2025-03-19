@@ -1,10 +1,7 @@
 package com.labs1904;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,11 +88,16 @@ public class SecretRecipeDecoder {
             InputStream input = SecretRecipeDecoder.class.getResourceAsStream("/secret_recipe.txt");
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
+            BufferedWriter writer = new BufferedWriter(new FileWriter("decoded_recipe.txt"));
+
             String line;
             while((line = reader.readLine()) != null) {
-                System.out.println(decodeIngredient(line).getAmount() + " " + decodeIngredient(line).getDescription());
+                writer.write(decodeIngredient(line).getAmount() + " " + decodeIngredient(line).getDescription());
+                writer.newLine();
             }
+
             reader.close();
+            writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
