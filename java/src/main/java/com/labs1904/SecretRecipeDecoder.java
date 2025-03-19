@@ -1,6 +1,10 @@
 package com.labs1904;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +64,7 @@ public class SecretRecipeDecoder {
             if (ENCODING.containsKey(letter)) {
                 decodedString += (ENCODING.get(letter));
             } else {
-                decodedString += " ";
+                decodedString += letter;
             }
         }
 
@@ -83,6 +87,17 @@ public class SecretRecipeDecoder {
 
     public static void main(String[] args) {
         // TODO: implement me
+        try {
+            InputStream input = SecretRecipeDecoder.class.getResourceAsStream("/secret_recipe.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
+            String line;
+            while((line = reader.readLine()) != null) {
+                System.out.println(decodeIngredient(line).getAmount() + " " + decodeIngredient(line).getDescription());
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
