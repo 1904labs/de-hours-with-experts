@@ -69,16 +69,28 @@ def decode_ingredient(line):
     
 # now for coding challenge #3
 # TODO: CODING CHALLENGE #3
-
-# alright, so the README says that this function takes a line from the recipe and returns a new Ingredient (a class already defined for me).
-# aha! there's a secret_recipe.txt. That took me WAY too long to notice. Good thing I'm recording all my stream of consciousness in comments. Is that how you spell that?
-# if the line has a # in it, that's the mark (delimiter) betwixt the amount and the description.
-# so let's get the amount and the description, and then return a new Ingredient. Easy, right?
+'''
+In the main method, read all of the ingredients out of secret_recipe.txt, 
+decode each ingredient (hopefully using the functions you implemented above), 
+and save the output into a new file named decoded_recipe.txt.
+'''
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
-
+    decoded_lines = []
+    with open("secret_recipe.txt", "r") as input_file, open("decoded_recipe.txt", "w") as output_file:
+            for line in input_file: # just iterating through the input file (secret_recipe.txt)
+                line = line.strip() # removes the newline character and any other whitespace...because they're might be? I don't know, just being careful
+                if line:
+                    try:
+                        ingredient = decode_ingredient(line)
+                        decoded_lines.append(ingredient) # adds the ingredient object to the decoded_lines list
+                        output_file.write(f"{ingredient.amount}#{ingredient.description}\n") # writes the decoded line to the new output file immediately
+                    except ValueError:
+                        print(f"Error: Invalid line '{line}'") # adds error handling for bad lines (which I know there won't be here)
+                else:
+                    print("Warning: Skipping empty line.") # adds a warning for empty lines (again, just for best practice or whatever)
     
 if __name__ == "__main__":
     main()
