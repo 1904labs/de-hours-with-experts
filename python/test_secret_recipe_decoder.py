@@ -8,3 +8,10 @@ def test_decode_ingredient_can_decode():
     actual = decode_ingredient("8 vgl#hgiikf")
     assert(actual.amount == expected.amount)
     assert(actual.description == expected.description)
+    
+
+
+def test_decode_string_can_decode_2():
+    assert(decode_string("8 vgl 8") == "1 cup 1")
+    
+# testing to see if it catches both
