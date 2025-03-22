@@ -75,6 +75,10 @@ def decode_ingredient(line):
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    with open('secret_recipe.txt','r') as inp, open('decoded_recipe.txt','w') as out:
+        for line in inp:
+            decoded = decode_ingredient(line)
+            out.write(decoded.amount + " " + decoded.description)
 
 if __name__ == "__main__":
     main()
