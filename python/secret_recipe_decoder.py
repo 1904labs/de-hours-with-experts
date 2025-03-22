@@ -54,18 +54,34 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
-    return '1 cup'
+    decoded_string = ''
+    for char in str:
+        if char in ENCODING:
+            decoded_string += ENCODING[char]
+        else:
+            decoded_string += char
+    return decoded_string
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # TODO: implement me
-    return Ingredient("1 cup", "butter")
 
+    decoded_line = decode_string(line)
+    ing = decoded_line.split('#')
+    ingredient = Ingredient(ing[0], ing[1])
+
+    return ingredient
 
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
+    with open("output.txt","w") as output_file:
+        with open("secret_recipe.txt","r") as input_file:
+            for line in input_file:
+                decoded = decode_ingredient(line)
+                output_file.write(f"{decoded.amount} {decoded.description}")
+    print(f"Decoded recipe can be found in {output_file.name}.")
 
 if __name__ == "__main__":
     main()
