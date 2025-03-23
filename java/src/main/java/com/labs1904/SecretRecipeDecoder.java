@@ -1,6 +1,7 @@
 package com.labs1904;
 
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +54,16 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String decodedStr ="";
+        for(char c : str.toCharArray() ){
+            String key = Character.toString(c);
+            if(ENCODING.containsKey(key)){
+                decodedStr = decodedStr + ENCODING.get(key);
+            } else {
+                decodedStr += c;
+            }
+        }
+        return decodedStr;
     }
 
     /**
@@ -63,10 +73,31 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] parts = line.split("#", 2);
+        String amount = parts[0];
+        String ingredient = parts[1];
+
+        String decodedAmount = decodeString(amount);
+        String decodedIngredient = decodeString(ingredient);
+        return new Ingredient(decodedAmount, decodedIngredient);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO: implement me
+
+        BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\tmanb\\Desktop\\hour-with-experts-challenges\\de-hours-with-experts\\java\\src\\main\\resources\\secret_recipe.txt"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\tmanb\\Desktop\\hour-with-experts-challenges\\de-hours-with-experts\\java\\src\\main\\resources\\decoded_recipe.txt"));
+        String line;
+        while((line = reader.readLine()) != null) {
+            Ingredient ingredient = decodeIngredient(line);
+            String formattedIngredient = ingredient.getAmount() + " " + ingredient.getDescription();
+            writer.write(formattedIngredient);
+            writer.newLine();
+
+            System.out.println(line);
+            System.out.println(formattedIngredient);
+        }
+            reader.close();
+            writer.close();
     }
 }
