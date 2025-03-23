@@ -1,8 +1,10 @@
 package com.labs1904;
 
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,8 +55,25 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+
+        StringBuilder decoded = new StringBuilder();
+        // Holds decoded answer
+
+
+        for (char c : str.toCharArray()) {
+            String decodedChar = ENCODING.getOrDefault(String.valueOf(c), String.valueOf(c));
+            System.out.println("Decoding: " + c + " -> " + decodedChar);
+            decoded.append(decodedChar);
+        }
+        return decoded.toString();
     }
+        // For loop, loops through each character in string.
+        // Defaults to itself if it doesn't find corresponding character.
+        // Returns decoded string.
+
+//    public static void main(String[] args) {
+//        System.out.println(decodeString("8 vgl"));  // Should print: 1 cup
+//    }
 
     /**
      * Given an ingredient, decode the amount and description, and return a new Ingredient
@@ -63,10 +82,59 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] parts = line.split("#");
+        // Separates amounts and description.
+
+        if (parts.length < 2) {
+            System.out.println("Error: Invalid ingredient format.");
+            return null;
+        }
+        // Makes sure there are two parts and prints error if something is wrong and returns null.
+
+        String amount = decodeString(parts[0].trim());
+        String description = decodeString(parts[1].trim());
+
+        return new Ingredient(amount, description);
+
+        // Returns Ingredient object.
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        InputStream inputStream = SecretRecipeDecoder.class.getClassLoader().getResourceAsStream("secret_recipe.txt");
+         if (inputStream == null) {
+             System.out.println("Error, file not found.");
+             return;
+         }
+
+         // Looks for our secret file in resource folder. Prints error if not found.
+
+         File outputFile = new File("decoded_recipe.txt");
+
+        try (
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))
+
+        // Buffered Reader to read input file stream (given txt file).
+        // Buffered Writer to write our output file (decoded txt file).
+        ) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                Ingredient ingredient = decodeIngredient(line);
+
+                if (ingredient != null) {
+                    writer.write("Amount: " + ingredient.getAmount() + ", Description: " + ingredient.getDescription());
+                    writer.newLine();
+        // Making sure it is not null before writing. Then moves to next line.
+                }
+            }
+            System.out.println("Decode complete. Saved to decoded_recipe.txt");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    // Exception handling
     }
 }

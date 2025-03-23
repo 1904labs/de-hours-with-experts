@@ -1,0 +1,13 @@
+Amount: 1 cup, Description: butter
+Amount: 1 cup, Description: dark brown sugar, packed
+Amount: 1 cup, Description: granulated sugar
+Amount: 2, Description: eggs
+Amount: 1 teaspoon, Description: vanilla
+Amount: 2 1/2 cups, Description: oatmeal
+Amount: 2 cups, Description: flour
+Amount: 1/2 teaspoon, Description: salt
+Amount: 1 teaspoon, Description: baking soda
+Amount: 1 teaspoon, Description: baking powder
+Amount: 12 ounces, Description: chocolate chips
+Amount: 1, Description: 4-ounce milk chocolate bar
+Amount: 1 1/2 cups, Description: chopped nuts
