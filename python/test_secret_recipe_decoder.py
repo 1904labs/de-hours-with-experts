@@ -1,4 +1,4 @@
-from secret_recipe_decoder import decode_ingredient, decode_string, Ingredient
+from .secret_recipe_decoder import decode_ingredient, decode_string, Ingredient
 
 def test_decode_string_can_decode():
     assert(decode_string("8 vgl") == "1 cup")
