@@ -125,7 +125,7 @@ public class SecretRecipeDecoder {
                 Ingredient ingredient = decodeIngredient(line);
 
                 if (ingredient != null) {
-                    writer.write("Amount: " + ingredient.getAmount() + ", Description: " + ingredient.getDescription());
+                    writer.write(ingredient.getAmount() + " " + ingredient.getDescription());
                     writer.newLine();
         // Making sure it is not null before writing. Then moves to next line.
                 }
