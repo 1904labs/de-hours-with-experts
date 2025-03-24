@@ -63,16 +63,30 @@ def decode_string(str):
     return decode
 
 
-# def decode_ingredient(line):
+def decode_ingredient(line):
 #     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
 #     # TODO: implement me
-#     return Ingredient("1 cup", "butter")
+    decoded_line = ''
+    for char in line:
+        if char in ENCODING:
+            decoded_line += ENCODING[char]
+        else:
+            decoded_line += char
+
+    # Replace # with space if needed
+    decoded_line = decoded_line.replace('#', ' ')
+
+    parts = decoded_line.split(' ', 1)
+    amount = parts[0]
+    description = parts[1] if len(parts) > 1 else ''
+    return f"{amount} {description}"
 
 
 def main():
      """A program that decodes a secret recipe"""
      # TODO: implement me
      print(decode_string("hgiikf"))
+     print(decode_ingredient("8 vgl#hgiikf"))
 
 if __name__ == "__main__":
      main()
