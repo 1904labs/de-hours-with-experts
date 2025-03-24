@@ -52,7 +52,7 @@ class Ingredient():
 
 
 def decode_string(str):
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
+   # """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
     decode='' #empty string to store decoded string
     for char in str:
@@ -76,17 +76,32 @@ def decode_ingredient(line):
     # Replace # with space if needed
     decoded_line = decoded_line.replace('#', ' ')
 
-    parts = decoded_line.split(' ', 1)
-    amount = parts[0]
-    description = parts[1] if len(parts) > 1 else ''
-    return f"{amount} {description}"
-
+    parts = decoded_line.split()
+    amount = ' '.join(parts[0:2])
+    description = ' '.join(parts[2:])
+    return Ingredient(amount, description)
 
 def main():
-     """A program that decodes a secret recipe"""
+#     """A program that decodes a secret recipe"""
      # TODO: implement me
-     print(decode_string("hgiikf"))
-     print(decode_ingredient("8 vgl#hgiikf"))
+     #print(decode_string("hgiikf"))
+    # print(decode_ingredient("8 vgl#hgiikf"))
 
+#     """Reads secret_recipe.txt, decodes each line, writes to decoded_recipe.txt"""
+     decoded_ingredients = []
+     with open('python/secret_recipe.txt', 'r') as secret_file:
+        lines = secret_file.readlines()
+        for line in lines:
+            line = line.strip()  
+            if line:  
+                ingredient = decode_ingredient(line)
+                decoded_ingredients.append(str(ingredient))
+
+    # Write ingredients to the new file
+     with open('decoded_recipe.txt', 'w') as decoded_file:
+        for item in decoded_ingredients:
+            decoded_file.write(item + '\n')
+
+     print("Decoded recipe saved to decoded_recipe.txt")
 if __name__ == "__main__":
      main()
