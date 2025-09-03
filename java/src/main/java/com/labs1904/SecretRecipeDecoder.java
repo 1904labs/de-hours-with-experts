@@ -1,6 +1,8 @@
 package com.labs1904;
 
 
+import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ public class SecretRecipeDecoder {
             put("9", "7");
             put("1", "8");
             put("6", "9");
+            put("#", " ");
         }
     };
 
@@ -53,7 +56,14 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        //Challenge #1: Decode a string
+        StringBuilder decodedString = new StringBuilder();
+        for (char c : str.toCharArray())
+        {
+            String decodedChar = ENCODING.getOrDefault(String.valueOf(c), String.valueOf(c));
+            decodedString.append(decodedChar);
+        }
+        return decodedString.toString();
     }
 
     /**
@@ -63,10 +73,54 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        //Challenge #2: Decode an Ingredient
+        String[] parts = line.split("#");
+        String amountDecoded = decodeString(parts[0]);
+        String descriptionDecoded = decodeString(parts[1]);
+        return new Ingredient(amountDecoded, descriptionDecoded);
     }
 
-    public static void main(String[] args) {
+    // Challenge #3: Decode entire recipe
+    public static void decodeRecipe(String inputFileName, String outputFileName) {
+        try {
+            // Get input file from resources
+            InputStream inputStream = SecretRecipeDecoder.class.getResourceAsStream("/" + inputFileName);
+            System.out.println(SecretRecipeDecoder.class.getResourceAsStream("/" + inputFileName));
+            if (inputStream == null) {
+                System.out.println("Input file not found!");
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            // Get path for writing output in the same resource folder
+            File outputFile = new File(
+                    SecretRecipeDecoder.class.getResource("/").getPath() + outputFileName
+            );
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Ingredient ingredient = decodeIngredient(line);
+                writer.write(ingredient.toString());
+                writer.newLine();
+            }
+
+            reader.close();
+            writer.close();
+
+            System.out.println("Decoded recipe saved to " + outputFile.getAbsolutePath());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+       public static void main(String[] args) {
         // TODO: implement me
+        System.out.println(decodeString("hgiikf"));
+        System.out.println(decodeString("8 vgl#hgiikf"));
+           decodeRecipe("secret_recipe.txt", "decoded_recipe.txt");
+
     }
 }
