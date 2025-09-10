@@ -74,7 +74,6 @@ def main():
     with open(input_file, 'r') as file:
         lines = file.readlines()
     decoded_recipe = [decode_ingredient(line) for line in lines]
-    print(f'{decoded_recipe}')
 
     output = '\n'.join(f"{i.amount} {i.description}" for i in decoded_recipe)
     with open(output_file, 'w') as file:
