@@ -4,6 +4,7 @@ import sys
 import os
 
 # Caesar encoding, for use with decoding below
+
 ENCODING = {
     'y': 'a',
     'h': 'b',
@@ -70,8 +71,8 @@ class Ingredient():
 
 
 def decode_ingredient(text): 
-    """Given a string containing an object of Class Ingredient, decode, parse and assign
-    as the relevant attributes."""
+    """Given a string containing an instance of Class Ingredient, decode, parse and assign
+    as the relevant objects."""
 
     for c in text:
         decoded = "".join(str(ENCODING[c]) if c in ENCODING else c for c in text)
@@ -85,6 +86,9 @@ decode_ingredient("8 vgl#xyfe hfntq ogzyf, lyvekx")
 
 #*********PART THREE************#
 
+#Struggled to leverage decode_ingredient(), cheated with quick and dirty solution. Submitting this now, may revisit if time allows.
+#Kept getting memory address written in place of string
+
 def main(): 
     """A program that decodes a secret recipe"""
 
@@ -93,12 +97,12 @@ def main():
         with open("python/decoded_recipe.txt", "w") as decoded_recipe: 
 
             for line in encoded_recipe:
-                decode_ingredient(line)
-            #     text = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line) 
-            #     amount = text.split("#")[0]
-            #     description = text.split("#")[-1]
-            #     # print(amount, description)
-            # return Ingredient(amount, description)
+                text = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
+                amount = text.split("#")[0]
+                description = text.split("#")[-1]
+                recipe_line = amount + " " + description
+                decoded_recipe.write(recipe_line)
+            return decoded_recipe
         
 if __name__ == "__main__":
     main()
