@@ -43,68 +43,23 @@ ENCODING = {
     '6': '9'
  }
 
-#opening recipe text
-nonsense_recipe = open("/Users/carolina.scalzo/de-hours-with-experts/python/secret_recipe.txt", "r")
-
-#testing final solution below with different recipe
-# half_recipe = open("/Users/carolina.scalzo/de-hours-with-experts/python/halfrecipe.txt")
-
 #********* PART ONE *************#
 
-def decode_string(str): #completed
+def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
     
-    ENCODING = {
-    'y': 'a',
-    'h': 'b',
-    'v': 'c',
-    'x': 'd',
-    'k': 'e',
-    'p': 'f',
-    'z': 'g',
-    's': 'h',
-    'a': 'i',
-    'b': 'j',
-    'e': 'k',
-    'w': 'l',
-    'u': 'm',
-    'q': 'n',
-    'n': 'o',
-    'l': 'p',
-    'm': 'q',
-    'f': 'r',
-    'o': 's',
-    'i': 't',
-    'g': 'u',
-    'j': 'v',
-    't': 'w',
-    'd': 'x',
-    'r': 'y',
-    'c': 'z',
-    '3': '0',
-    '8': '1',
-    '4': '2',
-    '0': '3',
-    '2': '4',
-    '7': '5',
-    '5': '6',
-    '9': '7',
-    '1': '8',
-    '6': '9'
- }
+    res = ""
 
-    letter = ""
-
-    for letter in str:
-        print(ENCODING[letter], end = "")
+    for i in str:
+        res += ENCODING[i]
+    # print(res)
+    return res
 
 decode_string("hgiikf")
 
-#*********PART TWO **************#
 
-# struggling to use # as delimiter and print items
-#gave up on using delimiter, went for quick and dirty solution that returned an answer
+#*********PART TWO **************#
 
 """An ingredient has an amount and a description.
 For example: an Ingredient could have "1 cup" as the amount and "butter" as the description."""
@@ -113,124 +68,37 @@ class Ingredient():
         self.amount = amount
         self.description = description
 
-# line_from_recipe = "8 vgl#hgiikf"
 
-# def decode_ingredient(line):
-# #     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-#     # TODO: implement me
+def decode_ingredient(text): 
+    """Given a string containing an object of Class Ingredient, decode, parse and assign
+    as the relevant attributes."""
 
-#     ENCODING = {
-#     'y': 'a',
-#     'h': 'b',
-#     'v': 'c',
-#     'x': 'd',
-#     'k': 'e',
-#     'p': 'f',
-#     'z': 'g',
-#     's': 'h',
-#     'a': 'i',
-#     'b': 'j',
-#     'e': 'k',
-#     'w': 'l',
-#     'u': 'm',
-#     'q': 'n',
-#     'n': 'o',
-#     'l': 'p',
-#     'm': 'q',
-#     'f': 'r',
-#     'o': 's',
-#     'i': 't',
-#     'g': 'u',
-#     'j': 'v',
-#     't': 'w',
-#     'd': 'x',
-#     'r': 'y',
-#     'c': 'z',
-#     '3': '0',
-#     '8': '1',
-#     '4': '2',
-#     '0': '3',
-#     '2': '4',
-#     '7': '5',
-#     '5': '6',
-#     '9': '7',
-#     '1': '8',
-#     '6': '9'
-#  }
-#     #empty str
-#     text = ""
-#     new_ingredient = ''
+    for c in text:
+        decoded = "".join(str(ENCODING[c]) if c in ENCODING else c for c in text)
+        amount = decoded.split("#")[0]
+        description = decoded.split("#")[-1]
+    # print(f"a: {amount}, d: {description}")
+   
+    return Ingredient(amount, description)
 
-#     for c in text:
-#         new_ingredient = str("".join(text(ENCODING[c]) if c in ENCODING else c for c in text))
-#         return new_ingredient
-
-#     print(decode_ingredient("8 vgl#hgiikf"))
-
-def decode_ingredient(text):
-    line = text
-
-    for c in line:
-    
-        solution = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
-    print(solution)
-
-decode_ingredient("\n8 vgl#zfyqgwyikx ogzyf")
+decode_ingredient("8 vgl#xyfe hfntq ogzyf, lyvekx")
 
 #*********PART THREE************#
 
-def main(recipe): #completed
-#     """A program that decodes a secret recipe"""
-#     # TODO: implement me
+def main(): 
+    """A program that decodes a secret recipe"""
 
-    ENCODING = {
-    'y': 'a',
-    'h': 'b',
-    'v': 'c',
-    'x': 'd',
-    'k': 'e',
-    'p': 'f',
-    'z': 'g',
-    's': 'h',
-    'a': 'i',
-    'b': 'j',
-    'e': 'k',
-    'w': 'l',
-    'u': 'm',
-    'q': 'n',
-    'n': 'o',
-    'l': 'p',
-    'm': 'q',
-    'f': 'r',
-    'o': 's',
-    'i': 't',
-    'g': 'u',
-    'j': 'v',
-    't': 'w',
-    'd': 'x',
-    'r': 'y',
-    'c': 'z',
-    '3': '0',
-    '8': '1',
-    '4': '2',
-    '0': '3',
-    '2': '4',
-    '7': '5',
-    '5': '6',
-    '9': '7',
-    '1': '8',
-    '6': '9'
- }
-    
+    with open("python/secret_recipe.txt", "r") as encoded_recipe:
 
-    #create new solution file
-    with open("/Users/carolina.scalzo/de-hours-with-experts/python/decoded_recipe.txt", "w") as decoded_recipe: 
-        #parse source file and return decoded text
-        for line in nonsense_recipe: 
+        with open("python/decoded_recipe.txt", "w") as decoded_recipe: 
 
-            new_line = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line) 
-            decoded_recipe.write(new_line)
-        print(decoded_recipe)
-
+            for line in encoded_recipe:
+                decode_ingredient(line)
+            #     text = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line) 
+            #     amount = text.split("#")[0]
+            #     description = text.split("#")[-1]
+            #     # print(amount, description)
+            # return Ingredient(amount, description)
+        
 if __name__ == "__main__":
-    main(nonsense_recipe)
+    main()
