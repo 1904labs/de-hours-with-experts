@@ -2,6 +2,7 @@
 import pydoc
 import sys
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 # Caesar encoding, for use with decoding below
 ENCODING = {
@@ -51,21 +52,46 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
+def decode_string(str) -> str:
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    with ThreadPoolExecutor() as executor:
+        decoded_chars = list(executor.map(lambda c: ENCODING.get(c, c), str))
+    return ''.join(decoded_chars)
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    encoded_amount, encoded_description = line.split('#')
+
+    decoded_amount = decode_string(encoded_amount)
+    decoded_description = decode_string(encoded_description)
+    
+    return Ingredient(decoded_amount, decoded_description)
+
+ingredient = decode_ingredient("8 vgl#hgiikf")
+print(ingredient.amount, ingredient.description)
+
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    input_path = "secret_recipe.txt"
+    output_path = "decoded_recipe.txt"
+
+    # 1. Read lines (fast sequential I/O)
+    with open(input_path, 'r', encoding='utf-8') as f:
+        lines: list[str] = [ln.strip() for ln in f if ln.strip()]
+
+    # 2. Decode all lines in parallel across processes
+    with ThreadPoolExecutor() as pool:
+        decoded: list[Ingredient] = list(pool.map(decode_ingredient, lines))
+
+    # 3. Write all results at once (fast sequential I/O)
+    with open(output_path, 'w', encoding='utf-8') as outfile:
+        for ing in decoded:
+            # Use the defined __str__ or explicit formatting:
+            outfile.write(f"{ing.amount} {ing.description}\n")
+
 
 if __name__ == "__main__":
     main()
