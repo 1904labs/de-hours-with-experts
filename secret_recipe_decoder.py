@@ -55,7 +55,8 @@ def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # TODO: implement me
     decoded = "".join(ENCODING.get(ch, ch) for ch in str)
-    return '1 cup'
+    return decoded
+
 
 
 def decode_ingredient(line):
@@ -75,9 +76,10 @@ def decode_ingredient(line):
 def main():
     """A program that decodes a secret recipe"""
     # TODO: implement me
-encoded_ingredient = "8 vgl" 
-decoded = decode_ingredient(encoded_ingredient)
-print(f"{decoded.amount} {decoded.description}")
+    ingredients=['8 vgl#hgiikf','8 vgl#xyfe hfntq ogzyf, lyvekx','8 vgl#zfyqgwyikx ogzyf', '4#kzzo','8 ikyolnnq#jyqawwy','4 8/4 vglo#nyiukyw','4 vglo#pwngf','8/4 ikyolnnq#oywi','8 ikyolnnq#hyeaqz onxy','8 ikyolnnq#hyeaqz lntxkf','84 ngqvko#vsnvnwyik vsalo','8#2-ngqvk uawe vsnvnwyik hyf','8 8/4 vglo#vsnllkx qgio']
+    for ingredient in ingredients:
+        decoded_ingredient = decode_ingredient(ingredient)
+        print(f"{decoded_ingredient.amount} {decoded_ingredient.description}")
 
 if __name__ == "__main__":
     main()
