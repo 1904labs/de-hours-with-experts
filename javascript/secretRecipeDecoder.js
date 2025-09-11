@@ -42,13 +42,15 @@ export const decodeString = (encodedString) => {
     return encodedString.split('').map(l => ENCODING[l] || l).join('')
 }
 
-export const decodeIngredient = (ingredient) => {
+export const decodeIngredient = (ingredient, returnType = 'object') => {
     const decoded = decodeString(ingredient);
     // split by # to extract the units and description name
     const [amount, description] = decoded.split('#');
-    return {
+    if (returnType === 'object') return {
         amount, 
         description,
     }
+
+    return `${amount} ${description}`
 };
 
