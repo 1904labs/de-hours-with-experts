@@ -1,7 +1,7 @@
 import assert from 'node:assert';
 import test from 'node:test';
-import { decodeString, decodeIngredient } from './secretRecipeDecoder.js';
-
+import { decodeString, decodeIngredient, decodeRecipe } from './secretRecipeDecoder.js';
+import fs from 'fs';
 
 test('decodeString can decode', () => {
     const expected = "1 cup";
@@ -57,3 +57,12 @@ test('decode list of ingredients', () => {
         assert(expected[i], decodeIngredient(ingredient, 'string'))
     })
 })
+
+test ('decode recipe', async ()=>{
+    const filePath = 'secret_recipe.txt';
+    const outputPath = 'decoded_recipe.txt';
+    await decodeRecipe(filePath);
+    // assert file exists
+    const result = fs.existsSync(outputPath);
+    assert(result)
+});

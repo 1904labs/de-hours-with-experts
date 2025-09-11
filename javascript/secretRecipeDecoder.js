@@ -1,3 +1,6 @@
+import fs from 'fs';
+import readline from 'readline';
+
 const ENCODING = {
     'y': 'a',
     'h': 'b',
@@ -47,10 +50,40 @@ export const decodeIngredient = (ingredient, returnType = 'object') => {
     // split by # to extract the units and description name
     const [amount, description] = decoded.split('#');
     if (returnType === 'object') return {
-        amount, 
+        amount,
         description,
     }
 
     return `${amount} ${description}`
 };
+
+export const decodeRecipe = async (filePath = 'secret_recipe.txt') => {
+    const outputPath = 'decoded_recipe.txt';
+
+    return new Promise((resolve, reject) => {
+        let decoded = '';
+        // read file
+        const rl = readline.createInterface({
+            input: fs.createReadStream(filePath),
+            output: process.stdout,
+            terminal: false
+        });
+
+        rl.on('line', (line) => {
+            decoded += decodeIngredient(line, 'str') + '\n';
+        });
+
+        rl.on('close', () => {
+            // outputs to file   
+            fs.writeFile(outputPath, decoded, (err) => {
+                if (err) {
+                    console.error('Error writing file:', err);
+                    return;
+                }
+                console.log(`File created: ${outputPath}`);
+            });
+            return resolve(decoded);
+        });
+    })
+}
 
