@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!python3
 import pydoc
 import sys
 import os
@@ -51,21 +51,31 @@ class Ingredient():
         self.description = description
 
 
-def decode_string(str):
-    """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+def decode_string(cipher) -> int:
+    """Given a string named cipher, use the Caesar encoding above to return the decoded string."""
+    # Changed str to cipher, to not override Python's str
+    # Decode convertable characters and leave the rest unchanged
+    plain = [ENCODING[char] if char in ENCODING else char for char in cipher]
+    return ''.join(plain)
 
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    # This is assuming the [amount#description] format stays the same
+    decoded = decode_string(line)
+    words = decoded.split('#')
+    return Ingredient(words[0], words[1])
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    # with [...] is a recommended practice for working with files
+    with open(os.path.join(sys.path[0], "secret_recipe.txt"), "r") as secret:
+        with open(os.path.join(sys.path[0], "decoded_recipe.txt"), "w") as newFile:
+            for line in secret:
+                newLine = decode_ingredient(line)
+                newFile.write(f"{newLine.amount} {newLine.description}")
+    return 0
 
 if __name__ == "__main__":
     main()
