@@ -49,23 +49,53 @@ class Ingredient():
     def __init__(self, amount, description) -> None:
         self.amount = amount
         self.description = description
+    def __str__(self):
+            return f"Amount: {self.amount}, Description: {self.description}"
+
+Ingredient1 = Ingredient("1 cup", "butter")
 
 
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
-    # TODO: implement me
-    return '1 cup'
+    decoded_str = ""
+    for char in str:
+        if char in ENCODING:
+            decoded_str += ENCODING[char]
+        else:
+            decoded_str += char
+    return decoded_str
 
 
-def decode_ingredient(line):
+def decode_ingredient(encoded_line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
-    # TODO: implement me
-    return Ingredient("1 cup", "butter")
+    encoded_amount, encoded_description = encoded_line.split('#')
+    amount = decode_string(encoded_amount)
+    description = decode_string(encoded_description)
+    return Ingredient(amount, description)
+
+
+
+
+
+
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # TODO: implement me
+    input_file = "python/secret_recipe.txt"
+    output_file = "python/decoded_recipe.txt"
+    try:   
+        with open(input_file, 'r') as in_file, open(output_file, 'w') as out_file:
+                lines = in_file.readlines()
+                for l in lines:
+                    print(decode_ingredient(l))
+                    out_file.write(str(decode_ingredient(l)))
+    except FileNotFoundError:
+        return f"Error: File '{filename}' not found."
+    except IOError:
+        return f"Error: An IO error occurred while trying to read the file at {file_path}."
+
+
 
 if __name__ == "__main__":
     main()
