@@ -73,9 +73,9 @@ export const decodeRecipe = async (filePath = 'secret_recipe.txt') => {
             decoded += decodeIngredient(line, 'str') + '\n';
         });
 
-        rl.on('close', () => {
+        rl.on('close', async () => {
             // outputs to file   
-            fs.writeFile(outputPath, decoded, (err) => {
+            await fs.writeFile(outputPath, decoded, (err) => {
                 if (err) {
                     console.error('Error writing file:', err);
                     return;
