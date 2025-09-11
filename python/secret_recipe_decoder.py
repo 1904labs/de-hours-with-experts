@@ -70,12 +70,11 @@ class Ingredient():
         self.description = description
 
 
-def decode_ingredient(text): 
-    """Given a string containing an instance of Class Ingredient, decode, parse and assign
-    as the relevant objects."""
+def decode_ingredient(line): 
+    """Given an ingredient, decode the amount and description, and return a new Ingredient"""
 
-    for c in text:
-        decoded = "".join(str(ENCODING[c]) if c in ENCODING else c for c in text)
+    for c in line:
+        decoded = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
         amount = decoded.split("#")[0]
         description = decoded.split("#")[-1]
     # print(f"a: {amount}, d: {description}")
@@ -86,23 +85,39 @@ decode_ingredient("8 vgl#xyfe hfntq ogzyf, lyvekx")
 
 #*********PART THREE************#
 
-#Struggled to leverage decode_ingredient(), cheated with quick and dirty solution. Submitting this now, may revisit if time allows.
-#Kept getting memory address written in place of string
+#Updating response to challenge 3 to leverage function created in challenge 2, above
 
 def main(): 
     """A program that decodes a secret recipe"""
 
     with open("python/secret_recipe.txt", "r") as encoded_recipe:
-
         with open("python/decoded_recipe.txt", "w") as decoded_recipe: 
 
+            for line in encoded_recipe:
+                line = line.strip()
+                new_line = (decode_ingredient(line).amount +" " + decode_ingredient(line).description)
+                decoded_recipe.write(str(new_line) + '\n')
+            return decoded_recipe
+        
+if __name__ == "__main__":
+    main()
+
+
+#Keeping work below to show initial Challenge 3 response, and evolution of work.
+#Struggled to leverage decode_ingredient(), cheated with quick and dirty solution. Submitting this now, may revisit if time allows.
+#Kept getting memory address written in place of string
+
+def old_main(): 
+     
+    with open("python/secret_recipe.txt", "r") as encoded_recipe:
+        with open("python/test_decode.txt", "w") as test_decode:
             for line in encoded_recipe:
                 text = "".join(str(ENCODING[c]) if c in ENCODING else c for c in line)
                 amount = text.split("#")[0]
                 description = text.split("#")[-1]
                 recipe_line = amount + " " + description
-                decoded_recipe.write(recipe_line)
-            return decoded_recipe
+                test_decode.write(recipe_line)
+            return test_decode
         
-if __name__ == "__main__":
-    main()
+old_main()
+  
