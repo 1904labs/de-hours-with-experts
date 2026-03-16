@@ -56,7 +56,3 @@ When you are ready to start working on your solution, create a new branch called
 #### To submit your work: 
 Open a PR (pull request) against the `solution` branch. Link that PR in the Google Form that was sent to you when you received your application. 
 
-## Things not to worry about
- * Validating command line arguments - you can just assume each program takes 1 argument which is always a valid number
-
-
