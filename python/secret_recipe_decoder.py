@@ -70,8 +70,9 @@ def decode_string(str):
             encoded_str = ENCODING[char]
             fixed_str.append(encoded_str)
 
+    joined = ''.join(fixed_str)
     # return '1 cup'
-    return print(fixed_str)
+    return print(joined)
 
 
 def decode_ingredient(line):
