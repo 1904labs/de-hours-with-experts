@@ -78,34 +78,25 @@ def decode_ingredient(line):
     # TODO: implement me
 
     broken_line = list(line)
-    measurement = list()
-    fixed_line = list()
-    hash_position = 1
+    fix_line = list()
 
     for char in broken_line:
         if char == '#':
-            break
+            # print(1)
+            fix_line.append(char)
         elif char == ' ':
-            measurement.append(char)
-            hash_position += 1
+            fix_line.append(char)
+        elif char == ',':
+            fix_line.append(char)
         else:
             encoded_str = ENCODING[char]
-            measurement.append(encoded_str)
-            hash_position += 1
+            fix_line.append(encoded_str)
 
-    amount = ''.join(measurement)
+    full_line = ''.join(fix_line)
+    split_line = full_line.split("#")
 
-    for char2 in broken_line[hash_position:]:
-        if char2 == ' ' or ',':
-            fixed_line.append(char2)
-        else:
-            encoded_line = ENCODING[char2]
-            fixed_line.append(encoded_line)
-
-    description = ''.join(fixed_line)
-
-    # full_line = Ingredient(x, y)
-    return print(description)
+    # full_line = Ingredient(amount, description)
+    return Ingredient(split_line[0], split_line[1])
     # return Ingredient("1 cup", "butter")
 
 
@@ -114,7 +105,7 @@ def main():
     # print(ENCODING.items())
     # print(ENCODING['y'])
     # TODO: implement me
-
+    Ingredient()
     decode_string("8 vgl")
     decode_ingredient("8 vgl#hgiikf")
 
