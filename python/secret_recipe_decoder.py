@@ -41,10 +41,12 @@ ENCODING = {
     '9': '7',
     '1': '8',
     '6': '9'
- }
+}
 
 """An ingredient has an amount and a description.
 For example: an Ingredient could have "1 cup" as the amount and "butter" as the description."""
+
+
 class Ingredient():
     def __init__(self, amount, description) -> None:
         self.amount = amount
@@ -54,7 +56,6 @@ class Ingredient():
 def decode_string(str):
     """Given a string named str, use the Caesar encoding above to return the decoded string."""
     # turn string into array, loop through, get value from keys, return string
-    # TODO: implement me
 
     broken_str = list(str)
     fixed_str = list()
@@ -73,18 +74,50 @@ def decode_string(str):
 
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
+    # use code from previous function to help decode entire line. # signals a breakpoint
     # TODO: implement me
-    return Ingredient("1 cup", "butter")
+
+    broken_line = list(line)
+    measurement = list()
+    fixed_line = list()
+    hash_position = 1
+
+    for char in broken_line:
+        if char == '#':
+            break
+        elif char == ' ':
+            measurement.append(char)
+            hash_position += 1
+        else:
+            encoded_str = ENCODING[char]
+            measurement.append(encoded_str)
+            hash_position += 1
+
+    amount = ''.join(measurement)
+
+    for char2 in broken_line[hash_position:]:
+        if char2 == ' ' or ',':
+            fixed_line.append(char2)
+        else:
+            encoded_line = ENCODING[char2]
+            fixed_line.append(encoded_line)
+
+    description = ''.join(fixed_line)
+
+    # full_line = Ingredient(x, y)
+    return print(description)
+    # return Ingredient("1 cup", "butter")
 
 
 def main():
     """A program that decodes a secret recipe"""
-    # print(ENCODING)
     # print(ENCODING.items())
     # print(ENCODING['y'])
     # TODO: implement me
 
     decode_string("8 vgl")
+    decode_ingredient("8 vgl#hgiikf")
+
 
 if __name__ == "__main__":
     main()
