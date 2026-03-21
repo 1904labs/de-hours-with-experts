@@ -56,12 +56,8 @@ def decode_string(str):
     # turn string into array, loop through, get value from keys, return string
     # TODO: implement me
 
-    # str = "8 vgl"
-
     broken_str = list(str)
     fixed_str = list()
-
-    # print(broken_str)
 
     for char in broken_str:
         if char == ' ':
@@ -71,7 +67,7 @@ def decode_string(str):
             fixed_str.append(encoded_str)
 
     joined = ''.join(fixed_str)
-    # return '1 cup'
+
     return print(joined)
 
 
@@ -85,9 +81,10 @@ def main():
     """A program that decodes a secret recipe"""
     # print(ENCODING)
     # print(ENCODING.items())
-    print(ENCODING['y'])
+    # print(ENCODING['y'])
     # TODO: implement me
+
+    decode_string("8 vgl")
 
 if __name__ == "__main__":
     main()
-    decode_string("8 vgl")
