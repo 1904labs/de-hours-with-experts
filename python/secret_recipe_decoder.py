@@ -78,11 +78,9 @@ def decode_ingredient(line):
 
     broken_line = list(line)
     fix_line = list()
-    # special_char = list('#', ',', '/', '-')
 
     for char in broken_line:
         if char not in ENCODING:
-            # print(1)
             fix_line.append(char)
         else:
             encoded_str = ENCODING[char]
@@ -90,10 +88,11 @@ def decode_ingredient(line):
 
     full_line = ''.join(fix_line)
     split_line = full_line.split("#")
-
-    # full_line = Ingredient(amount, description)
-    return print(split_line)
-    # return Ingredient(split_line[0], split_line[1])
+    
+    Ingredient.amount = split_line[0]
+    Ingredient.description = split_line[1]
+ 
+    return Ingredient(Ingredient.amount, Ingredient.description)
     # return Ingredient("1 cup", "butter")
 
 
@@ -102,8 +101,15 @@ def main():
     # print(ENCODING.items())
     # print(ENCODING['y'])
     # TODO: implement me
-    decode_string("8 vgl")
-    decode_ingredient("8 8/4 vglo#vsnllkx qgio")
+    # decode_string("8 vgl")
+
+    with open("C:\\Users\chris\Documents\Hours with Experts\python\secret_recipe.txt") as f:
+        for line in f:
+                decode_ingredient(line)
+                print(Ingredient.amount, Ingredient.description)
+
+    # decode_ingredient("8 8/4 vglo#vsnllkx qgio")
+    # print(Ingredient.amount, Ingredient.description)
 
 
 if __name__ == "__main__":
