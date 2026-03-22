@@ -75,18 +75,14 @@ def decode_string(str):
 def decode_ingredient(line):
     """Given an ingredient, decode the amount and description, and return a new Ingredient"""
     # use code from previous function to help decode entire line. # signals a breakpoint
-    # TODO: implement me
 
     broken_line = list(line)
     fix_line = list()
+    # special_char = list('#', ',', '/', '-')
 
     for char in broken_line:
-        if char == '#':
+        if char not in ENCODING:
             # print(1)
-            fix_line.append(char)
-        elif char == ' ':
-            fix_line.append(char)
-        elif char == ',':
             fix_line.append(char)
         else:
             encoded_str = ENCODING[char]
@@ -96,7 +92,8 @@ def decode_ingredient(line):
     split_line = full_line.split("#")
 
     # full_line = Ingredient(amount, description)
-    return Ingredient(split_line[0], split_line[1])
+    return print(split_line)
+    # return Ingredient(split_line[0], split_line[1])
     # return Ingredient("1 cup", "butter")
 
 
@@ -105,9 +102,8 @@ def main():
     # print(ENCODING.items())
     # print(ENCODING['y'])
     # TODO: implement me
-    Ingredient()
     decode_string("8 vgl")
-    decode_ingredient("8 vgl#hgiikf")
+    decode_ingredient("8 8/4 vglo#vsnllkx qgio")
 
 
 if __name__ == "__main__":
