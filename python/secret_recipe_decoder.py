@@ -103,10 +103,22 @@ def main():
     # TODO: implement me
     # decode_string("8 vgl")
 
-    with open("C:\\Users\chris\Documents\Hours with Experts\python\secret_recipe.txt") as f:
-        for line in f:
-                decode_ingredient(line)
-                print(Ingredient.amount, Ingredient.description)
+    with open("C:\\Users\chris\Documents\Hours with Experts\python\decoded_recipe.txt", "w") as t:
+        with open("C:\\Users\chris\Documents\Hours with Experts\python\secret_recipe.txt") as f:
+            for line in f:
+                    decode_ingredient(line)
+                    print(Ingredient.amount, Ingredient.description)
+                    t.write(Ingredient.amount)
+                    t.write(' ')
+                    t.write(Ingredient.description)
+
+
+    # with open("C:\\Users\chris\Documents\Hours with Experts\python\secret_recipe.txt") as f:
+    #     for line in f:
+    #             decode_ingredient(line)
+    #             print(Ingredient.amount, Ingredient.description)
+
+                
 
     # decode_ingredient("8 8/4 vglo#vsnllkx qgio")
     # print(Ingredient.amount, Ingredient.description)
