@@ -3,6 +3,12 @@ package com.labs1904;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import com.labs1904.Ingredient;
 
 public class SecretRecipeDecoder {
     private static Map<String, String> ENCODING = new HashMap<String, String>() {
@@ -53,7 +59,19 @@ public class SecretRecipeDecoder {
      */
     public static String decodeString(String str) {
         // TODO: implement me
-        return "1 cup";
+        String output = "";
+        String[] letters = str.split("");
+
+        for (String x : letters) {
+            if (ENCODING.containsKey(x)) {
+                output = output + ENCODING.get(x);
+            }
+            else {
+                output = output + x;
+            }
+        }
+
+        return output;
     }
 
     /**
@@ -63,10 +81,37 @@ public class SecretRecipeDecoder {
      */
     public static Ingredient decodeIngredient(String line) {
         // TODO: implement me
-        return new Ingredient("1 cup", "butter");
+        String[] words = line.split("\\s+");
+        String decodedWord = "";
+
+        for (String word : words) {
+            decodedWord = decodedWord + " " + decodeString(word);
+        }
+
+        String[] decodedWords = decodedWord.split("#");
+
+        return new Ingredient(decodedWords[0], decodedWords[1]);
     }
 
     public static void main(String[] args) {
         // TODO: implement me
+        String inputFile = "../../../resources/secret_recipe.txt";
+        String outputFile = "../../../resources/decoded_recipe.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Process the line here
+                Ingredient processedLine = decodeIngredient(line);
+                // Write the processed line to the output file
+                writer.write(processedLine.getAmount() + " " + processedLine.getDescription());
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error reading or writing file: " + e.getMessage());
+        }
     }
 }
